@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "A React.js application that consumes the shoppinglist api and dispalys an interactive user interface",
   "scripts": {
-    "start": "babel-node build-config/serverConfig.js",
-    "lint": "node_modules/.bin/esw webpack.config.* src build-config"
+    "start": "babel-node configurations/serverConfig.js",
+    "lint": "node_modules/.bin/esw webpack.config.* src configurations",
+    "test": "mocha --reporter progress configurations/testSetup.js \"src/**/*.test.js\""
   },
   "author": "Einstein Njoroge",
   "license": "MIT",
