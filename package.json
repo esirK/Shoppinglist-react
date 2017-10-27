@@ -12,7 +12,11 @@
   "dependencies": {
     "babel-polyfill": "6.8.0",
     "bootstrap": "3.3.6",
+    "datatables.net": "^1.10.16",
+    "datatables.net-se": "^1.10.16",
+    "font-awesome": "^4.7.0",
     "jquery": "2.2.3",
+    "jquery-confirm": "^3.3.2",
     "react": "15.0.2",
     "react-dom": "15.0.2",
     "react-redux": "4.4.5",
