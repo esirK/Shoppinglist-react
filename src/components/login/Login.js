@@ -21,7 +21,7 @@ class Login extends React.Component{
                     <br />
                     <br />
                         Don't have an account? &nbsp;&nbsp;&nbsp;
-                    <a href="/signup" className="btn btn-warning">Create one</a>
+                    <Link to="/signup" className="btn btn-warning">Create one</Link>
                 </form>
             </div>
         );
