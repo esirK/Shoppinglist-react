@@ -20,6 +20,12 @@ body {
     align-content: center;
 }
 
+.alt-link {
+    padding-top: 30px;
+    margin: auto;
+    width: 70%;
+}
+
 .mid-right form {
     margin: auto;
     width: 70%;

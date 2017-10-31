@@ -5,7 +5,7 @@ class SignUp extends React.Component{
 
     constructor(props, context){
         super(props, context);
-        
+
         this.user =  {
             firstname: "",
             lastname: "",
@@ -17,7 +17,8 @@ class SignUp extends React.Component{
             user: this.user
         };
 
-        this.onClickSignUp = this. onClickSignUp.bind(this);
+        // bind event listeners to current state
+        this.onClickSignUp = this.onClickSignUp.bind(this);
         this.updateFirstName = this.updateFirstName.bind(this);
         this.updateLastName = this.updateLastName.bind(this);
         this.updateUserName = this.updateUserName.bind(this);
@@ -88,14 +89,11 @@ class SignUp extends React.Component{
                     <br/>
                     <button className="btn btn-primary" type="submit">Create</button>
 
-                    <br />
-                    <br />
+                </form>
+                <div className="alt-link">
                     Already have an account? &nbsp;&nbsp;&nbsp;
                     <Link to="/login" className="btn btn-warning">Sign in</Link>
-                    <br />
-                    <br />
-
-                </form>
+                </div>
             </div>
         );
     }
