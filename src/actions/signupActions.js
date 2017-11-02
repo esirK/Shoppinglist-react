@@ -1,3 +1,6 @@
-export function createUSer(user) {
-    return { type: 'CREATE_USER', user}
+import * as actionTypes from './actionTypes';
+
+export function createUser(user) {
+    console.log(user);
+    return { type: actionTypes.CREATE_USER, user};
 }
