@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/EinsteinCarrey/Shoppinglist-react.svg?branch=develop)](https://travis-ci.org/EinsteinCarrey/Shoppinglist-react)
 [![Coverage Status](https://coveralls.io/repos/github/EinsteinCarrey/Shoppinglist-react/badge.svg?branch=develop)](https://coveralls.io/github/EinsteinCarrey/Shoppinglist-react?branch=develop)
 [![Code Climate Maintainability](https://api.codeclimate.com/v1/badges/fd833fcbdf8581228d01/maintainability)](https://codeclimate.com/github/EinsteinCarrey/Shoppinglist-react/maintainability)
+[![Known Vulnerabilities](https://snyk.io/test/github/einsteincarrey/shoppinglist-react/badge.svg)](https://snyk.io/org/einsteincarrey/project/024dad25-698d-4260-96c6-914298f07396)
 
 
 

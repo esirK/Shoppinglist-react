@@ -11,3 +11,5 @@ cache:
 deploy:
   skip_cleanup: true
   local_dir: build
+after_success:
+  - npm run coveralls
