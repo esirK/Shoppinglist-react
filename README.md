@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/EinsteinCarrey/Shoppinglist-react/badge.svg?branch=develop)](https://coveralls.io/github/EinsteinCarrey/Shoppinglist-react?branch=develop)
 [![Code Climate Maintainability](https://api.codeclimate.com/v1/badges/fd833fcbdf8581228d01/maintainability)](https://codeclimate.com/github/EinsteinCarrey/Shoppinglist-react/maintainability)
 [![Known Vulnerabilities](https://snyk.io/test/github/einsteincarrey/shoppinglist-react/badge.svg)](https://snyk.io/org/einsteincarrey/project/024dad25-698d-4260-96c6-914298f07396)
-
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/271b10db89e4464d9b059b757a83f023)](https://www.codacy.com/app/EinsteinCarrey/Shoppinglist-react?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=EinsteinCarrey/Shoppinglist-react&amp;utm_campaign=Badge_Grade)
 
 
 
