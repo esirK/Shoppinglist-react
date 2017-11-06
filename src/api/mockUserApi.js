@@ -24,7 +24,8 @@ const users = [
 
 //Generate a random user ID
 const generateId = () => {
-    return Math.random();
+    const randomFloat = Math.random();
+    return Math.round(randomFloat * 1000000);
 };
 
 class UserApi {
