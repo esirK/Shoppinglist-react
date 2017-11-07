@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import * as listActions from '../../actions/createListAction';
+import * as listActions from '../../actions/createListActions';
 import {bindActionCreators} from 'redux';
 
 class Lists extends React.Component{
@@ -9,7 +9,7 @@ class Lists extends React.Component{
         super(props, context);
 
         this.state = {
-            new_shoppinglist: {
+            newShoppingList: {
                 title: ""
             }
         };
@@ -21,7 +21,7 @@ class Lists extends React.Component{
     }
 
     updateTitle(event) {
-        this.setState({new_shoppinglist : {title : event.target.value }});
+        this.setState({newShoppingList : {title : event.target.value }});
     }
 
     // updateShoppingList(event) {
@@ -30,7 +30,7 @@ class Lists extends React.Component{
 
     createShoppingList(event) {
         event.preventDefault();
-        this.props.createList(this.state.new_shoppinglist);
+        this.props.createList(this.state.newShoppingList);
     }
 
     render(){
@@ -44,6 +44,7 @@ class Lists extends React.Component{
                                 <tr>
                                     <th>NO.</th>
                                     <th>Title</th>
+                                    <th>Items</th>
                                     <th>Created On</th>
                                     <th>Updated On</th>
                                     <th>Actions</th>
@@ -55,7 +56,7 @@ class Lists extends React.Component{
                     <form method="post" className="add-shoppinglist" onSubmit={this.createShoppingList}>
                         <h4>Create a new shoppinglist</h4>
                         <div className="form-group col-md-10">
-                            <input type="text" className="form-control" value={this.state.new_shoppinglist.title}
+                            <input type="text" className="form-control" value={this.state.newShoppingList.title}
                                    onChange={this.updateTitle} aria-required="true" required placeholder="Title" />
                         </div>
                         <div className="form-group col-md-2">
@@ -77,7 +78,7 @@ Lists.propTypes = {
 
 function mapStateToProps(state, ownProps) {
     return {
-        shoppinglist: state.new_shoppinglist
+        shoppinglist: state.newShoppingList
     };
 }
 
