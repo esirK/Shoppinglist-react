@@ -71,19 +71,19 @@ body {
     /*text-decoration: underline;*/
 /*}*/
 
-/*.mid-center {*/
-    /*background-color: rgba(250, 250, 250, 0.8);*/
-    /*border: 1px solid rgba(0, 0, 0, 0.1);*/
-    /*border-radius: 2px;*/
-    /*box-shadow: 2px 2px 9px 5px #0000001a;*/
-    /*width: 95%;*/
-    /*min-height: 600px;*/
-    /*color: #555555;*/
-    /*text-outline: 4px 2px rgba(0, 0, 0, 0.61);*/
-    /*font-weight: 200;*/
-    /*margin: auto;*/
-    /*padding: 10px;*/
-/*}*/
+.mid-center {
+    background-color: rgba(250, 250, 250, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    box-shadow: 2px 2px 9px 5px #0000001a;
+    width: 95%;
+    min-height: 600px;
+    color: #555555;
+    text-outline: 4px 2px rgba(0, 0, 0, 0.61);
+    font-weight: 200;
+    margin: auto;
+    padding: 10px;
+}
 
 /*#shoppingListTable {*/
     /*margin-left: auto;*/

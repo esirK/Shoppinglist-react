@@ -1,8 +1,8 @@
-import * as actionTypes from './actionTypes';
+import {CREATE_USER_SUCCESS} from "./actionTypes";
 import userApi from '../api/mockUserApi';
 
 export function createUserSuccess(user) {
-    return { type: actionTypes.CREATE_USER_SUCCESS, user};
+    return { type:CREATE_USER_SUCCESS, user};
 }
 
 export function createUser(user) {

@@ -21,7 +21,7 @@ class SignUp extends React.Component{
         };
 
         // bind event listeners to current state
-        this.onSignupFormSubmit = this.onSignupFormSubmit.bind(this);
+        this.signUpUser = this.signUpUser.bind(this);
         this.updateFirstName = this.updateFirstName.bind(this);
         this.updateLastName = this.updateLastName.bind(this);
         this.updateUserName = this.updateUserName.bind(this);
@@ -54,7 +54,7 @@ class SignUp extends React.Component{
         this.setState({user: this.user});
     }
 
-    onSignupFormSubmit(event){
+    signUpUser(event){
         event.preventDefault();
         this.props.createUser(this.state.user);
     }
@@ -62,7 +62,7 @@ class SignUp extends React.Component{
     render(){
         return(
             <div className="mid-right">
-                <form method="post" onSubmit={this.onSignupFormSubmit}>
+                <form method="post" onSubmit={this.signUpUser}>
                     <h1>Create account</h1>
 
                     <div className="form-group">
@@ -105,13 +105,13 @@ class SignUp extends React.Component{
 }
 
 SignUp.propTypes = {
-    users: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
     createUser: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state, ownProps){
     return {
-        users: state.users
+        user: state.user
     };
 }
 
