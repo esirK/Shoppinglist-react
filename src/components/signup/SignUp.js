@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as signUpActions from '../../actions/signupActions';
+import * as signUpActions from '../../actions/signUpActions';
 
 class SignUp extends React.Component{
 
@@ -105,8 +105,8 @@ class SignUp extends React.Component{
 }
 
 SignUp.propTypes = {
-    user: PropTypes.object.isRequired,
-    createUser: PropTypes.func.isRequired
+    createUser: PropTypes.func.isRequired,
+    user: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state, ownProps){
