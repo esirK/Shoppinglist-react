@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import * as listActions from '../../actions/createListAction';
+import * as listActions from '../../actions/listAction';
 import {bindActionCreators} from 'redux';
 
 class Lists extends React.Component{
@@ -17,6 +17,7 @@ class Lists extends React.Component{
         this.updateTitle = this.updateTitle.bind(this);
         // this.updateShoppingList = this.updateShoppingList.bind(this);
         this.createShoppingList = this.createShoppingList.bind(this);
+        this.loadShoppingLists = this.loadShoppingLists.bind(this);
 
     }
 
@@ -33,11 +34,20 @@ class Lists extends React.Component{
         this.props.createList(this.state.new_shoppinglist);
     }
 
+    loadShoppingLists(list, index){
+        return  (<div key={index}>
+                    {list.title},
+                    {list.created_on},
+                    {list.updated_on}
+                </div>);
+    }
+
     render(){
         return(
             <div className="mid-center">
                 <h3>My shopping-lists</h3>
                 <div id="shoppinglist">
+                    {this.props.lists.map(this.loadShoppingLists)}
                     <form method="post" onSubmit={this.updateShoppingList}>
                         <table className="ui celled table col-md-12" id="shoppinglistTable">
                             <tbody>
@@ -71,13 +81,15 @@ class Lists extends React.Component{
 
 
 Lists.propTypes = {
-    createList: PropTypes.func.isRequired
+    createList: PropTypes.func.isRequired,
+    lists: PropTypes.array.isRequired
 };
 
 
 function mapStateToProps(state, ownProps) {
     return {
-        shoppinglist: state.new_shoppinglist
+        shoppinglist: state.new_shoppinglist,
+        lists: state.lists
     };
 }
 

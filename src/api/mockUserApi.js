@@ -1,6 +1,5 @@
 import {delay}  from './constants'; // setTimeout delay to simulate the delay of an AJAX call to a server.
 
-// This file mocks the shoppinglist web API
 const users = [
     {
         id: 123456,
@@ -60,6 +59,10 @@ class UserApi {
 
             }, delay);
         });
+    }
+
+    static authenticateUSer(user){
+
     }
 }
 
