@@ -5,59 +5,52 @@ import {bindActionCreators} from 'redux';
 import * as signUpActions from '../../actions/signUpActions';
 
 class SignUp extends React.Component{
+    user =  {
+        firstname: "",
+        lastname: "",
+        username: "",
+        password: ""
+    };
 
     constructor(props, context){
         super(props, context);
 
-        this.user =  {
-            firstname: "",
-            lastname: "",
-            username: "",
-            password: ""
-        };
-
         this.state = {
             user: this.user
         };
-
-        // bind event listeners to current state
-        this.signUpUser = this.signUpUser.bind(this);
-        this.updateFirstName = this.updateFirstName.bind(this);
-        this.updateLastName = this.updateLastName.bind(this);
-        this.updateUserName = this.updateUserName.bind(this);
-        this.updatePassword = this.updatePassword.bind(this);
     }
 
 
 
-    updateFirstName(event){
+    updateFirstName  = (event) => {
         this.user.firstname = event.target.value;
+        console.log(this.user);
         this.updateState();
-    }
+    };
 
-    updatePassword(event){
+    updatePassword= (event) => {
         this.user.password = event.target.value;
         this.updateState();
-    }
+    };
 
-    updateUserName(event){
+    updateUserName= (event) => {
         this.user.username = event.target.value;
         this.updateState();
-    }
+    };
 
-    updateLastName(event){
+    updateLastName= (event) => {
         this.user.lastname = event.target.value;
         this.updateState();
-    }
+    };
 
     updateState(){
         this.setState({user: this.user});
     }
 
-    signUpUser(event){
+    signUpUser= (event) => {
         event.preventDefault();
         this.props.createUser(this.state.user);
-    }
+    };
 
     render(){
         return(
