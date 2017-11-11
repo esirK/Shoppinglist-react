@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as listActions from '../../actions/listAction';
 import {bindActionCreators} from 'redux';
+import ListsTable from './ListsTable';
 
 class Lists extends React.Component{
 
@@ -15,9 +16,7 @@ class Lists extends React.Component{
         };
 
         this.updateTitle = this.updateTitle.bind(this);
-        // this.updateShoppingList = this.updateShoppingList.bind(this);
         this.createShoppingList = this.createShoppingList.bind(this);
-        this.loadShoppingLists = this.loadShoppingLists.bind(this);
 
     }
 
@@ -25,21 +24,13 @@ class Lists extends React.Component{
         this.setState({new_shoppinglist : {title : event.target.value }});
     }
 
-    // updateShoppingList(event) {
-    //     event.preventDefault();
-    // }
+    static updateShoppingList(event) {
+        event.preventDefault();
+    }
 
     createShoppingList(event) {
         event.preventDefault();
         this.props.createList(this.state.new_shoppinglist);
-    }
-
-    loadShoppingLists(list, index){
-        return  (<div key={index}>
-                    {list.title},
-                    {list.created_on},
-                    {list.updated_on}
-                </div>);
     }
 
     render(){
@@ -47,19 +38,8 @@ class Lists extends React.Component{
             <div className="mid-center">
                 <h3>My shopping-lists</h3>
                 <div id="shoppinglist">
-                    {this.props.lists.map(this.loadShoppingLists)}
                     <form method="post" onSubmit={this.updateShoppingList}>
-                        <table className="ui celled table col-md-12" id="shoppinglistTable">
-                            <tbody>
-                                <tr>
-                                    <th>NO.</th>
-                                    <th>Title</th>
-                                    <th>Created On</th>
-                                    <th>Updated On</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <ListsTable lists={this.props.lists}/>
                     </form>
                     <br />
                     <form method="post" className="add-shoppinglist" onSubmit={this.createShoppingList}>
