@@ -10,7 +10,7 @@ class Lists extends React.Component{
         super(props, context);
 
         this.state = {
-            new_shoppinglist: {
+            newShoppingList: {
                 title: ""
             }
         };
@@ -21,7 +21,7 @@ class Lists extends React.Component{
     }
 
     updateTitle(event) {
-        this.setState({new_shoppinglist : {title : event.target.value }});
+        this.setState({newShoppingList : {title : event.target.value }});
     }
 
     static updateShoppingList(event) {
@@ -30,7 +30,7 @@ class Lists extends React.Component{
 
     createShoppingList(event) {
         event.preventDefault();
-        this.props.createList(this.state.new_shoppinglist);
+        this.props.createList(this.state.newShoppingList);
     }
 
     render(){
@@ -39,13 +39,25 @@ class Lists extends React.Component{
                 <h3>My shopping-lists</h3>
                 <div id="shoppinglist">
                     <form method="post" onSubmit={this.updateShoppingList}>
+                        <table className="ui celled table col-md-12" id="shoppinglistTable">
+                            <tbody>
+                                <tr>
+                                    <th>NO.</th>
+                                    <th>Title</th>
+                                    <th>Items</th>
+                                    <th>Created On</th>
+                                    <th>Updated On</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tbody>
+                        </table>
                         <ListsTable lists={this.props.lists}/>
                     </form>
                     <br />
                     <form method="post" className="add-shoppinglist" onSubmit={this.createShoppingList}>
                         <h4>Create a new shoppinglist</h4>
                         <div className="form-group col-md-10">
-                            <input type="text" className="form-control" value={this.state.new_shoppinglist.title}
+                            <input type="text" className="form-control" value={this.state.newShoppingList.title}
                                    onChange={this.updateTitle} aria-required="true" required placeholder="Title" />
                         </div>
                         <div className="form-group col-md-2">
@@ -70,6 +82,7 @@ function mapStateToProps(state, ownProps) {
     return {
         shoppinglist: state.new_shoppinglist,
         lists: state.lists
+        shoppinglist: state.newShoppingList
     };
 }
 

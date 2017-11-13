@@ -105,7 +105,6 @@ class SignUp extends React.Component{
 }
 
 SignUp.propTypes = {
-    user: PropTypes.object.isRequired,
     createUser: PropTypes.func.isRequired
 };
 
