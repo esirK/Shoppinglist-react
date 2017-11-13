@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import ListsTableRow from './ListsTableRow';
 
 const ListsTable = ({lists}) => {
@@ -18,10 +18,6 @@ const ListsTable = ({lists}) => {
             </tbody>
         </table>
     );
-};
-
-ListsTable.propTypes = {
-    lists: PropTypes.array.isRequired
 };
 
 export default ListsTable;

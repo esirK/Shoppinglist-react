@@ -39,18 +39,6 @@ class Lists extends React.Component{
                 <h3>My shopping-lists</h3>
                 <div id="shoppinglist">
                     <form method="post" onSubmit={this.updateShoppingList}>
-                        <table className="ui celled table col-md-12" id="shoppinglistTable">
-                            <tbody>
-                                <tr>
-                                    <th>NO.</th>
-                                    <th>Title</th>
-                                    <th>Items</th>
-                                    <th>Created On</th>
-                                    <th>Updated On</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </tbody>
-                        </table>
                         <ListsTable lists={this.props.lists}/>
                     </form>
                     <br />
@@ -80,8 +68,7 @@ Lists.propTypes = {
 
 function mapStateToProps(state, ownProps) {
     return {
-        shoppinglist: state.new_shoppinglist,
-        lists: state.lists
+        lists: state.lists,
         shoppinglist: state.newShoppingList
     };
 }
