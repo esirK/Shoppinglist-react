@@ -6,7 +6,16 @@ export function createListSuccess() {
 }
 
 export function createList(shoppingList){
-    return {type: actionTypes.CREATE_LIST, shoppingList};
+    return function (dispatch) {
+        return ListApi.createList(shoppingList).then(
+            ListApi.getLists().then(lists => {
+                dispatch(loadShoppingListsSuccess(lists));
+            })
+        ).catch(error => {
+                throw(error);
+            }
+        );
+    };
 }
 
 function loadShoppingListsSuccess(lists) {

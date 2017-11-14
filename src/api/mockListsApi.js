@@ -1,6 +1,6 @@
 import {delay}  from './constants'; // setTimeout delay to simulate the delay of an AJAX call to a server.
 
-const lists = [
+let lists = [
     {
         id: 1,
         title: "back to school",
@@ -42,10 +42,20 @@ class ListApi {
     static createList(list) {
         list = Object.assign({}, list); // create a copy of object passed in to avoid manipulating object passed in.
         return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                // todo: Simulate server-side form data validation
-                //todo: Simulating creating a list
-            }, delay);
+
+            // todo: Simulate server-side form data validation
+            //todo: Simulating creating a list
+
+            const newList = {
+                id: generateId(),
+                title: list.title,
+                created_on: "2017-11-15 10:40:32",
+                updated_on: "",
+                user_id: 123456
+            };
+            lists.push(newList);
+            resolve();
+
         });
     }
 
