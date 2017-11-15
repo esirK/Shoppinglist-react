@@ -14,7 +14,7 @@ const ListsTable = ({lists}) => {
             </tr>
             </thead>
             <tbody>
-                {lists.map(list => <ListsTableRow key={list.id} list={list} />)}
+                {lists.map((list, index) => <ListsTableRow key={list.id} list={list} index={index} />)}
             </tbody>
         </table>
     );
