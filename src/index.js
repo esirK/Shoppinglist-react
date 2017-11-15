@@ -6,6 +6,7 @@ import { Router, browserHistory } from 'react-router';
 import configureStore from './store/configureStore';
 import routes from './routes';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../node_modules/font-awesome/css/font-awesome.min.css';
 import './styles/styles.css';
 import {loadShoppingLists} from './actions/listAction';
 

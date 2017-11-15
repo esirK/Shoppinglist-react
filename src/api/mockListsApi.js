@@ -43,8 +43,17 @@ class ListApi {
         list = Object.assign({}, list); // create a copy of object passed in to avoid manipulating object passed in.
         return new Promise((resolve, reject) => {
 
-            // todo: Simulate server-side form data validation
-            //todo: Simulating creating a list
+            if(list.title === ""){
+               reject("shoppinglist title must be provided");
+               return;
+            }
+
+            // todo: Simulate validating user authentication
+            const user_id = 123456;
+            if(lists.findIndex(a => a.title.toUpperCase() === list.title.toUpperCase() && user_id === 123456) !== -1){
+                reject(`\`${list.title}\` already exists`);
+                return;
+            }
 
             const newList = {
                 id: generateId(),
@@ -55,7 +64,6 @@ class ListApi {
             };
             lists.push(newList);
             resolve();
-
         });
     }
 
