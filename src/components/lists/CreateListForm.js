@@ -33,11 +33,17 @@ class CreateListForm extends React.Component{
             <form method="post" className="add-shoppinglist" onSubmit={this.createShoppingList}>
                 <h4>Create a new shoppinglist</h4>
                 <div className="form-group col-md-10">
-                    <input type="text" className="form-control" value={this.state.newShoppingList.title}
-                           onChange={this.updateTitle} aria-required="true" required placeholder="Title" />
+                    <input type="text"
+                           className="form-control"
+                           value={this.state.newShoppingList.title}
+                           onChange={this.updateTitle}
+                           aria-required="true"
+                           required placeholder="Title" />
                 </div>
                 <div className="form-group col-md-2">
-                    <button className="btn btn-primary col-md-10">+ Add</button>
+                    <button className="btn btn-primary col-md-10">
+                        + Add
+                    </button>
                 </div>
             </form>
         );
