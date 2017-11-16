@@ -1,4 +1,4 @@
-import {delay}  from './constants'; // setTimeout delay to simulate the delay of an AJAX call to a server.
+import {delay, generateRandomInt}  from './helper'; // setTimeout delay to simulate the delay of an AJAX call to a server.
 
 const users = [
     {
@@ -20,12 +20,6 @@ const users = [
         security_question: "What do i do?"
     }
 ];
-
-//Generate a random user ID
-const generateId = () => {
-    const randomFloat = Math.random();
-    return Math.round(randomFloat * 1000000);
-};
 
 class UserApi {
 
@@ -50,7 +44,7 @@ class UserApi {
 
 
                 //Simulating creating a user account
-                user.id = generateId();
+                user.id = generateRandomInt();
                 users.push(user);
 
 
