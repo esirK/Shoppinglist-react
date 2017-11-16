@@ -1,55 +1,111 @@
 import {delay}  from './constants'; // setTimeout delay to simulate the delay of an AJAX call to a server.
 
-// This file mocks the shoppinglist web API
-const lists = [
+let lists = [
     {
         id: 1,
-        title: "james",
-        created_on: "james",
-        updated_on: "bond",
+        title: "back to school",
+        created_on: "2017-10-12 10:40:32",
+        updated_on: "",
         user_id: 4567
+    },
+    {
+        id: 2,
+        title: "Weekend party",
+        created_on: "2017-10-12 10:40:32",
+        updated_on: "",
+        user_id: 4567
+    },
+    {
+        id: 3,
+        title: "Kisumu tour",
+        created_on: "2017-10-12 10:40:32",
+        updated_on: "",
+        user_id: 123456
+    },
+    {
+        id: 4,
+        title: "Picnic",
+        created_on: "2017-10-12 10:40:32",
+        updated_on: "",
+        user_id: 123456
     }
 ];
 
-//Generate a random user ID
+//Generate a random ID
 const generateId = () => {
     const randomFloat = Math.random();
     return Math.round(randomFloat * 1000000);
 };
 
-class ListsApi {
+class ListApi {
 
-    static createUser(user) {
-        user = Object.assign({}, user); // create a copy of object passed in to avoid manipulating object passed in.
+    static createList(list) {
+        list = Object.assign({}, list); // create a copy of object passed in to avoid manipulating object passed in.
+        return new Promise((resolve, reject) => {
+
+            if(list.title === ""){
+               reject("shoppinglist title must be provided");
+               return;
+            }
+
+            // todo: Simulate validating user authentication
+            const user_id = 123456;
+            if(lists.findIndex(a => a.title.toUpperCase() === list.title.toUpperCase() && user_id === 123456) !== -1){
+                reject(`\`${list.title}\` already exists`);
+                return;
+            }
+
+            const newList = {
+                id: generateId(),
+                title: list.title,
+                created_on: "2017-11-15 10:40:32",
+                updated_on: "",
+                user_id: 123456
+            };
+            lists.push(newList);
+            resolve();
+        });
+    }
+
+    static getLists(list_id = null) {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                // Simulate server-side form data validation
-                if ((user.username == "") || (user.password == "")) {
-                    reject("Please provide a valid username and password");
+                //todo:  Simulate validating unauthorised user
+
+                // Simulate fetching all lists belonging to user 123456
+                let currentUsersLists = [];
+                let validLists;
+
+
+                lists.map((list) => {
+                    if(list.user_id === 123456){
+                        currentUsersLists.push(list);
+                    }
+                });
+
+
+                validLists = currentUsersLists;
+
+                //Simulating retrieving a specific list
+                if(list_id !== null) {
+                    validLists = [];
+
+                    currentUsersLists.map((list) => {
+                        if(list.id === list_id){
+                            validLists.push(list);
+                        }
+                    });
+
+                    if(validLists.length === 0){
+                        reject("Requested shoppinglist was not found");
+                    }
                 }
-                if ((user.security_question == "") || (user.answer == "")) {
-                    reject("Please provide a valid security question and answer");
-                }
-                if (user.password.length < 6) {
-                    reject("password must be at-least 6 characters long");
-                }
 
-                if((lists.findIndex(a => a.username == user.username)) != -1){
-                    reject(`username \`${user.username}\` is already registered. Please provide a unique username`);
-                }
-
-
-                //Simulating creating a user account
-                user.id = generateId();
-                lists.push(user);
-
-
-                user.message = `user \`${user.username}\` has been created`;
-                resolve(user);
-
+                resolve(validLists);
             }, delay);
         });
     }
+
 }
 
-export default ListsApi;
+export default ListApi;
