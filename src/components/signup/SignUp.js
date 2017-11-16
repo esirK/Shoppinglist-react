@@ -5,15 +5,18 @@ import {bindActionCreators} from 'redux';
 import * as signUpActions from '../../actions/signUpActions';
 
 class SignUp extends React.Component{
-    user =  {
-        firstname: "",
-        lastname: "",
-        username: "",
-        password: ""
-    };
 
     constructor(props, context){
         super(props, context);
+
+        this.user = () => {
+            return {
+                firstname: "",
+                lastname: "",
+                username: "",
+                password: ""
+            };
+        };
 
         this.state = {
             user: this.user
