@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as signUpActions from '../../actions/signUpActions';
+import * as userActions from '../../actions/userActions';
 import SignUpForm from './SignUpForm';
 
 class SignUp extends React.Component{
@@ -10,23 +10,12 @@ class SignUp extends React.Component{
     constructor(props, context){
         super(props, context);
 
-        this.user = () => {
-            return {
-                firstname: "",
-                lastname: "",
-                username: "",
-                password: ""
-            };
-        };
-
         this.state = {
-            user: this.user
+            user: props.user
         };
     }
 
-
-
-    updateFirstName  = (event) => {
+    updateFirstName = (event) => {
         this.user.firstname = event.target.value;
         console.log(this.user);
         this.updateState();
@@ -78,14 +67,20 @@ SignUp.propTypes = {
 };
 
 function mapStateToProps(state, ownProps){
+    let user = {
+        firstname: "",
+        lastname: "",
+        username: "",
+        password: ""
+    };
     return {
-        user: state.user
+        user: user
     };
 }
 
 function mapDispatchToProps(dispatch){
     return {
-        createUser: bindActionCreators(signUpActions.createUser, dispatch)
+        createUser: bindActionCreators(userActions.createUser, dispatch)
     };
 }
 
