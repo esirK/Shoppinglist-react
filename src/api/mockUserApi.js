@@ -42,11 +42,9 @@ class UserApi {
                     reject(`username \`${user.username}\` is already registered. Please provide a unique username`);
                 }
 
-
                 //Simulating creating a user account
                 user.id = generateRandomInt();
                 users.push(user);
-
 
                 user.message = `user \`${user.username}\` has been created`;
                 resolve(user);
