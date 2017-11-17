@@ -1,40 +1,36 @@
 import React, {PropTypes} from 'react';
 import TextInput from '../helpers/TextInput';
 
-const SignUpForm = ({user}) => {
-
-    const signUpUser = (event) => {
-        event.preventDefault();
-        this.props.createUser(user);
-    };
+const SignUpForm = ({user, onChange, onSubmit}) => {
 
     return (
-        <form method="post" onSubmit={signUpUser}>
+        <form method="post" onSubmit={onSubmit}>
             <h1>Create account</h1>
 
             <TextInput
                 value={user.firstname}
-                // onChange={this.updateFirstName}
+                onChange={onChange}
                 placeholder="firstname"
-                name="firstname"  />
+                name="firstname"/>
 
             <TextInput
                 value={user.lastname}
-                // onChange={this.updateLastName}
+                onChange={onChange}
                 placeholder="lastname"
-                name="lastname"  />
+                name="lastname"/>
 
             <TextInput
                 value={user.username}
-                // onChange={this.updateUserName}
+                onChange={onChange}
                 placeholder="username"
-                name="username"  />
+                name="username"/>
 
             <TextInput
+                type="password"
                 value={user.password}
-                // onChange={this.updatePassword}
+                onChange={onChange}
                 placeholder="password"
-                name="password"  />
+                name="password"/>
 
             <br/>
             <button className="btn btn-primary" type="submit">Create</button>

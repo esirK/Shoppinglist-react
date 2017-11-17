@@ -15,32 +15,14 @@ class SignUp extends React.Component{
         };
     }
 
-    updateFirstName = (event) => {
-        this.user.firstname = event.target.value;
-        console.log(this.user);
-        this.updateState();
+    updateUserState = (event) => {
+        const field = event.target.name;
+        let user = this.state.user;
+        user[field] = event.target.value;
+        return this.setState({user: user});
     };
 
-    updatePassword= (event) => {
-        this.user.password = event.target.value;
-        this.updateState();
-    };
-
-    updateUserName= (event) => {
-        this.user.username = event.target.value;
-        this.updateState();
-    };
-
-    updateLastName= (event) => {
-        this.user.lastname = event.target.value;
-        this.updateState();
-    };
-
-    updateState(){
-        this.setState({user: this.user});
-    }
-
-    signUpUser= (event) => {
+    signUpUser = (event) => {
         event.preventDefault();
         this.props.createUser(this.state.user);
     };
@@ -48,7 +30,10 @@ class SignUp extends React.Component{
     render(){
         return(
             <div className="mid-right">
-                <SignUpForm user={this.state.user} />
+                <SignUpForm
+                    onSubmit={this.signUpUser}
+                    onChange={this.updateUserState}
+                    user={this.state.user} />
 
                 <div className="alt-link">
                     Already have an account? &nbsp;&nbsp;&nbsp;
@@ -63,7 +48,7 @@ class SignUp extends React.Component{
 
 SignUp.propTypes = {
     createUser: PropTypes.func.isRequired,
-    user: PropTypes.array.isRequired
+    user: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps){
