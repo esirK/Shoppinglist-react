@@ -35,10 +35,17 @@ class SignUp extends React.Component{
                     onChange={this.updateUserState}
                     user={this.state.user} />
 
+                {/*{this.props.errorMessage}*/}
+                <div>
+                    {/*{this.props.errorMessage}*/}
+                </div>
+                <br />
+
                 <div className="alt-link">
                     Already have an account? &nbsp;&nbsp;&nbsp;
                     <Link to="/login" className="btn btn-warning">Sign in</Link>
                 </div>
+                <br />
             </div>
         );
     }
@@ -48,7 +55,12 @@ class SignUp extends React.Component{
 
 SignUp.propTypes = {
     createUser: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    errorMessage: PropTypes.array.isRequired
+};
+
+SignUp.contextTypes = {
+    router: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps){
@@ -59,7 +71,8 @@ function mapStateToProps(state, ownProps){
         password: ""
     };
     return {
-        user: user
+        user: user,
+        errorMessage: state.errorMessage
     };
 }
 

@@ -28,17 +28,17 @@ class UserApi {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 // Simulate server-side form data validation
-                if ((user.username == "") || (user.password == "")) {
+                if ((user.username === "") || (user.password === "")) {
                     reject("Please provide a valid username and password");
                 }
-                if ((user.security_question == "") || (user.answer == "")) {
+                if ((user.security_question === "") || (user.answer === "")) {
                     reject("Please provide a valid security question and answer");
                 }
                 if (user.password.length < 6) {
                     reject("password must be at-least 6 characters long");
                 }
 
-                if((users.findIndex(a => a.username == user.username)) != -1){
+                if((users.findIndex(a => a.username === user.username)) !== -1){
                     reject(`username \`${user.username}\` is already registered. Please provide a unique username`);
                 }
 
