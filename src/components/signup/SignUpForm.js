@@ -14,25 +14,25 @@ const SignUpForm = ({user}) => {
 
             <TextInput
                 value={user.firstname}
-                onChange={this.updateFirstName}
+                // onChange={this.updateFirstName}
                 placeholder="firstname"
                 name="firstname"  />
 
             <TextInput
                 value={user.lastname}
-                onChange={this.updateLastName}
+                // onChange={this.updateLastName}
                 placeholder="lastname"
                 name="lastname"  />
 
             <TextInput
                 value={user.username}
-                onChange={this.updateUserName}
+                // onChange={this.updateUserName}
                 placeholder="username"
                 name="username"  />
 
             <TextInput
                 value={user.password}
-                onChange={this.updatePassword}
+                // onChange={this.updatePassword}
                 placeholder="password"
                 name="password"  />
 

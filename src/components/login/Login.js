@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as loginActions from "../../actions/loginActions";
+import * as loginActions from "../../actions/userActions";
 
 class Login extends React.Component{
 
