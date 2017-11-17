@@ -13,12 +13,16 @@ export function createUserSuccess(user) {
     return {type: actionTypes.CREATE_USER_SUCCESS, user};
 }
 
+export function createUserFail(errorMessage) {
+    return {type: actionTypes.CREATE_USER_FAIL, errorMessage};
+}
+
 export function createUser(user) {
     return function (dispatch) {
         return userApi.createUser(user).then(user => {
             dispatch(createUserSuccess(user));
         }).catch(error => {
-            throw(error);
+            dispatch(createUserFail(error));
         });
     };
 }
