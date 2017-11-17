@@ -1,13 +1,13 @@
 import React, {PropTypes} from 'react';
 
-const TextInput = ({name, onChange, value}) =>{
+const TextInput = ({name, onChange, value, placeholder}) =>{
 
     return (
         <div className="form-group">
             <input
                 className="form-control"
                 aria-required="true" required
-                placeholder="Your Sur Name"
+                placeholder={placeholder}
                 name={name}
                 value={value}
                 onChange={onChange} />

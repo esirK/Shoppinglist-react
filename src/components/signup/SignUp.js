@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as signUpActions from '../../actions/signUpActions';
+import SignUpForm from './SignUpForm';
 
 class SignUp extends React.Component{
 
@@ -58,37 +59,8 @@ class SignUp extends React.Component{
     render(){
         return(
             <div className="mid-right">
-                <form method="post" onSubmit={this.signUpUser}>
-                    <h1>Create account</h1>
+                <SignUpForm user={this.state.user} />
 
-                    <div className="form-group">
-                        <input className="form-control" aria-required="true" required
-                               placeholder="Your Sur Name"
-                               value={this.state.user.firstname} onChange={this.updateFirstName} />
-                    </div>
-
-                    <div className="form-group">
-                        <input className="form-control" aria-required required
-                               placeholder="Your last name"
-                               value={this.state.user.lastname} onChange={this.updateLastName}/>
-                    </div>
-
-                    <div className="form-group">
-                        <input className="form-control" aria-required required
-                               placeholder="Username eg. JamesDoe"
-                               value={this.state.user.username} onChange={this.updateUserName}/>
-                    </div>
-
-                    <div className="form-group">
-                        <input type="password" className="form-control" aria-required required
-                               placeholder="Password"
-                               value={this.state.user.password} onChange={this.updatePassword}/>
-                    </div>
-
-                    <br/>
-                    <button className="btn btn-primary" type="submit">Create</button>
-
-                </form>
                 <div className="alt-link">
                     Already have an account? &nbsp;&nbsp;&nbsp;
                     <Link to="/login" className="btn btn-warning">Sign in</Link>
