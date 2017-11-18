@@ -1,1 +1,1 @@
-web: babel-node configurations/serverConfig.js
+web: node configurations/serverConfig.js
