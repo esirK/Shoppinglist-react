@@ -1,1 +1,1 @@
-web: node configurations/serverConfig.js
+web: npm start
