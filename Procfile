@@ -1,0 +1,1 @@
+web: babel-node configurations/serverConfig.js
