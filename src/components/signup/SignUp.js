@@ -11,8 +11,17 @@ class SignUp extends React.Component{
         super(props, context);
 
         this.state = {
-            user: props.user
+            user: props.user,
+            errorMessage: props.errorMessage
         };
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.errorMessage.length > 0){
+            this.setState({
+                errorMessage: Object.assign({}, nextProps.errorMessage[nextProps.errorMessage.length - 1])
+            });
+        }
     }
 
     updateUserState = (event) => {
@@ -25,6 +34,7 @@ class SignUp extends React.Component{
     signUpUser = (event) => {
         event.preventDefault();
         this.props.createUser(this.state.user);
+        // this.context.router.push('/lists')
     };
 
     render(){
@@ -35,9 +45,10 @@ class SignUp extends React.Component{
                     onChange={this.updateUserState}
                     user={this.state.user} />
 
-                {/*{this.props.errorMessage}*/}
-                <div>
-                    {/*{this.props.errorMessage}*/}
+                <br/>
+                <br/>
+                <div className="col-sm-10">
+                    {this.state.errorMessage.errorMessage}
                 </div>
                 <br />
 
