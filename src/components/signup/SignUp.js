@@ -12,14 +12,14 @@ class SignUp extends React.Component{
 
         this.state = {
             user: props.user,
-            errorMessage: props.errorMessage
+            message: props.message
         };
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.errorMessage !== ''){
+        if(nextProps.message.message !== ''){
             this.setState({
-                errorMessage: nextProps.errorMessage
+                message: nextProps.message
             });
         }
     }
@@ -48,7 +48,7 @@ class SignUp extends React.Component{
                 <br/>
                 <br/>
                 <div className="col-sm-10">
-                    {this.state.errorMessage}
+                    {this.state.message.message}
                 </div>
                 <br />
 
@@ -67,7 +67,7 @@ class SignUp extends React.Component{
 SignUp.propTypes = {
     createUser: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
-    errorMessage: PropTypes.string.isRequired
+    message: PropTypes.object.isRequired
 };
 
 SignUp.contextTypes = {
@@ -83,7 +83,7 @@ function mapStateToProps(state, ownProps){
     };
     return {
         user: user,
-        errorMessage: state.errorMessage
+        message: state.message
     };
 }
 
