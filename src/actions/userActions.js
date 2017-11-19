@@ -1,4 +1,5 @@
 import * as actionTypes from "./actionTypes";
+import {initiateAjaxCall} from "./ajaxStatusActions";
 import userApi from '../api/mockUserApi';
 
 export function authenticateUser(user) {
@@ -27,6 +28,7 @@ export function createUserFail(message) {
 
 export function createUser(user) {
     return function (dispatch) {
+        dispatch(initiateAjaxCall());
         return userApi.createUser(user).then(user => {
             dispatch(createUserSuccess(user));
         }).catch(error => {
@@ -41,6 +43,7 @@ export function getCurrentUserSuccess(user) {
 
 export function getCurrentUser(token) {
     return function (dispatch) {
+        dispatch(initiateAjaxCall());
         return userApi.getCurrentUser(token).then(user => {
             dispatch(getCurrentUserSuccess(user));
         }).catch(error => {
