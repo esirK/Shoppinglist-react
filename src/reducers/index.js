@@ -2,13 +2,13 @@ import {combineReducers} from 'redux';
 import user from './usersReducer';
 import lists from './listsReducer';
 import message from './messagesReducer';
-import ajaxStatusReducer from './ajaxStatusReducer';
+import ajaxCallsInProgress from './ajaxStatusReducer';
 
 const rootReducer = combineReducers({
     user,
     lists,
     message,
-    ajaxStatusReducer
+    ajaxCallsInProgress
 });
 
 export default rootReducer;

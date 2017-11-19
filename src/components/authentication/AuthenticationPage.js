@@ -6,14 +6,15 @@ import * as userActions from '../../actions/userActions';
 import SignUpForm from './SignUpForm';
 import LoadingAnimation from '../helpers/LoadingAnimation';
 
-class SignUp extends React.Component{
+class AuthenticationPage extends React.Component{
 
     constructor(props, context){
         super(props, context);
 
         this.state = {
             user: props.user,
-            message: props.message
+            message: props.message,
+            loading: props.loading,
         };
     }
 
@@ -21,6 +22,12 @@ class SignUp extends React.Component{
         if(nextProps.message.message !== ''){
             this.setState({
                 message: nextProps.message
+            });
+        }
+
+        if(nextProps.loading !== this.state.loading){
+            this.setState({
+                loading: nextProps.loading
             });
         }
     }
@@ -52,7 +59,7 @@ class SignUp extends React.Component{
                     {this.state.message.message}
                 </div>
                 <br />
-                <LoadingAnimation />
+                {this.state.loading && <LoadingAnimation />}
 
                 <div className="alt-link">
                     Already have an account? &nbsp;&nbsp;&nbsp;
@@ -66,13 +73,14 @@ class SignUp extends React.Component{
 
 }
 
-SignUp.propTypes = {
+AuthenticationPage.propTypes = {
     createUser: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
-    message: PropTypes.object.isRequired
+    message: PropTypes.object.isRequired,
+    loading: PropTypes.bool.isRequired
 };
 
-SignUp.contextTypes = {
+AuthenticationPage.contextTypes = {
     router: PropTypes.object
 };
 
@@ -85,7 +93,8 @@ function mapStateToProps(state, ownProps){
     };
     return {
         user: user,
-        message: state.message
+        message: state.message,
+        loading: state.ajaxCallsInProgress > 0
     };
 }
 
@@ -95,4 +104,4 @@ function mapDispatchToProps(dispatch){
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (SignUp);
+export default connect(mapStateToProps, mapDispatchToProps) (AuthenticationPage);
