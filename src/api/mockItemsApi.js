@@ -7,7 +7,7 @@ const items = [
         name: "meat",
         shoppinglist_id: 1,
         price: 20.75,
-        quantity: 1,
+        quantity: 1
     },
     {
         id: 456787,

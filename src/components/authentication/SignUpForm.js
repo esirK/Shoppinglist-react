@@ -39,5 +39,11 @@ const SignUpForm = ({user, onChange, onSubmit}) => {
     );
 };
 
+SignUpForm.propTypes = {
+    user: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired
+};
+
 
 export default SignUpForm;

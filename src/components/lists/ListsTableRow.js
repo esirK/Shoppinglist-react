@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
 const ListsTableRow = ({list, index}) => {
@@ -16,6 +16,13 @@ const ListsTableRow = ({list, index}) => {
             </td>
         </tr>
     );
+};
+
+
+
+ListsTableRow.propTypes = {
+    list: PropTypes.object.isRequired,
+    index: PropTypes.string.isRequired
 };
 
 export default ListsTableRow;

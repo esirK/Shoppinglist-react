@@ -4,4 +4,4 @@ export const delay = 1000;
 export function generateRandomInt(){
     const randomFloat = Math.random();
     return Math.round(randomFloat * 1000000);
-};
+}
