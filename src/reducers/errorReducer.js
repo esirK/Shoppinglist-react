@@ -5,7 +5,7 @@ export default function errorReducer(state = initialState.errorMessage, action) 
     switch(action.type){
 
         case actionTypes.CREATE_USER_FAIL:
-            return [...state, Object.assign({}, {errorMessage: action.errorMessage})];
+            return action.errorMessage;
 
         default:
             return state;
