@@ -30,16 +30,20 @@ class UserApi {
                 // Simulate server-side form data validation
                 if ((user.username === "") || (user.password === "")) {
                     reject("Please provide a valid username and password");
+                    return;
                 }
                 if ((user.security_question === "") || (user.answer === "")) {
                     reject("Please provide a valid security question and answer");
+                    return;
                 }
                 if (user.password.length < 6) {
                     reject("password must be at-least 6 characters long");
+                    return;
                 }
 
                 if((users.findIndex(a => a.username === user.username)) !== -1){
                     reject(`username \`${user.username}\` is already registered. Please provide a unique username`);
+                    return;
                 }
 
                 //Simulating creating a user account

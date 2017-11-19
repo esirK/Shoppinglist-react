@@ -10,11 +10,19 @@ export function authenticateUserSuccess(user) {
 }
 
 export function createUserSuccess(user) {
-    return {type: actionTypes.CREATE_USER_SUCCESS, user};
+    let message = {
+        message: user.message,
+        messageTYpe: 'success'
+    };
+    return {type: actionTypes.CREATE_USER_SUCCESS, user, message};
 }
 
-export function createUserFail(errorMessage) {
-    return {type: actionTypes.CREATE_USER_FAIL, errorMessage};
+export function createUserFail(message) {
+    message = {
+        message: message,
+        messageTYpe: 'error'
+    };
+    return {type: actionTypes.CREATE_USER_FAIL, message};
 }
 
 export function createUser(user) {
