@@ -7,7 +7,7 @@ class LoadingAnimation extends React.Component {
         super(props, context);
 
         this.animationInterval = 50;
-        this.dots = 85;
+        this.dots = 10;
 
         this.state= {
             frame: 1
@@ -28,10 +28,16 @@ class LoadingAnimation extends React.Component {
         let animationDots = this.state.frame % (this.dots + 1);
         let text = '';
         while (animationDots > 0){
-            text += '-';
+            text += '.';
             animationDots--;
         }
-        return <span {...this.props}>{text}</span>;
+        return (
+            <div>
+                <br/>
+                <span {...this.props}>Loading&nbsp;{text}</span>
+                <br />
+            </div>
+        );
     }
 }
 
