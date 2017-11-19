@@ -17,9 +17,9 @@ class SignUp extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.errorMessage.length > 0){
+        if(nextProps.errorMessage !== ''){
             this.setState({
-                errorMessage: Object.assign({}, nextProps.errorMessage[nextProps.errorMessage.length - 1])
+                errorMessage: nextProps.errorMessage
             });
         }
     }
@@ -48,7 +48,7 @@ class SignUp extends React.Component{
                 <br/>
                 <br/>
                 <div className="col-sm-10">
-                    {this.state.errorMessage.errorMessage}
+                    {this.state.errorMessage}
                 </div>
                 <br />
 
@@ -67,7 +67,7 @@ class SignUp extends React.Component{
 SignUp.propTypes = {
     createUser: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
-    errorMessage: PropTypes.array.isRequired
+    errorMessage: PropTypes.string.isRequired
 };
 
 SignUp.contextTypes = {
