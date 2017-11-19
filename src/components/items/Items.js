@@ -47,7 +47,7 @@ class Items extends React.Component{
 
     createShoppingListItem(event){
         event.preventDefault();
-        this.props.createItem(this.state.newItem)
+        this.props.createItem(this.state.newItem);
     }
 
     render(){
