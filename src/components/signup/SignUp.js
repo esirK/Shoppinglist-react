@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as userActions from '../../actions/userActions';
 import SignUpForm from './SignUpForm';
+import LoadingAnimation from '../helpers/LoadingAnimation';
 
 class SignUp extends React.Component{
 
@@ -51,6 +52,7 @@ class SignUp extends React.Component{
                     {this.state.message.message}
                 </div>
                 <br />
+                <LoadingAnimation />
 
                 <div className="alt-link">
                     Already have an account? &nbsp;&nbsp;&nbsp;
