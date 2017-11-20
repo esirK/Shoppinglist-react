@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import TextInput from '../helpers/TextInput';
 
-const SignUpForm = ({user, onChange, onSubmit}) => {
+const SignUpForm = ({user, onChange, onSubmit, loading}) => {
 
     return (
         <form method="post" onSubmit={onSubmit}>
@@ -33,7 +33,12 @@ const SignUpForm = ({user, onChange, onSubmit}) => {
                 name="password"/>
 
             <br/>
-            <button className="btn btn-primary" type="submit">Create</button>
+            <button
+                className="btn btn-primary"
+                disabled={loading}
+                type="submit">
+                Create
+            </button>
 
         </form>
     );
@@ -42,7 +47,8 @@ const SignUpForm = ({user, onChange, onSubmit}) => {
 SignUpForm.propTypes = {
     user: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired
 };
 
 

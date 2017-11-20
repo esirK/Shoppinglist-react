@@ -41,8 +41,10 @@ class AuthenticationPage extends React.Component{
 
     signUpUser = (event) => {
         event.preventDefault();
-        this.props.createUser(this.state.user);
-        // this.context.router.push('/lists')
+        this.props.createUser(this.state.user)
+            .then(() => {
+            // this.context.router.push('/login');
+        });
     };
 
     render(){
@@ -51,6 +53,7 @@ class AuthenticationPage extends React.Component{
                 <SignUpForm
                     onSubmit={this.signUpUser}
                     onChange={this.updateUserState}
+                    loading={this.state.loading}
                     user={this.state.user} />
 
                 <br/>
