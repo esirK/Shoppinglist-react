@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as userActions from '../../actions/userActions';
 import SignUpForm from './SignUpForm';
 import LoadingAnimation from '../helpers/LoadingAnimation';
+import AlertMessage from '../helpers/AlertMessage';
 
 class AuthenticationPage extends React.Component{
 
@@ -28,6 +29,12 @@ class AuthenticationPage extends React.Component{
         if(nextProps.loading !== this.state.loading){
             this.setState({
                 loading: nextProps.loading
+            });
+        }
+
+        if(nextProps.loading){
+            this.setState({
+                message: {message:''}
             });
         }
     }
@@ -58,9 +65,9 @@ class AuthenticationPage extends React.Component{
 
                 <br/>
                 <br/>
-                <div className="col-sm-10">
-                    {this.state.message.message}
-                </div>
+
+                {this.state.message.message !== '' &&  <AlertMessage message={this.state.message} />}
+
                 <br />
                 {this.state.loading && <LoadingAnimation />}
 

@@ -1,6 +1,6 @@
 export default {
     user: [],
     lists: [],
-    message: {},
+    message: {message: ''},
     ajaxCallsInProgress: 0
 };
