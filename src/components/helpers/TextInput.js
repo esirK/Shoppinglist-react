@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-const TextInput = ({name, onChange, value, placeholder, type = 'text'}) =>{
+const TextInput = ({name = '', onChange, value = '', placeholder, type = 'text'}) =>{
 
     return (
         <div className="form-group">
@@ -18,9 +18,9 @@ const TextInput = ({name, onChange, value, placeholder, type = 'text'}) =>{
 };
 
 TextInput.propTypes = {
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
     type: PropTypes.string,
     placeholder: PropTypes.string
 };
