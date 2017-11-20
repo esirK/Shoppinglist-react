@@ -37,7 +37,7 @@ const SignUpForm = ({user, onChange, onSubmit, loading}) => {
                 className="btn btn-primary"
                 disabled={loading}
                 type="submit">
-                Create
+                {loading ? 'Creating...' : 'Create'}
             </button>
 
         </form>

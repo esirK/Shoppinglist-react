@@ -13,7 +13,7 @@ export function authenticateUserSuccess(user) {
 export function createUserSuccess(user) {
     let message = {
         message: user.message,
-        messageTYpe: 'success'
+        messageType: 'success'
     };
     return {type: actionTypes.CREATE_USER_SUCCESS, user, message};
 }
@@ -21,7 +21,7 @@ export function createUserSuccess(user) {
 export function createUserFail(message) {
     message = {
         message: message,
-        messageTYpe: 'error'
+        messageType: 'error'
     };
     return {type: actionTypes.CREATE_USER_FAIL, message};
 }
