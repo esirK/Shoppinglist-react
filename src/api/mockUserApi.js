@@ -50,7 +50,6 @@ class UserApi {
                 user.id = generateRandomInt();
                 users.push(user);
 
-                user.message = `user \`${user.username}\` has been created`;
                 resolve(user);
 
             }, delay);

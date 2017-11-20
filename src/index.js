@@ -7,6 +7,7 @@ import configureStore from './store/configureStore';
 import routes from './routes';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
+import '../node_modules/toastr/build/toastr.min.css';
 import './styles/styles.css';
 import {getCurrentUser} from './actions/userActions';
 import {loadShoppingLists} from './actions/listAction';

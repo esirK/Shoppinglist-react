@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as userActions from '../../actions/userActions';
 import SignUpForm from './SignUpForm';
 import LoadingAnimation from '../helpers/LoadingAnimation';
-import AlertMessage from '../helpers/AlertMessage';
+import toastr from 'toastr';
 
 class AuthenticationPage extends React.Component{
 
@@ -14,27 +14,14 @@ class AuthenticationPage extends React.Component{
 
         this.state = {
             user: props.user,
-            message: props.message,
             loading: props.loading,
         };
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.message.message !== ''){
-            this.setState({
-                message: nextProps.message
-            });
-        }
-
         if(nextProps.loading !== this.state.loading){
             this.setState({
                 loading: nextProps.loading
-            });
-        }
-
-        if(nextProps.loading){
-            this.setState({
-                message: {message:''}
             });
         }
     }
@@ -50,7 +37,11 @@ class AuthenticationPage extends React.Component{
         event.preventDefault();
         this.props.createUser(this.state.user)
             .then(() => {
+            console.log("created");
+            toastr.success('User account has been created.');
             // this.context.router.push('/login');
+        }).catch(error => {
+            toastr.error(error);
         });
     };
 
@@ -65,8 +56,6 @@ class AuthenticationPage extends React.Component{
 
                 <br/>
                 <br/>
-
-                {this.state.message.message !== '' &&  <AlertMessage message={this.state.message} />}
 
                 <br />
                 {this.state.loading && <LoadingAnimation />}
@@ -86,7 +75,6 @@ class AuthenticationPage extends React.Component{
 AuthenticationPage.propTypes = {
     createUser: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
-    message: PropTypes.object.isRequired,
     loading: PropTypes.bool.isRequired
 };
 
@@ -103,7 +91,6 @@ function mapStateToProps(state, ownProps){
     };
     return {
         user: user,
-        message: state.message,
         loading: state.ajaxCallsInProgress > 0
     };
 }

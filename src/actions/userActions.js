@@ -11,19 +11,11 @@ export function authenticateUserSuccess(user) {
 }
 
 export function createUserSuccess(user) {
-    let message = {
-        message: user.message,
-        messageType: 'success'
-    };
-    return {type: actionTypes.CREATE_USER_SUCCESS, user, message};
+    return {type: actionTypes.CREATE_USER_SUCCESS, user};
 }
 
-export function createUserFail(message) {
-    message = {
-        message: message,
-        messageType: 'error'
-    };
-    return {type: actionTypes.CREATE_USER_FAIL, message};
+export function createUserFail() {
+    return {type: actionTypes.CREATE_USER_FAIL};
 }
 
 export function createUser(user) {
@@ -32,7 +24,8 @@ export function createUser(user) {
         return userApi.createUser(user).then(user => {
             dispatch(createUserSuccess(user));
         }).catch(error => {
-            dispatch(createUserFail(error));
+            dispatch(createUserFail());
+            throw(error);
         });
     };
 }
