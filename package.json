@@ -6,7 +6,7 @@
     "start": "babel-node configurations/serverConfig.js",
     "lint": "node_modules/.bin/esw webpack.config.* src configurations",
     "test": "mocha --reporter spec configurations/testSetup.js \"src/**/*.test.js\"",
-    "cover": "istanbul cover _mocha configurations/testSetup.js \"src/**/*.test.js\"",
+    "cover": "istanbul cover _mocha configurations/testSetup.js \"src/**/*.js\"",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "author": "Einstein Njoroge",
