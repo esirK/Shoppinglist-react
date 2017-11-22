@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import {initiateAjaxCall} from "./ajaxStatusActions";
 import userApi from '../api/mockUserApi';
+import {registerUser} from './authenticationAction';
 
 export function authenticateUser(user) {
     return {type: actionTypes.AUTHENTICATE_USER};
@@ -21,7 +22,8 @@ export function createUserFail() {
 export function createUser(user) {
     return function (dispatch) {
         dispatch(initiateAjaxCall());
-        return userApi.createUser(user).then(user => {
+        // return userApi.createUser(user).then(user => {
+        return dispatch(registerUser(user)).then(user => {
             dispatch(createUserSuccess(user));
         }).catch(error => {
             dispatch(createUserFail());
