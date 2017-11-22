@@ -5,7 +5,7 @@
   "scripts": {
     "start": "babel-node configurations/serverConfig.js",
     "lint": "node_modules/.bin/esw webpack.config.* src configurations",
-    "cover": "jest src --coverage",
+    "test": "jest src --coverage",
     "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls"
   },
   "author": "Einstein Njoroge",
