@@ -16,12 +16,16 @@ class LoadingAnimation extends React.Component {
 
     componentDidMount() {
         this.interval = setInterval(() => {
-            this.setState({frame: this.state.frame + 1});
+            this.updateLocalState();
         }, this.animationInterval);
     }
 
     componentWillUnmount() {
         clearInterval(this.interval);
+    }
+
+    updateLocalState(){
+        this.setState({frame: this.state.frame + 1});
     }
 
     render() {
@@ -33,9 +37,7 @@ class LoadingAnimation extends React.Component {
         }
         return (
             <div>
-                <br/>
                 <span {...this.props}>Loading&nbsp;{text}</span>
-                <br />
             </div>
         );
     }
