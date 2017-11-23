@@ -3,11 +3,24 @@ import {initiateAjaxCall} from "./ajaxStatusActions";
 import {Api} from "../api";
 
 export function authenticateUser(user) {
-    return {type: actionTypes.AUTHENTICATE_USER};
+    return function (dispatch) {
+        dispatch(initiateAjaxCall());
+        return Api.loginUser(user).then(user => {
+            console.log(user);
+            dispatch(authenticateUserSuccess());
+        }).catch(error => {
+            dispatch(authenticateUserFail());
+            throw(error);
+        });
+    };
 }
 
-export function authenticateUserSuccess(user) {
+export function authenticateUserSuccess() {
     return {type: actionTypes.AUTHENTICATE_USER_SUCCESS};
+}
+
+export function authenticateUserFail() {
+    return {type: actionTypes.AUTHENTICATE_USER_FAIL};
 }
 
 export function createUserSuccess(user) {

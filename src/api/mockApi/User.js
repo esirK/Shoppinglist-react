@@ -57,8 +57,28 @@ class MockUserApi {
         });
     }
 
-    static authenticateUSer(user){
 
+
+    static loginUser(user){
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+
+                // Simulate server-side form data validation
+                if ((user.username === "") || (user.password === "")) {
+                    reject("Please provide a valid username and password");
+                    return;
+                }
+
+                if ((users.findIndex(a => (a.username === user.username && a.password_hash === user.password) )) !== -1) {
+                    reject("Wrong credentials combination");
+                    return;
+                }
+
+                // generate a mock token
+                resolve('fdrew435rtfGTR56tyghFTrd56tyuGHBJGYT564356TYRVRETY5$^&*(IUGHGGUI89');
+
+            }, delay);
+        });
     }
 
     static getCurrentUser(token){

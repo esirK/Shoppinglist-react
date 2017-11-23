@@ -2,13 +2,6 @@ import axios from 'axios';
 
 const baseUrl = 'http://localhost:5000';
 
-export const createUser = (user) => {
-    let endpoint = baseUrl + '/user/register';
-    user.security_question = "what?";
-    user.answer = "that";
-    return fetchFromApi('post', endpoint, user);
-};
-
 function fetchFromApi(method, endpoint, data=null){
     return new Promise((resolve,reject)=>{
             runRequest(method, endpoint, data).then((response) => {
@@ -44,4 +37,17 @@ function runRequest(method, endpoint,data) {
     }
 }
 
+
+export const createUser = (user) => {
+    let endpoint = baseUrl + '/user/register';
+    // todo: get answer from frontend
+    user.security_question = "what?";
+    user.answer = "that";
+    return fetchFromApi('post', endpoint, user);
+};
+
+export const loginUser = (user) => {
+    let endpoint = baseUrl + '/user/login';
+    return fetchFromApi('post', endpoint, user);
+};
 
