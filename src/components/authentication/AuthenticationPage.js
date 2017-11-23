@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as userActions from '../../actions/userActions';
 import SignUpForm from './SignUpForm';
+import LoginForm from './LoginForm';
 import LoadingAnimation from '../helpers/LoadingAnimation';
 import toastr from 'toastr';
 
@@ -45,14 +46,33 @@ class AuthenticationPage extends React.Component{
         });
     };
 
+
+    loginUser = (event) => {
+        event.preventDefault();
+        this.props.loginUser(this.state.user)
+            .then(() => {
+            console.log("logged in");
+            toastr.success('User account has been created.');
+            // this.context.router.push('/login');
+        }).catch(error => {
+            toastr.error(error);
+        });
+    };
+
     render(){
         return(
             <div className="mid-right">
-                <SignUpForm
+                {this.props.module === 'signup' && <SignUpForm
                     onSubmit={this.signUpUser}
                     onChange={this.updateUserState}
                     loading={this.state.loading}
-                    user={this.state.user} />
+                    user={this.state.user} />}
+
+                {this.props.module === 'login' && <LoginForm
+                    onSubmit={this.loginUser}
+                    onChange={this.updateUserState}
+                    loading={this.state.loading}
+                    user={this.state.user} />}
 
                 <br/>
                 <br/>
@@ -73,6 +93,7 @@ class AuthenticationPage extends React.Component{
 }
 
 AuthenticationPage.propTypes = {
+    loginUser: PropTypes.func.isRequired,
     createUser: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     loading: PropTypes.bool.isRequired
@@ -91,13 +112,15 @@ function mapStateToProps(state, ownProps){
     };
     return {
         user: user,
-        loading: state.ajaxCallsInProgress > 0
+        loading: state.ajaxCallsInProgress > 0,
+        module: ownProps.route.module
     };
 }
 
 function mapDispatchToProps(dispatch){
     return {
-        createUser: bindActionCreators(userActions.createUser, dispatch)
+        createUser: bindActionCreators(userActions.createUser, dispatch),
+        loginUser: bindActionCreators(userActions.authenticateUser, dispatch)
     };
 }
 
