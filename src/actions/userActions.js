@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import {initiateAjaxCall} from "./ajaxStatusActions";
-import {api} from '../api';
+import {Api} from "../api";
 
 export function authenticateUser(user) {
     return {type: actionTypes.AUTHENTICATE_USER};
@@ -21,7 +21,7 @@ export function createUserFail() {
 export function createUser(user) {
     return function (dispatch) {
         dispatch(initiateAjaxCall());
-        return api.createUser(user).then(user => {
+        return Api.createUser(user).then(user => {
             dispatch(createUserSuccess(user));
         }).catch(error => {
             dispatch(createUserFail());
@@ -33,14 +33,14 @@ export function createUser(user) {
 export function getCurrentUserSuccess(user) {
     return {type: actionTypes.GET_CURRENT_USER_SUCCESS, user};
 }
-
-export function getCurrentUser(token) {
-    return function (dispatch) {
-        dispatch(initiateAjaxCall());
-        return api.getCurrentUser(token).then(user => {
-            dispatch(getCurrentUserSuccess(user));
-        }).catch(error => {
-            throw(error);
-        });
-    };
-}
+//
+// export function getCurrentUser(token) {
+//     return function (dispatch) {
+//         dispatch(initiateAjaxCall());
+//         return Api.getCurrentUser(token).then(user => {
+//             dispatch(getCurrentUserSuccess(user));
+//         }).catch(error => {
+//             throw(error);
+//         });
+//     };
+// }

@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import ItemsApi from '../api/mockItemsApi';
+import ItemsApi from '../api/mockApi/mockItemsApi';
 
 function loadListItemsSuccess(items) {
     return {type: actionTypes.LOAD_ITEM_SUCCESS, items};

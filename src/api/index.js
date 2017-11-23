@@ -1,7 +1,8 @@
-import userApi from './mockUserApi';
-import {registerUser} from '../actions/authenticationAction';
+import MockUserApi from "./mockApi/User";
+import {createUser} from "./productionApi/User";
 
-export const api = {
-    createUser : process.env.NODE_ENV === 'production' ? registerUser : userApi.createUser,
-    getCurrentUser: process.env.NODE_ENV === 'production' ? '' : userApi.getCurrentUser
+const isProductionBuild = process.env.NODE_ENV !== 'production';
+
+export const Api = {
+    createUser: isProductionBuild ? createUser : MockUserApi.createUser
 };
