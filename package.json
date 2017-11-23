@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "A React.js application that consumes the shoppinglist api and dispalys an interactive user interface",
   "scripts": {
-    "start": "babel-node configurations/serverConfig.js",
+    "start": "babel-node configurations/serverConfig.dev.js",
     "lint": "node_modules/.bin/esw webpack.config.* src configurations",
     "clean-dist": "node_modules/.bin/rimraf ./dist && mkdir dist",
-    "build-html": "babel-node configurations/buildIndex.html.js",
+    "build:html": "babel-node configurations/buildIndex.html.js",
     "prebuild": "npm-run-all clean-dist test lint build:html",
     "build": "babel-node configurations/build.js",
     "postbuild": "babel-node configurations/serverConfig.prod.js"
@@ -62,7 +62,7 @@
     "jest": "^21.2.1",
     "jsdom": "8.5.0",
     "nock": "8.0.0",
-    "npm-run-all": "1.8.0",
+    "npm-run-all": "^1.8.0",
     "open": "0.0.5",
     "react-addons-test-utils": "15.0.2",
     "redux-devtools-extension": "^2.13.2",
