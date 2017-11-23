@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import ListApi from '../api/mockListsApi';
+import ListApi from '../api/mockApi/mockListsApi';
 import {initiateAjaxCall} from "./ajaxStatusActions";
 
 export function createList(shoppingList){

@@ -1,4 +1,4 @@
-import {delay, generateRandomInt}  from './helper'; // setTimeout delay to simulate the delay of an AJAX call to a server.
+import {delay, generateRandomInt}  from '../helper'; // setTimeout delay to simulate the delay of an AJAX call to a server.
 
 const users = [
     {
@@ -21,12 +21,13 @@ const users = [
     }
 ];
 
-class UserApi {
+class MockUserApi {
 
     static createUser(user) {
         user = Object.assign({}, user); // create a copy of object passed in to avoid manipulating object passed in.
         return new Promise((resolve, reject) => {
             setTimeout(() => {
+
                 // Simulate server-side form data validation
                 if ((user.username === "") || (user.password === "")) {
                     reject("Please provide a valid username and password");
@@ -69,4 +70,4 @@ class UserApi {
     }
 }
 
-export default UserApi;
+export default MockUserApi;

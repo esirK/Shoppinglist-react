@@ -14,7 +14,7 @@ import {getCurrentUser} from './actions/userActions';
 import {loadShoppingLists} from './actions/listAction';
 
 const store = configureStore();
-store.dispatch(getCurrentUser(null));
+// store.dispatch(getCurrentUser(null));
 store.dispatch(loadShoppingLists());
 
 render(
