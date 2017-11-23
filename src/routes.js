@@ -5,12 +5,8 @@ import Lists from './components/lists/Lists';
 import Items from './components/items/Items';
 import Login from './components/login/Login';
 import AuthenticationPage from './components/authentication/AuthenticationPage';
-import { generateRequireSignInWrapper } from 'redux-token-auth';
 
-
-const requireSignIn = generateRequireSignInWrapper({
-    redirectPathIfNotSignedIn: '/login',
-});
+const requireSignIn = () => {return;};
 
 export default (
     <Route path="/" component={App}>
