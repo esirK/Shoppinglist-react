@@ -5,6 +5,7 @@ import {Api} from "../api";
 export function authenticateUser(user) {
     return function (dispatch) {
         dispatch(initiateAjaxCall());
+        user.username = user.username.toLowerCase();
         return Api.loginUser(user).then(response => {
             localStorage.setItem('token', response.token);
             let token = localStorage.getItem('token');
