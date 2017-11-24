@@ -1,23 +1,11 @@
 import React, {PropTypes} from 'react';
 import TextInput from '../helpers/TextInput';
 
-const SignUpForm = ({user, onChange, onSubmit, loading}) => {
+const LoginForm = ({user, onChange, onSubmit, loading}) => {
 
     return (
         <form method="post" onSubmit={onSubmit}>
-            <h1>Create account</h1>
-
-            <TextInput
-                value={user.firstname}
-                onChange={onChange}
-                placeholder="firstname"
-                name="firstname"/>
-
-            <TextInput
-                value={user.lastname}
-                onChange={onChange}
-                placeholder="lastname"
-                name="lastname"/>
+            <h1>Login to your account</h1>
 
             <TextInput
                 value={user.username}
@@ -32,27 +20,19 @@ const SignUpForm = ({user, onChange, onSubmit, loading}) => {
                 placeholder="password"
                 name="password"/>
 
-            <br />
-            {user.security_question}?
-            <TextInput
-                value={user.answer}
-                onChange={onChange}
-                placeholder="answer"
-                name="answer"/>
-
             <br/>
             <button
                 className="btn btn-primary"
                 disabled={loading}
                 type="submit">
-                {loading ? 'Creating...' : 'Create'}
+                {loading ? 'Authenticating...' : 'Login'}
             </button>
 
         </form>
     );
 };
 
-SignUpForm.propTypes = {
+LoginForm.propTypes = {
     user: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
@@ -60,4 +40,4 @@ SignUpForm.propTypes = {
 };
 
 
-export default SignUpForm;
+export default LoginForm;

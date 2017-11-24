@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as userActions from '../../actions/userActions';
 import SignUpForm from './SignUpForm';
+import LoginForm from './LoginForm';
 import LoadingAnimation from '../helpers/LoadingAnimation';
 import toastr from 'toastr';
 
@@ -11,7 +12,6 @@ class AuthenticationPage extends React.Component{
 
     constructor(props, context){
         super(props, context);
-
         this.state = {
             user: props.user,
             loading: props.loading,
@@ -37,22 +37,45 @@ class AuthenticationPage extends React.Component{
         event.preventDefault();
         this.props.createUser(this.state.user)
             .then(() => {
-            console.log("created");
             toastr.success('User account has been created.');
-            // this.context.router.push('/login');
+            setTimeout(() => {
+                toastr.info('Authenticating......');
+                this.loginUser(null);
+            }, 1000);
+        }).catch(error => {
+            toastr.error(error);
+        });
+    };
+
+
+    loginUser = (event) => {
+        if(event !== null) event.preventDefault();
+        this.props.loginUser(this.state.user)
+            .then(() => {
+            toastr.success('Logged in successfully');
+            setTimeout(()=>{
+                this.context.router.push('/lists');
+            }, 1000);
         }).catch(error => {
             toastr.error(error);
         });
     };
 
     render(){
+
         return(
             <div className="mid-right">
-                <SignUpForm
+                {this.props.module === 'signup' && <SignUpForm
                     onSubmit={this.signUpUser}
                     onChange={this.updateUserState}
                     loading={this.state.loading}
-                    user={this.state.user} />
+                    user={this.state.user} />}
+
+                {this.props.module === 'login' && <LoginForm
+                    onSubmit={this.loginUser}
+                    onChange={this.updateUserState}
+                    loading={this.state.loading}
+                    user={this.state.user} />}
 
                 <br/>
                 <br/>
@@ -73,6 +96,7 @@ class AuthenticationPage extends React.Component{
 }
 
 AuthenticationPage.propTypes = {
+    loginUser: PropTypes.func.isRequired,
     createUser: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     loading: PropTypes.bool.isRequired
@@ -82,22 +106,42 @@ AuthenticationPage.contextTypes = {
     router: PropTypes.object
 };
 
+function getRandomSecurityQuestion() {
+    const securityQuestions = [
+        "What is your nickname",
+        "What is your mothers last name",
+        "Where did you get your pet from",
+        "Who's your favourite artist",
+        "Which country would you like to visit most",
+        "What kind of a house would you like",
+        "What are you doing right now",
+        "Who was your first love",
+        "What your most memorable day"
+    ];
+    const randomIndex = Math.floor(Math.random() * securityQuestions.length);
+    return securityQuestions[randomIndex];
+}
+
 function mapStateToProps(state, ownProps){
     let user = {
         firstname: "",
         lastname: "",
         username: "",
+        security_question: getRandomSecurityQuestion(),
+        answer: "",
         password: ""
     };
     return {
         user: user,
-        loading: state.ajaxCallsInProgress > 0
+        loading: state.ajaxCallsInProgress > 0,
+        module: ownProps.route.module
     };
 }
 
 function mapDispatchToProps(dispatch){
     return {
-        createUser: bindActionCreators(userActions.createUser, dispatch)
+        createUser: bindActionCreators(userActions.createUser, dispatch),
+        loginUser: bindActionCreators(userActions.authenticateUser, dispatch)
     };
 }
 

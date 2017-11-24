@@ -1,5 +1,5 @@
 export default {
-    user: [],
+    user: {},
     lists: [],
     ajaxCallsInProgress: 0
 };
