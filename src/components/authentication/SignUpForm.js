@@ -32,6 +32,14 @@ const SignUpForm = ({user, onChange, onSubmit, loading}) => {
                 placeholder="password"
                 name="password"/>
 
+            <br />
+            {user.security_question}?
+            <TextInput
+                value={user.answer}
+                onChange={onChange}
+                placeholder="answer"
+                name="answer"/>
+
             <br/>
             <button
                 className="btn btn-primary"

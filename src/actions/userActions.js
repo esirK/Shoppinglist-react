@@ -5,9 +5,10 @@ import {Api} from "../api";
 export function authenticateUser(user) {
     return function (dispatch) {
         dispatch(initiateAjaxCall());
-        return Api.loginUser(user).then(user => {
-            console.log(user);
-            dispatch(authenticateUserSuccess());
+        return Api.loginUser(user).then(response => {
+            localStorage.setItem('token', response.token);
+            let token = localStorage.getItem('token');
+            dispatch(authenticateUserSuccess(token));
         }).catch(error => {
             dispatch(authenticateUserFail());
             throw(error);
@@ -15,8 +16,8 @@ export function authenticateUser(user) {
     };
 }
 
-export function authenticateUserSuccess() {
-    return {type: actionTypes.AUTHENTICATE_USER_SUCCESS};
+export function authenticateUserSuccess(token) {
+    return {type: actionTypes.AUTHENTICATE_USER_SUCCESS, token};
 }
 
 export function authenticateUserFail() {
@@ -46,6 +47,7 @@ export function createUser(user) {
 export function getCurrentUserSuccess(user) {
     return {type: actionTypes.GET_CURRENT_USER_SUCCESS, user};
 }
+
 //
 // export function getCurrentUser(token) {
 //     return function (dispatch) {

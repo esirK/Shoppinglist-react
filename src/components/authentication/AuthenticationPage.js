@@ -12,7 +12,6 @@ class AuthenticationPage extends React.Component{
 
     constructor(props, context){
         super(props, context);
-
         this.state = {
             user: props.user,
             loading: props.loading,
@@ -38,9 +37,11 @@ class AuthenticationPage extends React.Component{
         event.preventDefault();
         this.props.createUser(this.state.user)
             .then(() => {
-            console.log("created");
             toastr.success('User account has been created.');
-            // this.context.router.push('/login');
+            setTimeout(() => {
+                toastr.info('Authenticating......');
+                this.loginUser(null);
+            }, 1000);
         }).catch(error => {
             toastr.error(error);
         });
@@ -48,18 +49,20 @@ class AuthenticationPage extends React.Component{
 
 
     loginUser = (event) => {
-        event.preventDefault();
+        if(event !== null) event.preventDefault();
         this.props.loginUser(this.state.user)
             .then(() => {
-            console.log("logged in");
-            toastr.success('User account has been created.');
-            // this.context.router.push('/login');
+            toastr.success('Logged in successfully');
+            setTimeout(()=>{
+                this.context.router.push('/lists');
+            }, 1000);
         }).catch(error => {
             toastr.error(error);
         });
     };
 
     render(){
+
         return(
             <div className="mid-right">
                 {this.props.module === 'signup' && <SignUpForm
@@ -103,11 +106,29 @@ AuthenticationPage.contextTypes = {
     router: PropTypes.object
 };
 
+function getRandomSecurityQuestion() {
+    const securityQuestions = [
+        "What is your nickname",
+        "What is your mothers last name",
+        "Where did you get your pet from",
+        "Who's your favourite artist",
+        "Which country would you like to visit most",
+        "What kind of a house would you like",
+        "What are you doing right now",
+        "Who was your first love",
+        "What your most memorable day"
+    ];
+    const randomIndex = Math.floor(Math.random() * securityQuestions.length);
+    return securityQuestions[randomIndex];
+}
+
 function mapStateToProps(state, ownProps){
     let user = {
         firstname: "",
         lastname: "",
         username: "",
+        security_question: getRandomSecurityQuestion(),
+        answer: "",
         password: ""
     };
     return {
