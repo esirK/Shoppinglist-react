@@ -83,10 +83,18 @@ class AuthenticationPage extends React.Component{
                 <br />
                 {this.state.loading && <LoadingAnimation />}
 
-                <div className="alt-link">
-                    Already have an account? &nbsp;&nbsp;&nbsp;
-                    <Link to="/login" className="btn btn-warning">Sign in</Link>
-                </div>
+                {this.props.module === 'login' &&
+                    <div className="alt-link">
+                        Don't have an account yet? &nbsp;&nbsp;&nbsp;
+                        <Link to="/signup" className="btn btn-warning">Sign Up</Link>
+                    </div>
+                }
+                {this.props.module === 'signup' &&
+                    <div className="alt-link">
+                        Already have an account? &nbsp;&nbsp;&nbsp;
+                        <Link to="/login" className="btn btn-warning">Sign in</Link>
+                    </div>
+                }
                 <br />
             </div>
         );
