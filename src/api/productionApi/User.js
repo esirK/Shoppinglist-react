@@ -5,11 +5,11 @@ const baseUrl = 'http://localhost:5000';
 function fetchFromApi(method, endpoint, data=null){
     return new Promise((resolve,reject)=>{
             runRequest(method, endpoint, data).then((response) => {
-                if (!response.ok) {
+                if (response.status !== 200 && response.status !== 201) {
                     reject(response.statusText);
                     return;
                 }
-                resolve(response);
+                resolve(response.data);
             })
             .catch(error => {
                 if(String(error).includes('Network Error')){
@@ -18,7 +18,6 @@ function fetchFromApi(method, endpoint, data=null){
                 }
                 if(error.response.data.error_msg !== undefined){
                     reject(error.response.data.error_msg);
-                    return;
                 }
             });
     });
@@ -37,12 +36,8 @@ function runRequest(method, endpoint,data) {
     }
 }
 
-
 export const createUser = (user) => {
     let endpoint = baseUrl + '/user/register';
-    // todo: get answer from frontend
-    user.security_question = "what?";
-    user.answer = "that";
     return fetchFromApi('post', endpoint, user);
 };
 
