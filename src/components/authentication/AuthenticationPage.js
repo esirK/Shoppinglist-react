@@ -79,8 +79,6 @@ class AuthenticationPage extends React.Component{
 
                 <br/>
                 <br/>
-
-                <br />
                 {this.state.loading && <LoadingAnimation />}
 
                 {this.props.module === 'login' &&
