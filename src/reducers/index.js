@@ -1,10 +1,12 @@
 import {combineReducers} from 'redux';
-import users from './usersReducer';
+import user from './usersReducer';
 import lists from './listsReducer';
+import ajaxCallsInProgress from './ajaxStatusReducer';
 
 const rootReducer = combineReducers({
-    users,
-    lists
+    user,
+    lists,
+    ajaxCallsInProgress
 });
 
 export default rootReducer;

@@ -1,4 +1,4 @@
-import {delay}  from './constants'; // setTimeout delay to simulate the delay of an AJAX call to a server.
+import {delay}  from '../constants'; // setTimeout delay to simulate the delay of an AJAX call to a server.
 
 let lists = [
     {
