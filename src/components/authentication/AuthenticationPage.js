@@ -37,12 +37,15 @@ class AuthenticationPage extends React.Component{
         event.preventDefault();
         this.props.createUser(this.state.user)
             .then(() => {
+            toastr.clear();
             toastr.success('User account has been created.');
             setTimeout(() => {
+                toastr.clear();
                 toastr.info('Authenticating......');
                 this.loginUser(null);
             }, 1000);
         }).catch(error => {
+            toastr.clear();
             toastr.error(error);
         });
     };
@@ -52,11 +55,13 @@ class AuthenticationPage extends React.Component{
         if(event !== null) event.preventDefault();
         this.props.loginUser(this.state.user)
             .then(() => {
-            toastr.success('Logged in successfully');
+                toastr.clear();
+                toastr.success('Logged in successfully');
             setTimeout(()=>{
                 this.context.router.push('/lists');
             }, 1000);
         }).catch(error => {
+            toastr.clear();
             toastr.error(error);
         });
     };
