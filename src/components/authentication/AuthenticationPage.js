@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as userActions from '../../actions/userActions';
@@ -58,7 +58,7 @@ class AuthenticationPage extends React.Component{
                 toastr.clear();
                 toastr.success('Logged in successfully');
             setTimeout(()=>{
-                this.context.router.push('/lists');
+                browserHistory.push('/')
             }, 1000);
         }).catch(error => {
             toastr.clear();
