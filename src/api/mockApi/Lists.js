@@ -37,7 +37,7 @@ const generateId = () => {
     return Math.round(randomFloat * 1000000);
 };
 
-class ListApi {
+class MockListsApi {
 
     static createList(list) {
         list = Object.assign({}, list); // create a copy of object passed in to avoid manipulating object passed in.
@@ -108,4 +108,4 @@ class ListApi {
 
 }
 
-export default ListApi;
+export default MockListsApi;
