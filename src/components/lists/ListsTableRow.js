@@ -22,7 +22,7 @@ const ListsTableRow = ({list, index}) => {
 
 ListsTableRow.propTypes = {
     list: PropTypes.object.isRequired,
-    index: PropTypes.string.isRequired
+    index: PropTypes.number.isRequired
 };
 
 export default ListsTableRow;

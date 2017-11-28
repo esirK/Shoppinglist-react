@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import ListsTable from './ListsTable';
 import CreateListForm from './CreateListForm';
+import {loadShoppingLists} from '../../actions/listAction';
 
 class Lists extends React.Component{
 
@@ -43,6 +44,8 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
+    // Load lists belonging to current user
+    dispatch(loadShoppingLists());
     return {};
 }
 

@@ -1,11 +1,11 @@
 import * as actionTypes from './actionTypes';
-import ListApi from '../api/mockApi/mockListsApi';
+import {Api} from "../api";
 import {initiateAjaxCall} from "./ajaxStatusActions";
 
 export function createList(shoppingList){
     return function (dispatch) {
         dispatch(initiateAjaxCall());
-        return ListApi.createList(shoppingList).then(() => {
+        return Api.createList(shoppingList).then(() => {
             dispatch(loadShoppingLists());
         }).catch(error => {
             throw(error);
@@ -20,7 +20,7 @@ function loadShoppingListsSuccess(lists) {
 export function loadShoppingLists() {
     return function (dispatch) {
         dispatch(initiateAjaxCall());
-        return ListApi.getLists().then(lists => {
+        return Api.getLists().then(lists => {
             dispatch(loadShoppingListsSuccess(lists));
         }).catch(error => {
             throw(error);
