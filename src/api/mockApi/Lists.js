@@ -68,7 +68,6 @@ class MockListsApi {
     static getLists(list_id = null) {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                //todo:  Simulate validating unauthorised user
 
                 // Simulate fetching all lists belonging to user 123456
                 let currentUsersLists = [];
