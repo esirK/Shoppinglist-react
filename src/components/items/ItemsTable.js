@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
-import ListsTableRow from './ListsTableRow';
+import ItemsTableRow from './ItemsTableRow';
 
-const ListsTable = ({lists}) => {
+const ItemsTable = ({items}) => {
     return (
-        <table className="ui celled table col-md-12" id="shoppinglistTable">
+        <table className="ui celled table col-md-12" id="shoppingitemTable">
             <thead>
             <tr>
                 <th>NO.</th>
@@ -14,14 +14,14 @@ const ListsTable = ({lists}) => {
             </tr>
             </thead>
             <tbody>
-                {lists.map((list, index) => <ListsTableRow key={list.id} list={list} index={index} />)}
+                {items.map((item, index) => <ItemsTableRow key={item.id} item={item} index={index} />)}
             </tbody>
         </table>
     );
 };
 
-ListsTable.propTypes = {
-    lists: PropTypes.array.isRequired
+ItemsTable.propTypes = {
+    items: PropTypes.array.isRequired
 };
 
-export default ListsTable;
+export default ItemsTable;

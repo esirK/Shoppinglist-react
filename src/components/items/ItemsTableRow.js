@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
-const ListsTableRow = ({list, index}) => {
+const ItemsTableRow = ({list, index}) => {
     return (
         <tr>
             <td>{index+1}</td>
@@ -20,9 +20,9 @@ const ListsTableRow = ({list, index}) => {
 
 
 
-ListsTableRow.propTypes = {
+ItemsTableRow.propTypes = {
     list: PropTypes.object.isRequired,
     index: PropTypes.number.isRequired
 };
 
-export default ListsTableRow;
+export default ItemsTableRow;

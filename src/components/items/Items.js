@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import ListsTable from './ListsTable';
-import CreateListForm from './CreateListForm';
+import ItemsTable from './ItemsTable';
+import CreateItemForm from './CreateItemForm';
 import {loadShoppingLists, createList} from '../../actions/listAction';
 import toastr from 'toastr';
 
@@ -15,8 +15,9 @@ class Items extends React.Component{
     constructor(props, context) {
         super(props, context);
         this.state = {
-            lists: props.lists,
-            newShoppingList: props.newShoppingList,
+            listId: props.listId,
+            items: props.items,
+            newItem: props.newItem,
             loading: props.loading
         };
     }
@@ -35,17 +36,17 @@ class Items extends React.Component{
 
     updateListState = (event) => {
         const field = event.target.name;
-        let newShoppingList = this.state.newShoppingList;
-        newShoppingList[field] = event.target.value;
-        return this.setState({newShoppingList: newShoppingList});
+        let newItem = this.state.newItem;
+        newItem[field] = event.target.value;
+        return this.setState({newItem: newItem});
     };
 
     createShoppingList = (event) => {
         event.preventDefault();
-        this.props.createList(this.state.newShoppingList)
+        this.props.createList(this.state.newItem)
             .then(() => {
                 toastr.clear();
-                toastr.success(this.state.newShoppingList.title +' has been created.');
+                toastr.success(this.state.newItem.name +' has been created.');
             }).catch(error => {
             toastr.clear();
             toastr.error(error);
@@ -56,15 +57,15 @@ class Items extends React.Component{
     render(){
         return(
             <div className="mid-center">
-                <h3>My shopping-lists</h3>
+                <h3>My shopping-items</h3>
                 <div id="shoppinglist">
-                    <ListsTable lists={this.props.lists}/>
+                    <ItemsTable items={this.props.items}/>
                     <br />
-                    <CreateListForm
+                    <CreateItemForm
                         onSubmit={this.createShoppingList}
                         onChange={this.updateListState}
                         loading={this.state.loading}
-                        list={this.state.newShoppingList} />
+                        item={this.state.newItem} />
                 </div>
             </div>
 
@@ -72,19 +73,20 @@ class Items extends React.Component{
     }
 }
 
-
-Items.propTypes = {
-    lists: PropTypes.array.isRequired
-};
+//
+// Items.propTypes = {
+//     items: PropTypes.array.isRequired
+// };
 
 
 function mapStateToProps(state, ownProps) {
-    let newShoppingList = {
-        title: ""
+    let newItem = {
+        name: ""
     };
     return {
-        newShoppingList: newShoppingList,
-        lists: state.lists,
+        listId: ownProps.params.id,
+        newItem: newItem,
+        items: state.items,
         loading: state.ajaxCallsInProgress > 0
     };
 }
