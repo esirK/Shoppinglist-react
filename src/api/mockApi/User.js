@@ -1,4 +1,5 @@
-import {delay, generateRandomInt}  from '../helper'; // setTimeout delay to simulate the delay of an AJAX call to a server.
+import {delay, generateRandomInt, secret_key}  from './helper'; // setTimeout delay to simulate the delay of an AJAX call to a server.
+import jsonwebtoken  from 'jsonwebtoken';
 
 const users = [
     {
@@ -6,7 +7,7 @@ const users = [
         username: "einstein",
         firstname: "einstein",
         lastname: "carrey",
-        password_hash: "d033e22ae348aeb5660fc2140aec35850c4da997",
+        password_hash: "1234567890",
         answer: "einstein",
         security_question: "Who am i?"
     },
@@ -69,13 +70,18 @@ class MockUserApi {
                     return;
                 }
 
-                if ((users.findIndex(a => (a.username === user.username && a.password_hash === user.password) )) !== -1) {
+                if ((users.findIndex(a => (a.username === user.username && a.password_hash === user.password) )) === -1) {
                     reject("Wrong credentials combination");
                     return;
                 }
 
+                const userFound = users[users.findIndex(a => (a.username === user.username && a.password_hash === user.password))];
                 // generate a mock token
-                resolve('fdrew435rtfGTR56tyghFTrd56tyuGHBJGYT564356TYRVRETY5$^&*(IUGHGGUI89');
+                const token = jsonwebtoken.sign({
+                    id: userFound.id
+                    }, secret_key);
+
+                resolve({token});
 
             }, delay);
         });
@@ -84,7 +90,6 @@ class MockUserApi {
     static getCurrentUser(token){
         return new Promise((resolve, reject) => {
             // todo: Simulate server-xside authentication when token is invalid
-
             resolve(users[0]);
         });
     }

@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import ListsTable from './ListsTable';
 import CreateListForm from './CreateListForm';
 import {loadShoppingLists} from '../../actions/listAction';
@@ -12,6 +13,13 @@ class Lists extends React.Component{
 
     constructor(props, context) {
         super(props, context);
+    }
+
+    componentDidMount(){
+        // Load lists belonging to current user
+        setTimeout(() =>{
+            this.props.loadShoppingLists();
+            }, 1000);
     }
 
     render(){
@@ -44,9 +52,9 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-    // Load lists belonging to current user
-    dispatch(loadShoppingLists());
-    return {};
+    return {
+        loadShoppingLists: bindActionCreators(loadShoppingLists, dispatch)
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps) (Lists);

@@ -1,4 +1,4 @@
-import {delay, generateRandomInt}  from '../helper'; // setTimeout delay to simulate the delay of an AJAX call to a server.
+import {delay, generateRandomInt}  from './helper'; // setTimeout delay to simulate the delay of an AJAX call to a server.
 
 // This file mocks the shoppinglist web API
 const items = [
