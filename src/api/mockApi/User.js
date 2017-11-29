@@ -86,13 +86,6 @@ class MockUserApi {
             }, delay);
         });
     }
-
-    static getCurrentUser(token){
-        return new Promise((resolve, reject) => {
-            // todo: Simulate server-xside authentication when token is invalid
-            resolve(users[0]);
-        });
-    }
 }
 
 export default MockUserApi;

@@ -57,9 +57,7 @@ class AuthenticationPage extends React.Component{
             .then(() => {
                 toastr.clear();
                 toastr.success('Logged in successfully');
-            setTimeout(()=>{
-                browserHistory.push('/')
-            }, 1000);
+                window.location.href = '/';
         }).catch(error => {
             toastr.clear();
             toastr.error(error);

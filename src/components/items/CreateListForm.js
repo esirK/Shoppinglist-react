@@ -5,7 +5,6 @@ const CreateListForm = ({list, onChange, onSubmit, loading}) => {
 
     return (
         <form method="post" onSubmit={onSubmit}>
-
             <div className="form-group col-md-10">
                 <TextInput
                     value={list.title}
