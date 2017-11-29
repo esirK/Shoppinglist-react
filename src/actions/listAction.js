@@ -6,11 +6,21 @@ export function createList(shoppingList){
     return function (dispatch) {
         dispatch(initiateAjaxCall());
         return Api.createList(shoppingList).then(() => {
+            dispatch(createShoppingListsSuccess());
             dispatch(loadShoppingLists());
         }).catch(error => {
+            dispatch(createShoppingListsFail());
             throw(error);
         });
     };
+}
+
+function createShoppingListsSuccess() {
+    return {type: actionTypes.CREATE_LIST_SUCCESS};
+}
+
+function createShoppingListsFail() {
+    return {type: actionTypes.CREATE_LIST_FAIL};
 }
 
 function loadShoppingListsSuccess(lists) {

@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ListsTable from './ListsTable';
 import CreateListForm from './CreateListForm';
-import {loadShoppingLists} from '../../actions/listAction';
+import {loadShoppingLists, createList} from '../../actions/listAction';
+import toastr from 'toastr';
 
 class Lists extends React.Component{
 
@@ -13,14 +14,44 @@ class Lists extends React.Component{
 
     constructor(props, context) {
         super(props, context);
+        this.state = {
+            lists: props.lists,
+            newShoppingList: props.newShoppingList,
+            loading: props.loading
+        };
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.loading !== this.state.loading){
+            this.setState({
+                loading: nextProps.loading
+            });
+        }
     }
 
     componentDidMount(){
-        // Load lists belonging to current user
-        setTimeout(() =>{
-            this.props.loadShoppingLists();
-            }, 1000);
+        this.props.loadShoppingLists();
     }
+
+    updateListState = (event) => {
+        const field = event.target.name;
+        let newShoppingList = this.state.newShoppingList;
+        newShoppingList[field] = event.target.value;
+        return this.setState({newShoppingList: newShoppingList});
+    };
+
+    createShoppingList = (event) => {
+        event.preventDefault();
+        this.props.createList(this.state.newShoppingList)
+            .then(() => {
+            toastr.clear();
+            toastr.success(this.state.newShoppingList.title +' has been created.');
+        }).catch(error => {
+            toastr.clear();
+            toastr.error(error);
+        });
+    };
+
 
     render(){
         return(
@@ -31,7 +62,11 @@ class Lists extends React.Component{
                         <ListsTable lists={this.props.lists}/>
                     </form>
                     <br />
-                    <CreateListForm/>
+                    <CreateListForm
+                        onSubmit={this.createShoppingList}
+                        onChange={this.updateListState}
+                        loading={this.state.loading}
+                        list={this.state.newShoppingList} />
                 </div>
             </div>
 
@@ -46,14 +81,20 @@ Lists.propTypes = {
 
 
 function mapStateToProps(state, ownProps) {
+    let newShoppingList = {
+        title: ""
+    };
     return {
-        lists: state.lists
+        newShoppingList: newShoppingList,
+        lists: state.lists,
+        loading: state.ajaxCallsInProgress > 0
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadShoppingLists: bindActionCreators(loadShoppingLists, dispatch)
+        loadShoppingLists: bindActionCreators(loadShoppingLists, dispatch),
+        createList : bindActionCreators(createList, dispatch)
     };
 }
 
