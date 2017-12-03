@@ -5,7 +5,6 @@ export default function signUpReducer(state = initialState.user, action) {
     switch(action.type){
 
         case actionTypes.CREATE_USER:
-
             return [...state, Object.assign({}, action.user)];
 
         case actionTypes.CREATE_USER_SUCCESS:
