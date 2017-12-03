@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ListsTable from './ListsTable';
 import CreateListForm from './CreateListForm';
-import {loadShoppingLists, createList} from '../../actions/listAction';
+import {loadShoppingLists, createList, initializeListEditor} from '../../actions/listAction';
 import toastr from 'toastr';
+import JQuery from 'jquery';
 
 class Lists extends React.Component{
 
@@ -15,16 +16,41 @@ class Lists extends React.Component{
     constructor(props, context) {
         super(props, context);
         this.state = {
-            lists: props.lists,
+            updateList: props.updateList,
+            existingShoppingList: props.existingShoppingList,
             newShoppingList: props.newShoppingList,
             loading: props.loading
+        };
+
+        this.editList = {
+            initialize: (event) => {
+                let oldShoppingList = {};
+                const listsRow = JQuery(event.target).closest('tr');
+                oldShoppingList.title = JQuery(listsRow).find('.list-title').text();
+                oldShoppingList.id = JQuery(listsRow).attr('id');
+                this.setState({updateList: oldShoppingList});
+                props.initializeListEditor(this.state.updateList);
+            },
+
+            onchange: (event) => {
+                let oldShoppingList = this.state.oldShoppingList;
+                oldShoppingList.title = JQuery(event.target).val();
+                this.setState({oldShoppingList: oldShoppingList});
+            },
+            title: this.state.updateList.title
         };
     }
 
     componentWillReceiveProps(nextProps){
+        console.log(nextProps);
         if(nextProps.loading !== this.state.loading){
             this.setState({
                 loading: nextProps.loading
+            });
+        }
+        if(nextProps.existingShoppingList !== this.state.existingShoppingList){
+            this.setState({
+                existingShoppingList: nextProps.existingShoppingList
             });
         }
     }
@@ -38,6 +64,10 @@ class Lists extends React.Component{
         let newShoppingList = this.state.newShoppingList;
         newShoppingList[field] = event.target.value;
         return this.setState({newShoppingList: newShoppingList});
+    };
+
+    deleteList = (event) => {
+
     };
 
     createShoppingList = (event) => {
@@ -59,7 +89,10 @@ class Lists extends React.Component{
                 <h3>My shopping-lists</h3>
                 <div id="shoppinglist">
                     <form method="post" onSubmit={this.updateShoppingList}>
-                        <ListsTable lists={this.props.lists}/>
+                        <ListsTable
+                            editHandler={this.editList}
+                            deleteHandler={this.deleteList}
+                            lists={this.state.existingShoppingList}/>
                     </form>
                     <br />
                     <CreateListForm
@@ -76,17 +109,15 @@ class Lists extends React.Component{
 
 
 Lists.propTypes = {
-    lists: PropTypes.array.isRequired
+    existingShoppingList: PropTypes.array.isRequired
 };
 
 
 function mapStateToProps(state, ownProps) {
-    let newShoppingList = {
-        title: ""
-    };
     return {
-        newShoppingList: newShoppingList,
-        lists: state.lists,
+        newShoppingList: state.lists.newShoppingList,
+        updateList: state.editList,
+        existingShoppingList: state.lists.existingShoppingList,
         loading: state.ajaxCallsInProgress > 0
     };
 }
@@ -94,7 +125,8 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return {
         loadShoppingLists: bindActionCreators(loadShoppingLists, dispatch),
-        createList : bindActionCreators(createList, dispatch)
+        createList : bindActionCreators(createList, dispatch),
+        initializeListEditor : bindActionCreators(initializeListEditor, dispatch)
     };
 }
 

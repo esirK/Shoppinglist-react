@@ -25,6 +25,10 @@ function createShoppingListsFail() {
     return {type: actionTypes.CREATE_LIST_FAIL};
 }
 
+export function initializeListEditor(list) {
+    return {type: actionTypes.INITIALIZE_LIST_EDITOR, list};
+}
+
 function loadShoppingListsSuccess(lists) {
     return {type: actionTypes.LOAD_LISTS_SUCCESS, lists};
 }

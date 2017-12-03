@@ -69,7 +69,7 @@ class MockListsApi {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
 
-                // Simulate fetching all lists belonging to user 123456
+                // Simulate fetching all existingShoppingList belonging to user 123456
                 let currentUsersLists = [];
                 let validLists;
 
