@@ -28,8 +28,7 @@ class Lists extends React.Component{
                 const listsRow = JQuery(event.target).closest('tr');
                 oldShoppingList.title = JQuery(listsRow).find('.list-title').text();
                 oldShoppingList.id = JQuery(listsRow).attr('id');
-                this.setState({updateList: oldShoppingList});
-                props.initializeListEditor(this.state.updateList);
+                props.initializeListEditor(oldShoppingList);
             },
 
             onchange: (event) => {
@@ -37,7 +36,7 @@ class Lists extends React.Component{
                 oldShoppingList.title = JQuery(event.target).val();
                 this.setState({oldShoppingList: oldShoppingList});
             },
-            title: this.state.updateList.title
+            listToUpdate: this.state.updateList
         };
     }
 
@@ -52,6 +51,11 @@ class Lists extends React.Component{
             this.setState({
                 existingShoppingList: nextProps.existingShoppingList
             });
+        }
+
+        if(nextProps.updateList !== this.state.updateList){
+            this.setState({updateList: nextProps.updateList});
+            this.editList.listToUpdate = nextProps.updateList;
         }
     }
 
