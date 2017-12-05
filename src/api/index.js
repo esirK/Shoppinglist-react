@@ -8,5 +8,6 @@ export const Api = {
     createUser: isProductionBuild ? productionApi.createUser : MockUserApi.createUser,
     loginUser: isProductionBuild ? productionApi.loginUser : MockUserApi.loginUser,
     createList: isProductionBuild ? productionApi.createList : MockListsApi.createList,
-    getLists: isProductionBuild ? productionApi.getLists : MockListsApi.getLists
+    getLists: isProductionBuild ? productionApi.getLists : MockListsApi.getLists,
+    updateList: isProductionBuild ? productionApi.updateList : MockListsApi.updateList
 };

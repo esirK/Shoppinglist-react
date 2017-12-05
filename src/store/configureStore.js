@@ -1,5 +1,8 @@
+import * as configureProductionStore from './configureStore.prod';
+import * as configureDevStore from './configureStore.dev';
+
 if(process.env.NODE_ENV === 'production') {
-    module.exports = require('./configureStore.prod');
+    module.exports = configureProductionStore;
 }else {
-    module.exports = require('./configureStore.dev');
+    module.exports = configureDevStore;
 }

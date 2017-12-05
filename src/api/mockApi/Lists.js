@@ -5,33 +5,35 @@ let lists = [
         id: 1,
         title: "back to school",
         created_on: "2017-10-12 10:40:32",
-        updated_on: "",
+        modified_on: "",
         user_id: 4567
     },
     {
         id: 2,
         title: "Weekend party",
         created_on: "2017-10-12 10:40:32",
-        updated_on: "",
+        modified_on: "",
         user_id: 4567
     },
     {
         id: 3,
         title: "Kisumu tour",
         created_on: "2017-10-12 10:40:32",
-        updated_on: "",
+        modified_on: "",
         user_id: 123456
     },
     {
         id: 4,
         title: "Picnic",
         created_on: "2017-10-12 10:40:32",
-        updated_on: "",
+        modified_on: "",
         user_id: 123456
     }
 ];
 
 const authenticatedUser = userIsAuthenticated();
+const dt = new Date();
+const utcDate = dt.toUTCString();
 
 class MockListsApi {
 
@@ -56,8 +58,8 @@ class MockListsApi {
                 const newList = {
                     id: generateRandomInt(),
                     title: list.title,
-                    created_on: "2017-11-15 10:40:32",
-                    updated_on: "",
+                    created_on: utcDate,
+                    modified_on: "",
                     user_id: 123456
                 };
                 lists.push(newList);
@@ -98,6 +100,41 @@ class MockListsApi {
                 }
 
                 resolve(validLists);
+            }, delay);
+        });
+    }
+
+
+    static updateList(newListDetails) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+
+                if (authenticatedUser === false) {
+                    reject("Unauthorised Access");
+                }
+
+                if (newListDetails.title === "") {
+                    reject("shoppinglist title must be provided");
+                    return;
+                }
+
+                if (lists.findIndex(a => a.title.toUpperCase() === newListDetails.title.toUpperCase() &&
+                        a.user_id === authenticatedUser) !== -1) {
+                    reject("Shoppinglist with similar tityle already exists");
+                    return;
+                }
+
+                let updatedList = {};
+                lists.map((list) => {
+
+                    if(list.id.toString() === newListDetails.id.toString()){
+                        list.title = newListDetails.title;
+                        list.modified_on = utcDate;
+                        updatedList = list;
+                    }
+                });
+
+                resolve(updatedList);
             }, delay);
         });
     }

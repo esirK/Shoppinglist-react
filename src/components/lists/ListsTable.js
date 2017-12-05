@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import ListsTableRow from './ListsTableRow';
 
-const ListsTable = ({lists, editHandler, deleteHandler}) => {
+const ListsTable = ({lists, editHandler, deleteHandler, loading}) => {
     return (
         <table className="ui celled table col-md-12" id="shoppinglistTable">
             <thead>
@@ -18,6 +18,7 @@ const ListsTable = ({lists, editHandler, deleteHandler}) => {
                     <ListsTableRow
                         key={list.id}
                         list={list}
+                        loading={loading}
                         index={index}
                         deleteHandler={deleteHandler}
                         editHandler={editHandler}
@@ -30,7 +31,8 @@ const ListsTable = ({lists, editHandler, deleteHandler}) => {
 ListsTable.propTypes = {
     lists: PropTypes.array.isRequired,
     editHandler: PropTypes.object.isRequired,
-    deleteHandler: PropTypes.func.isRequired
+    deleteHandler: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired
 };
 
 export default ListsTable;
