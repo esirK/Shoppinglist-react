@@ -2,16 +2,22 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ListsTable from './ListsTable';
+import {showNotification} from '../helpers/sharedFunctions';
 import CreateListForm from './CreateListForm';
-import {loadShoppingLists, createList, initializeListEditor} from '../../actions/listAction';
-import toastr from 'toastr';
+import {loadShoppingLists, createList, initializeListEditor, updateShoppingList} from '../../actions/listAction';
 import JQuery from 'jquery';
 
 class Lists extends React.Component{
 
-    static updateShoppingList(event) {
-        event.preventDefault();
-    }
+    // static createShoppingList = (event) => {
+    //     event.preventDefault();
+    //     this.props.createList(this.state.newShoppingList)
+    //         .then(() => {
+    //             showNotification('success', this.state.newShoppingList.title +' has been created.');
+    //         }).catch(error => {
+    //         showNotification('error', error);
+    //     });
+    // };
 
     constructor(props, context) {
         super(props, context);
@@ -30,18 +36,24 @@ class Lists extends React.Component{
                 oldShoppingList.id = JQuery(listsRow).attr('id');
                 props.initializeListEditor(oldShoppingList);
             },
-
             onchange: (event) => {
-                let oldShoppingList = this.state.oldShoppingList;
-                oldShoppingList.title = JQuery(event.target).val();
-                this.setState({oldShoppingList: oldShoppingList});
+                let oldShoppingList = this.state.updateList;
+                oldShoppingList.title = event.target.value;
+                this.setState({updateList: oldShoppingList});
+            },
+            onblur: (event) => {
+                const updatedList = Object.assign({}, this.state.updateList);
+                props.updateShoppingList(updatedList).then((list) => {
+                    showNotification('success', 'Update Successful');
+                }).catch((error) => {
+                    showNotification('error', error);
+                });
             },
             listToUpdate: this.state.updateList
         };
     }
 
     componentWillReceiveProps(nextProps){
-        console.log(nextProps);
         if(nextProps.loading !== this.state.loading){
             this.setState({
                 loading: nextProps.loading
@@ -78,11 +90,9 @@ class Lists extends React.Component{
         event.preventDefault();
         this.props.createList(this.state.newShoppingList)
             .then(() => {
-            toastr.clear();
-            toastr.success(this.state.newShoppingList.title +' has been created.');
+                showNotification('success', this.state.newShoppingList.title +' has been created.');
         }).catch(error => {
-            toastr.clear();
-            toastr.error(error);
+            showNotification('error', error);
         });
     };
 
@@ -92,12 +102,11 @@ class Lists extends React.Component{
             <div className="mid-center">
                 <h3>My shopping-lists</h3>
                 <div id="shoppinglist">
-                    <form method="post" onSubmit={this.updateShoppingList}>
-                        <ListsTable
-                            editHandler={this.editList}
-                            deleteHandler={this.deleteList}
-                            lists={this.state.existingShoppingList}/>
-                    </form>
+                    <ListsTable
+                        editHandler={this.editList}
+                        deleteHandler={this.deleteList}
+                        loading={this.state.loading}
+                        lists={this.state.existingShoppingList}/>
                     <br />
                     <CreateListForm
                         onSubmit={this.createShoppingList}
@@ -128,6 +137,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        updateShoppingList: bindActionCreators(updateShoppingList, dispatch),
         loadShoppingLists: bindActionCreators(loadShoppingLists, dispatch),
         createList : bindActionCreators(createList, dispatch),
         initializeListEditor : bindActionCreators(initializeListEditor, dispatch)

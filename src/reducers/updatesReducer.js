@@ -7,6 +7,9 @@ export default function updatesReducer(state = initialState.editList, action) {
         case actionTypes.INITIALIZE_LIST_EDITOR:
             return action.list;
 
+        case actionTypes.UPDATE_LIST_SUCCESS:
+            return initialState.editList;
+
         default:
             return state;
     }
