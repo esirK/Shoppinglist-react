@@ -81,3 +81,7 @@ export const createItem = (listId, item) => {
     return fetchFromApi('post', endpoint, item);
 };
 
+export const deleteItem = (itemId) => {
+    let endpoint = baseUrl + '/items/'+itemId;
+    return fetchFromApi('delete', endpoint);
+};

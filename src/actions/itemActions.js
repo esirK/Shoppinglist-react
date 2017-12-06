@@ -25,6 +25,28 @@ export function loadItems(list_id, item_id=null) {
     };
 }
 
+function deleteItemSuccess(itemId) {
+    return {type: actionTypes.DELETE_ITEM_SUCCESS, itemId};
+}
+
+function deleteItemsFail() {
+    return {type: actionTypes.DELETE_ITEM_FAIL};
+}
+
+export function deleteItem(itemId) {
+    return function (dispatch) {
+        dispatch(initiateAjaxCall());
+        return Api.deleteItem(itemId).then(() => {
+            dispatch(deleteItemSuccess(itemId));
+        }).catch(error => {
+            dispatch(deleteItemsFail());
+            reAuthenticateIfStatusCodeIs401(error);
+                throw(error);
+            }
+        );
+    };
+}
+
 function createItemSuccess() {
     return {type: actionTypes.CREATE_ITEM_SUCCESS};
 }

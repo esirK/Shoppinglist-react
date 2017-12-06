@@ -104,6 +104,24 @@ class ItemsApi {
         });
 
     }
+
+    static deleteItem(itemId){
+
+        return new Promise((resolve, reject) => {
+
+            if (authenticatedUser === false) {
+                reject("Unauthorised Access");
+            }
+
+            const itemIndex = items.findIndex(a => a.id === parseInt(itemId));
+            if (itemIndex !== -1) {
+                items.splice(itemIndex, 1);
+                resolve('Item has been deleted successfully');
+                return;
+            }
+        });
+
+    }
 }
 
 export default ItemsApi;

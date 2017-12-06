@@ -7,6 +7,12 @@ export default function itemsReducer(state = initialState.items, action) {
         case actionTypes.LOAD_ITEM_SUCCESS:
             return action.items;
 
+        case actionTypes.DELETE_ITEM_SUCCESS: {
+            let newItemsState = Object.assign([], state);
+            newItemsState.splice(newItemsState.findIndex(a => parseInt(a.id) === parseInt(action.itemId)), 1);
+            return newItemsState;
+        }
+
         default:
             return state;
     }
