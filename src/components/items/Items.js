@@ -73,19 +73,19 @@ class Items extends React.Component{
         newItem[field] = event.target.value;
         return this.setState({newItem: newItem});
     };
-    //
-    // deleteList = (event) => {
-    //     const listsRow = JQuery(event.target).closest('tr');
-    //     const shoppingList = JQuery(listsRow).find('.list-title').text();
-    //     const listsId = JQuery(event.target).closest('tr').attr('id');
-    //     this.props.deleteItem(listsId)
-    //         .then(() => {
-    //             showNotification('success', '`'+shoppingList+'` has been deleted.');
-    //         }).catch(error => {
-    //         showNotification('error', error);
-    //     });
-    // };
-    //
+
+    deleteItem = (event) => {
+        const itemRow = JQuery(event.target).closest('tr');
+        const item = JQuery(itemRow).find('.item-name').text();
+        const itemId = JQuery(event.target).closest('tr').attr('id');
+        this.props.deleteItem(itemId)
+            .then(() => {
+                showNotification('success', '`'+item+'` has been deleted.');
+            }).catch(error => {
+            showNotification('error', error);
+        });
+    };
+
     createItem = (event) => {
         event.preventDefault();
         this.props.createItem(this.props.currentShoppingList, this.state.newItem)
@@ -104,7 +104,7 @@ class Items extends React.Component{
                 <div id="shoppinglist">
                     <ItemsTable
                         // editHandler={this.editList}
-                        // deleteHandler={this.deleteList}
+                        deleteHandler={this.deleteItem}
                         loading={this.state.loading}
                         items={this.state.items}/>
                     <br />
@@ -138,7 +138,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        // deleteItem: bindActionCreators(itemActions.deleteItem, dispatch),
+        deleteItem: bindActionCreators(itemActions.deleteItem, dispatch),
         // updateItem: bindActionCreators(itemActions.updateItem, dispatch),
         loadItems: bindActionCreators(itemActions.loadItems, dispatch),
         createItem : bindActionCreators(itemActions.createItem, dispatch),
