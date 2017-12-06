@@ -1,4 +1,4 @@
-import {delay, generateRandomInt}  from './helper'; // setTimeout delay to simulate the delay of an AJAX call to a server.
+import {delay, generateRandomInt, userIsAuthenticated} from './helper'; // setTimeout delay to simulate the delay of an AJAX call to a server.
 
 // This file mocks the shoppinglist web API
 const items = [
@@ -33,40 +33,64 @@ const items = [
 ];
 
 
+const authenticatedUser = userIsAuthenticated();
 
 class ItemsApi {
 
-    static createItem(item) {
+    static createItem(listId, item) {
         item = Object.assign({}, item); // create a copy of object passed in to avoid manipulating object passed in.
         return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                // todo: Simulate server-side form data validation
-                // todo: Simulating creating an item
 
-                resolve(item);
+            if (authenticatedUser === false) {
+                reject("Unauthorised Access");
+            }
 
-            }, delay);
+            if (item.name === "") {
+                reject("item name must be provided");
+                return;
+            }
+
+            if (items.findIndex(a => a.name.toUpperCase() === item.name.toUpperCase()) !== -1) {
+                reject(`\`${item.name}\` already exists`);
+                return;
+            }
+
+            const newItem = {
+                id: generateRandomInt(),
+                name: item.name,
+                shoppinglist_id: parseInt(listId),
+                price: item.price,
+                quantity: item.quantity
+            };
+
+            items.push(newItem);
+            resolve(item);
         });
     }
 
-    static listItems(list_id, item_id = null){
+    static listItems(listId, itemId = null){
 
         return new Promise((resolve, reject) => {
+
+            if (authenticatedUser === false) {
+                reject("Unauthorised Access");
+            }
+
             let itemsInCurrentList = [];
             let validItems;
 
             items.map((item) => {
-                if (item.shoppinglist_id === list_id) {
+                if (item.shoppinglist_id === parseInt(listId)) {
                     itemsInCurrentList.push(item);
                 }
             });
 
             validItems = itemsInCurrentList;
 
-            if (item_id !== null) {
+            if (itemId !== null) {
                 validItems = [];
                 items.map((item) => {
-                    if (item.id() === item_id) {
+                    if (item.id() === itemId) {
                         validItems.push(item);
                     }
                 });

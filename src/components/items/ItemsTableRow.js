@@ -1,18 +1,24 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
-const ItemsTableRow = ({list, index}) => {
+const ItemsTableRow = ({item, index}) => {
     return (
         <tr>
             <td>{index+1}</td>
             <td>
-                <Link to={"/lists/"+ list.id}> {list.title} </Link>
+                <a> {item.name} </a>
             </td>
-            <td>{list.created_on}</td>
-            <td>{list.updated_on}</td>
+            <td>{item.price}</td>
+            <td>{item.quantity}</td>
             <td>
-                <span className="fa fa-edit"></span>
-                <span className="fa fa-trash-o"></span>
+                <btn
+                    className="btn btn-default edit-btn">
+                    <i className="fa fa-pencil"></i>
+                </btn>
+                <btn
+                    className="btn btn-default delete-btn">
+                    <i className="fa fa-trash"></i>
+                </btn>
             </td>
         </tr>
     );
@@ -21,7 +27,7 @@ const ItemsTableRow = ({list, index}) => {
 
 
 ItemsTableRow.propTypes = {
-    list: PropTypes.object.isRequired,
+    item: PropTypes.object.isRequired,
     index: PropTypes.number.isRequired
 };
 

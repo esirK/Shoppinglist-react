@@ -8,8 +8,8 @@ const ItemsTable = ({items}) => {
             <tr>
                 <th>NO.</th>
                 <th>Title</th>
-                <th>Created On</th>
-                <th>Updated On</th>
+                <th>Price</th>
+                <th>Quantity</th>
                 <th>Actions</th>
             </tr>
             </thead>
