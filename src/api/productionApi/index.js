@@ -71,3 +71,13 @@ export const updateList = (list) => {
     return fetchFromApi('put', endpoint, list);
 };
 
+export const listItems = (listId) => {
+    let endpoint = baseUrl + '/shoppinglist/'+listId+'/items';
+    return fetchFromApi('get', endpoint);
+};
+
+export const createItem = (listId, item) => {
+    let endpoint = baseUrl + '/shoppinglist/'+listId+'/items';
+    return fetchFromApi('post', endpoint, item);
+};
+

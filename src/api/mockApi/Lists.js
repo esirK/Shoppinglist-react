@@ -151,7 +151,7 @@ class MockListsApi {
                 const indexOfList = lists.findIndex(a => a.id === listId && a.user_id === authenticatedUser);
                 if (indexOfList !== -1) {
                     lists.splice(indexOfList, 1);
-                    resolve("Shoppinglist has been deleted successfully");
+                    resolve("Shoppinglist has been deleted successfully", 200);
                     return;
                 }else{
                     reject("Shoppinglist doesn't exist");

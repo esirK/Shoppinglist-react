@@ -2,54 +2,97 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ItemsTable from './ItemsTable';
+import {showNotification} from '../helpers/sharedFunctions';
 import CreateItemForm from './CreateItemForm';
-import {loadShoppingLists, createList} from '../../actions/listAction';
-import toastr from 'toastr';
+import * as itemActions from '../../actions/itemActions';
+import JQuery from 'jquery';
 
 class Items extends React.Component{
-
-    static updateShoppingList(event) {
-        event.preventDefault();
-    }
 
     constructor(props, context) {
         super(props, context);
         this.state = {
-            listId: props.listId,
+            // updateList: props.updateList,
             items: props.items,
             newItem: props.newItem,
             loading: props.loading
         };
+
+        // this.editItem = {
+        //     initialize: (event) => {
+        //         let oldItem = {};
+        //         const listsRow = JQuery(event.target).closest('tr');
+        //         oldItem.title = JQuery(listsRow).find('.list-title').text();
+        //         oldItem.id = JQuery(listsRow).attr('id');
+        //         props.initializeListEditor(oldItem);
+        //     },
+        //     onchange: (event) => {
+        //         let oldItem = this.state.updateList;
+        //         oldItem.title = event.target.value;
+        //         this.setState({updateList: oldItem});
+        //     },
+        //     onblur: (event) => {
+        //         const updatedList = Object.assign({}, this.state.updateList);
+        //         props.updateItem(updatedList).then((list) => {
+        //             showNotification('success', 'Update Successful');
+        //         }).catch((error) => {
+        //             showNotification('error', error);
+        //         });
+        //     },
+        //     listToUpdate: this.state.updateList
+        // };
     }
 
     componentWillReceiveProps(nextProps){
+
         if(nextProps.loading !== this.state.loading){
             this.setState({
                 loading: nextProps.loading
             });
         }
+
+        if(nextProps.items !== this.state.items){
+            this.setState({
+                items: nextProps.items
+            });
+        }
+    //
+    //     if(nextProps.updateList !== this.state.updateList){
+    //         this.setState({updateList: nextProps.updateList});
+    //         this.editList.listToUpdate = nextProps.updateList;
+    //     }
     }
 
     componentDidMount(){
-        this.props.loadShoppingLists();
+        this.props.loadItems(this.props.currentShoppingList);
     }
 
-    updateListState = (event) => {
+    updateNewItemState = (event) => {
         const field = event.target.name;
         let newItem = this.state.newItem;
         newItem[field] = event.target.value;
         return this.setState({newItem: newItem});
     };
-
-    createShoppingList = (event) => {
+    //
+    // deleteList = (event) => {
+    //     const listsRow = JQuery(event.target).closest('tr');
+    //     const shoppingList = JQuery(listsRow).find('.list-title').text();
+    //     const listsId = JQuery(event.target).closest('tr').attr('id');
+    //     this.props.deleteItem(listsId)
+    //         .then(() => {
+    //             showNotification('success', '`'+shoppingList+'` has been deleted.');
+    //         }).catch(error => {
+    //         showNotification('error', error);
+    //     });
+    // };
+    //
+    createItem = (event) => {
         event.preventDefault();
-        this.props.createList(this.state.newItem)
+        this.props.createItem(this.props.currentShoppingList, this.state.newItem)
             .then(() => {
-                toastr.clear();
-                toastr.success(this.state.newItem.name +' has been created.');
+                showNotification('success', this.state.newItem.name +' has been created.');
             }).catch(error => {
-            toastr.clear();
-            toastr.error(error);
+            showNotification('error', error);
         });
     };
 
@@ -57,13 +100,17 @@ class Items extends React.Component{
     render(){
         return(
             <div className="mid-center">
-                <h3>My shopping-items</h3>
+                <h3>My Shoppinglist Items</h3>
                 <div id="shoppinglist">
-                    <ItemsTable items={this.props.items}/>
+                    <ItemsTable
+                        // editHandler={this.editList}
+                        // deleteHandler={this.deleteList}
+                        loading={this.state.loading}
+                        items={this.state.items}/>
                     <br />
                     <CreateItemForm
-                        onSubmit={this.createShoppingList}
-                        onChange={this.updateListState}
+                        onSubmit={this.createItem}
+                        onChange={this.updateNewItemState}
                         loading={this.state.loading}
                         item={this.state.newItem} />
                 </div>
@@ -73,19 +120,17 @@ class Items extends React.Component{
     }
 }
 
-//
-// Items.propTypes = {
-//     items: PropTypes.array.isRequired
-// };
+
+Items.propTypes = {
+    items: PropTypes.array.isRequired
+};
 
 
 function mapStateToProps(state, ownProps) {
-    let newItem = {
-        name: ""
-    };
     return {
-        listId: ownProps.params.id,
-        newItem: newItem,
+        currentShoppingList: ownProps.params.id,
+        newItem: {name:"", price: "", quantity: ""},
+        // updateList: state.editList,
         items: state.items,
         loading: state.ajaxCallsInProgress > 0
     };
@@ -93,8 +138,11 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadShoppingLists: bindActionCreators(loadShoppingLists, dispatch),
-        createList : bindActionCreators(createList, dispatch)
+        // deleteItem: bindActionCreators(itemActions.deleteItem, dispatch),
+        // updateItem: bindActionCreators(itemActions.updateItem, dispatch),
+        loadItems: bindActionCreators(itemActions.loadItems, dispatch),
+        createItem : bindActionCreators(itemActions.createItem, dispatch),
+        // initializeListEditor : bindActionCreators(itemActions.initializeListEditor, dispatch)
     };
 }
 
