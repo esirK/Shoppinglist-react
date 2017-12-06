@@ -39,7 +39,7 @@ const ListsTableRow = ({list, index, deleteHandler, editHandler, loading}) => {
                     disabled={loading === true}
                     onClick={loading === false && deleteHandler}
                     className="btn btn-default delete-btn">
-                    <i className="fa fa-trash"> .</i>
+                    <i className="fa fa-trash"></i>
                 </btn>
             </td>
         </tr>

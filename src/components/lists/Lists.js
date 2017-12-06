@@ -4,20 +4,10 @@ import {bindActionCreators} from 'redux';
 import ListsTable from './ListsTable';
 import {showNotification} from '../helpers/sharedFunctions';
 import CreateListForm from './CreateListForm';
-import {loadShoppingLists, createList, initializeListEditor, updateShoppingList} from '../../actions/listAction';
+import * as listActions from '../../actions/listAction';
 import JQuery from 'jquery';
 
 class Lists extends React.Component{
-
-    // static createShoppingList = (event) => {
-    //     event.preventDefault();
-    //     this.props.createList(this.state.newShoppingList)
-    //         .then(() => {
-    //             showNotification('success', this.state.newShoppingList.title +' has been created.');
-    //         }).catch(error => {
-    //         showNotification('error', error);
-    //     });
-    // };
 
     constructor(props, context) {
         super(props, context);
@@ -83,7 +73,15 @@ class Lists extends React.Component{
     };
 
     deleteList = (event) => {
-
+        const listsRow = JQuery(event.target).closest('tr');
+        const shoppingList = JQuery(listsRow).find('.list-title').text();
+        const listsId = JQuery(event.target).closest('tr').attr('id');
+        this.props.deleteShoppingList(listsId)
+            .then(() => {
+            showNotification('success', '`'+shoppingList+'` has been deleted.');
+        }).catch(error => {
+            showNotification('error', error);
+        });
     };
 
     createShoppingList = (event) => {
@@ -137,10 +135,11 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateShoppingList: bindActionCreators(updateShoppingList, dispatch),
-        loadShoppingLists: bindActionCreators(loadShoppingLists, dispatch),
-        createList : bindActionCreators(createList, dispatch),
-        initializeListEditor : bindActionCreators(initializeListEditor, dispatch)
+        deleteShoppingList: bindActionCreators(listActions.deleteShoppingList, dispatch),
+        updateShoppingList: bindActionCreators(listActions.updateShoppingList, dispatch),
+        loadShoppingLists: bindActionCreators(listActions.loadShoppingLists, dispatch),
+        createList : bindActionCreators(listActions.createList, dispatch),
+        initializeListEditor : bindActionCreators(listActions.initializeListEditor, dispatch)
     };
 }
 

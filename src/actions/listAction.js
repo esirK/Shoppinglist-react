@@ -39,6 +39,28 @@ export function updateShoppingList(shoppingList){
     };
 }
 
+function deleteShoppingListSuccess() {
+    return {type: actionTypes.DELETE_LIST_SUCCESS};
+}
+
+function deleteShoppingListFail() {
+    return {type: actionTypes.DELETE_LIST_FAIL};
+}
+
+export function deleteShoppingList(shoppingList) {
+    return function (dispatch) {
+        dispatch(initiateAjaxCall());
+        return Api.deleteList(shoppingList).then(() => {
+            dispatch(deleteShoppingListSuccess());
+            dispatch(loadShoppingLists());
+        }).catch(error => {
+            dispatch(deleteShoppingListFail());
+            reAuthenticateIfStatusCodeIs401(error);
+            throw(error);
+        });
+    };
+}
+
 function createShoppingListsSuccess() {
     return {type: actionTypes.CREATE_LIST_SUCCESS};
 }

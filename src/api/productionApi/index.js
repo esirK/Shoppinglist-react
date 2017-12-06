@@ -61,6 +61,11 @@ export const getLists = () => {
     return fetchFromApi('get', endpoint);
 };
 
+export const deleteList = (listId) => {
+    let endpoint = baseUrl + '/shoppinglist/'+listId;
+    return fetchFromApi('delete', endpoint);
+};
+
 export const updateList = (list) => {
     let endpoint = baseUrl + '/shoppinglist/'+list.id+'/';
     return fetchFromApi('put', endpoint, list);
