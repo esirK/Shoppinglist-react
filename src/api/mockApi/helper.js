@@ -1,4 +1,4 @@
-export const delay = 1000;
+export const delay = 0;
 export const secret_key = 'random_secret_key';
 import jsonwebtoken  from 'jsonwebtoken';
 

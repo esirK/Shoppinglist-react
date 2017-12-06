@@ -139,6 +139,27 @@ class MockListsApi {
         });
     }
 
+    static deleteList(listId) {
+        listId = parseInt(listId);
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+
+                if (authenticatedUser === false) {
+                    reject("Unauthorised Access");
+                }
+
+                const indexOfList = lists.findIndex(a => a.id === listId && a.user_id === authenticatedUser);
+                if (indexOfList !== -1) {
+                    lists.splice(indexOfList, 1);
+                    resolve("Shoppinglist has been deleted successfully");
+                    return;
+                }else{
+                    reject("Shoppinglist doesn't exist");
+                }
+            }, delay);
+        });
+    }
+
 }
 
 export default MockListsApi;
