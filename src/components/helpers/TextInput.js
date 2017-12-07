@@ -1,6 +1,16 @@
 import React, {PropTypes} from 'react';
 
-const TextInput = ({name = '', onChange, onBlur = '', value = '', disabled = false,  placeholder, type = 'text', step="1"}) =>{
+const TextInput = ({
+                       name = '',
+                       onChange,
+                       onBlur = '',
+                       value = '',
+                       disabled = false,
+                       placeholder,
+                       type = 'text',
+                       step="1",
+                       minValue="1"
+}) =>{
 
     return (
         <div className="form-group">
@@ -14,6 +24,7 @@ const TextInput = ({name = '', onChange, onBlur = '', value = '', disabled = fal
                 name={name}
                 value={value}
                 onBlur={onBlur}
+                min={minValue}
                 onChange={onChange} />
         </div>
     );
@@ -27,6 +38,7 @@ TextInput.propTypes = {
     onBlur: PropTypes.func,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string,
+    minValue: PropTypes.string,
     type: PropTypes.string,
     placeholder: PropTypes.string
 };

@@ -68,6 +68,39 @@ class ItemsApi {
         });
     }
 
+    static updateItem(item) {
+        item = Object.assign({}, item); // create a copy of object passed in to avoid manipulating object passed in.
+        return new Promise((resolve, reject) => {
+            const itemData = Object.assign({}, item.data);
+
+            if (authenticatedUser === false) {
+                reject("Unauthorised Access");
+            }
+
+            if (itemData.name === "") {
+                reject("item name must be provided");
+                return;
+            }
+
+            if (itemData.quantity === "" || itemData.price === "") {
+                reject("item price and quantity must be provided");
+                return;
+            }
+
+            const itemIndex = items.findIndex(a => parseInt(a.id) === parseInt(item.id));
+            if (itemIndex === -1) {
+                reject('Item does not exists');
+                return;
+            }
+
+            items[itemIndex].name =  itemData.name;
+            items[itemIndex].price =  parseFloat(itemData.price);
+            items[itemIndex].quantity =  parseFloat(itemData.quantity);
+
+            resolve(item);
+        });
+    }
+
     static listItems(listId, itemId = null){
 
         return new Promise((resolve, reject) => {

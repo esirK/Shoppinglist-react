@@ -28,7 +28,7 @@ class Lists extends React.Component{
             },
             onchange: (event) => {
                 let oldShoppingList = this.state.updateList;
-                oldShoppingList.title = event.target.value;
+                oldShoppingList.data = event.target.value;
                 this.setState({updateList: oldShoppingList});
             },
             onblur: (event) => {
@@ -56,8 +56,10 @@ class Lists extends React.Component{
         }
 
         if(nextProps.updateList !== this.state.updateList){
-            this.setState({updateList: nextProps.updateList});
-            this.editList.listToUpdate = nextProps.updateList;
+            if(nextProps.updateList.type === "list" || nextProps.updateList.type === "") {
+                this.setState({updateList: nextProps.updateList});
+                this.editList.listToUpdate = nextProps.updateList;
+            }
         }
     }
 
@@ -127,7 +129,7 @@ Lists.propTypes = {
 function mapStateToProps(state, ownProps) {
     return {
         newShoppingList: state.lists.newShoppingList,
-        updateList: state.editList,
+        updateList: state.edit,
         existingShoppingList: state.lists.existingShoppingList,
         loading: state.ajaxCallsInProgress > 0
     };

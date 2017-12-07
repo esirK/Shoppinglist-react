@@ -12,35 +12,30 @@ class Items extends React.Component{
     constructor(props, context) {
         super(props, context);
         this.state = {
-            // updateList: props.updateList,
+            itemToBeUpdated: props.itemToBeUpdated,
             items: props.items,
             newItem: props.newItem,
             loading: props.loading
         };
 
-        // this.editItem = {
-        //     initialize: (event) => {
-        //         let oldItem = {};
-        //         const listsRow = JQuery(event.target).closest('tr');
-        //         oldItem.title = JQuery(listsRow).find('.list-title').text();
-        //         oldItem.id = JQuery(listsRow).attr('id');
-        //         props.initializeListEditor(oldItem);
-        //     },
-        //     onchange: (event) => {
-        //         let oldItem = this.state.updateList;
-        //         oldItem.title = event.target.value;
-        //         this.setState({updateList: oldItem});
-        //     },
-        //     onblur: (event) => {
-        //         const updatedList = Object.assign({}, this.state.updateList);
-        //         props.updateItem(updatedList).then((list) => {
-        //             showNotification('success', 'Update Successful');
-        //         }).catch((error) => {
-        //             showNotification('error', error);
-        //         });
-        //     },
-        //     listToUpdate: this.state.updateList
-        // };
+        this.editItem = {
+            initialize: (event) => {
+                let oldItem = {data:{}, id: ""};
+                const listsRow = JQuery(event.target).closest('tr');
+                oldItem.data.name = JQuery(listsRow).find('.item-name').text();
+                oldItem.data.price = parseFloat(JQuery(listsRow).find('.item-price').text());
+                oldItem.data.quantity = parseFloat(JQuery(listsRow).find('.item-quantity').text());
+                oldItem.id = JQuery(listsRow).attr('id');
+                props.initializeItemEditor(oldItem);
+            },
+            onchange: (event) => {
+                let oldItem = this.state.itemToBeUpdated;
+                const field = event.target.name;
+                oldItem.data[field] = event.target.value;
+                this.setState({updateList: oldItem});
+            },
+            itemToBeUpdated: this.state.itemToBeUpdated
+        };
     }
 
     componentWillReceiveProps(nextProps){
@@ -56,11 +51,11 @@ class Items extends React.Component{
                 items: nextProps.items
             });
         }
-    //
-    //     if(nextProps.updateList !== this.state.updateList){
-    //         this.setState({updateList: nextProps.updateList});
-    //         this.editList.listToUpdate = nextProps.updateList;
-    //     }
+
+        if(nextProps.itemToBeUpdated !== this.state.itemToBeUpdated){
+            this.setState({itemToBeUpdated: nextProps.itemToBeUpdated});
+            this.editItem.itemToBeUpdated = nextProps.itemToBeUpdated;
+        }
     }
 
     componentDidMount(){
@@ -86,6 +81,16 @@ class Items extends React.Component{
         });
     };
 
+    updateItem = (event) => {
+        event.preventDefault();
+        const updatedItem = Object.assign({}, this.state.itemToBeUpdated);
+        this.props.updateItem(updatedItem).then((item) => {
+            showNotification('success', 'Update Successful');
+        }).catch((error) => {
+            showNotification('error', error);
+        });
+    };
+
     createItem = (event) => {
         event.preventDefault();
         this.props.createItem(this.props.currentShoppingList, this.state.newItem)
@@ -102,11 +107,13 @@ class Items extends React.Component{
             <div className="mid-center">
                 <h3>My Shoppinglist Items</h3>
                 <div id="shoppinglist">
-                    <ItemsTable
-                        // editHandler={this.editList}
-                        deleteHandler={this.deleteItem}
-                        loading={this.state.loading}
-                        items={this.state.items}/>
+                    <form onSubmit={this.updateItem}>
+                        <ItemsTable
+                            editHandler={this.editItem}
+                            deleteHandler={this.deleteItem}
+                            loading={this.state.loading}
+                            items={this.state.items}/>
+                    </form>
                     <br />
                     <CreateItemForm
                         onSubmit={this.createItem}
@@ -130,7 +137,7 @@ function mapStateToProps(state, ownProps) {
     return {
         currentShoppingList: ownProps.params.id,
         newItem: {name:"", price: "", quantity: ""},
-        // updateList: state.editList,
+        itemToBeUpdated: state.edit,
         items: state.items,
         loading: state.ajaxCallsInProgress > 0
     };
@@ -139,10 +146,10 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return {
         deleteItem: bindActionCreators(itemActions.deleteItem, dispatch),
-        // updateItem: bindActionCreators(itemActions.updateItem, dispatch),
+        updateItem: bindActionCreators(itemActions.updateItem, dispatch),
         loadItems: bindActionCreators(itemActions.loadItems, dispatch),
         createItem : bindActionCreators(itemActions.createItem, dispatch),
-        // initializeListEditor : bindActionCreators(itemActions.initializeListEditor, dispatch)
+        initializeItemEditor : bindActionCreators(itemActions.initializeItemEditor, dispatch)
     };
 }
 

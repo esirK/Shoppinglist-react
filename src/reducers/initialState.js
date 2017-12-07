@@ -8,5 +8,5 @@ export default {
     },
     items: [],
     ajaxCallsInProgress: 0,
-    editList: {id: "", title: ""}
+    edit: {type:"", id: "", data: ""}
 };
