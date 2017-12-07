@@ -19,7 +19,7 @@ const ItemsTable = ({items, editHandler, deleteHandler, loading}) => {
                         key={item.id}
                         item={item}
                         deleteHandler={deleteHandler}
-                        // editHandler={editHandler}
+                        editHandler={editHandler}
                         index={index}
                         loading={loading}
                     />)}
@@ -30,7 +30,7 @@ const ItemsTable = ({items, editHandler, deleteHandler, loading}) => {
 
 ItemsTable.propTypes = {
     items: PropTypes.array.isRequired,
-    // editHandler: PropTypes.object.isRequired,
+    editHandler: PropTypes.object.isRequired,
     deleteHandler: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired
 };

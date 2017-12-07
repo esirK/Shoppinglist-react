@@ -113,12 +113,12 @@ class MockListsApi {
                     reject("Unauthorised Access");
                 }
 
-                if (newListDetails.title === "") {
+                if (newListDetails.data === "") {
                     reject("shoppinglist title must be provided");
                     return;
                 }
 
-                if (lists.findIndex(a => a.title.toUpperCase() === newListDetails.title.toUpperCase() &&
+                if (lists.findIndex(a => a.title.toUpperCase() === newListDetails.data.toUpperCase() &&
                         a.user_id === authenticatedUser) !== -1) {
                     reject("Shoppinglist with similar tityle already exists");
                     return;
@@ -128,7 +128,7 @@ class MockListsApi {
                 lists.map((list) => {
 
                     if(list.id.toString() === newListDetails.id.toString()){
-                        list.title = newListDetails.title;
+                        list.title = newListDetails.data;
                         list.modified_on = utcDate;
                         updatedList = list;
                     }

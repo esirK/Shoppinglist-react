@@ -85,3 +85,8 @@ export const deleteItem = (itemId) => {
     let endpoint = baseUrl + '/items/'+itemId;
     return fetchFromApi('delete', endpoint);
 };
+
+export const updateItem = (updatedItem) => {
+    let endpoint = baseUrl + '/items/'+updatedItem.id;
+    return fetchFromApi('put', endpoint, updatedItem.data);
+};

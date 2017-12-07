@@ -12,7 +12,7 @@ const ListsTableRow = ({list, index, deleteHandler, editHandler, loading}) => {
                     editHandler.listToUpdate.id === list.id.toString() &&
                     <TextInput
                         disabled={loading === true}
-                        value={editHandler.listToUpdate.title}
+                        value={editHandler.listToUpdate.data}
                         onChange={editHandler.onchange}
                         onBlur={editHandler.onblur}
                         placeholder="New Title"/>

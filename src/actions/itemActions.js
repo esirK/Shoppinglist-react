@@ -69,3 +69,30 @@ export function createItem(listId, newItem) {
         );
     };
 }
+
+export function initializeItemEditor(item) {
+    return {type: actionTypes.INITIALIZE_ITEM_EDITOR, item};
+}
+
+function updateItemSuccess() {
+    return {type: actionTypes.UPDATE_ITEM_SUCCESS};
+}
+
+function updateItemFail() {
+    return {type: actionTypes.UPDATE_ITEM_FAIL};
+}
+
+export function updateItem(updatedItem) {
+    return function (dispatch) {
+        dispatch(initiateAjaxCall());
+        return Api.updateItem(updatedItem).then(() => {
+            dispatch(updateItemSuccess());
+        }).catch(error => {
+                dispatch(updateItemFail());
+                console.log(error);
+                reAuthenticateIfStatusCodeIs401(error);
+                throw(error);
+            }
+        );
+    };
+}
