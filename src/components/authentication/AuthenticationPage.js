@@ -7,6 +7,7 @@ import SignUpForm from './SignUpForm';
 import LoginForm from './LoginForm';
 import LoadingAnimation from '../helpers/LoadingAnimation';
 import {showNotification} from "../helpers/sharedFunctions";
+import WelcomeMessage from "./WelcomeMessage";
 
 class AuthenticationPage extends React.Component{
 
@@ -62,36 +63,39 @@ class AuthenticationPage extends React.Component{
     render(){
 
         return(
-            <div className="mid-right">
-                {this.props.module === 'signup' && <SignUpForm
-                    onSubmit={this.signUpUser}
-                    onChange={this.updateUserState}
-                    loading={this.state.loading}
-                    user={this.state.user} />}
+            <div>
+                <WelcomeMessage />
+                <div className="mid-right">
+                    {this.props.module === 'signup' && <SignUpForm
+                        onSubmit={this.signUpUser}
+                        onChange={this.updateUserState}
+                        loading={this.state.loading}
+                        user={this.state.user} />}
 
-                {this.props.module === 'login' && <LoginForm
-                    onSubmit={this.loginUser}
-                    onChange={this.updateUserState}
-                    loading={this.state.loading}
-                    user={this.state.user} />}
+                    {this.props.module === 'login' && <LoginForm
+                        onSubmit={this.loginUser}
+                        onChange={this.updateUserState}
+                        loading={this.state.loading}
+                        user={this.state.user} />}
 
-                <br/>
-                <br/>
-                {this.state.loading && <LoadingAnimation />}
+                    <br/>
+                    <br/>
+                    {this.state.loading && <LoadingAnimation />}
 
-                {this.props.module === 'login' &&
-                    <div className="alt-link">
-                        Don't have an account yet? &nbsp;&nbsp;&nbsp;
-                        <Link to="/signup" className="btn btn-warning">Sign Up</Link>
-                    </div>
-                }
-                {this.props.module === 'signup' &&
-                    <div className="alt-link">
-                        Already have an account? &nbsp;&nbsp;&nbsp;
-                        <Link to="/login" className="btn btn-warning">Sign in</Link>
-                    </div>
-                }
-                <br />
+                    {this.props.module === 'login' &&
+                        <div className="alt-link">
+                            Don't have an account yet? &nbsp;&nbsp;&nbsp;
+                            <Link to="/signup" className="btn btn-warning">Sign Up</Link>
+                        </div>
+                    }
+                    {this.props.module === 'signup' &&
+                        <div className="alt-link">
+                            Already have an account? &nbsp;&nbsp;&nbsp;
+                            <Link to="/login" className="btn btn-warning">Sign in</Link>
+                        </div>
+                    }
+                    <br />
+                </div>
             </div>
         );
     }

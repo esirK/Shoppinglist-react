@@ -5,7 +5,7 @@ const LoginForm = ({user, onChange, onSubmit, loading}) => {
 
     return (
         <form method="post" onSubmit={onSubmit}>
-            <h1>Login to your account</h1>
+            <h3>Login to your account</h3>
 
             <TextInput
                 value={user.username}

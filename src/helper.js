@@ -21,7 +21,8 @@ const reAuthenticate = ()=> {
 };
 
 export const reAuthenticateIfStatusCodeIs401 = (error) => {
-    if(String(error).includes('401')) {
-        reAuthenticate();
-    }
+    console.log(error);
+    // if(String(error).includes('401')) {
+    //     reAuthenticate();
+    // }
 };

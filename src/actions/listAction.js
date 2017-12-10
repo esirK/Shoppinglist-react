@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
 import {Api} from "../api";
 import {initiateAjaxCall} from "./ajaxStatusActions";
-import {reAuthenticateIfStatusCodeIs401} from "../helper";
 
 export function createList(shoppingList){
     return function (dispatch) {
@@ -11,7 +10,6 @@ export function createList(shoppingList){
             dispatch(loadShoppingLists());
         }).catch(error => {
             dispatch(createShoppingListsFail());
-            reAuthenticateIfStatusCodeIs401(error);
             throw(error);
         });
     };
@@ -33,7 +31,6 @@ export function updateShoppingList(shoppingList){
             dispatch(loadShoppingLists());
         }).catch(error => {
             dispatch(updateShoppingListFail());
-            reAuthenticateIfStatusCodeIs401(error);
             throw(error);
         });
     };
@@ -55,7 +52,6 @@ export function deleteShoppingList(shoppingList) {
             dispatch(loadShoppingLists());
         }).catch(error => {
             dispatch(deleteShoppingListFail());
-            reAuthenticateIfStatusCodeIs401(error);
             throw(error);
         });
     };
@@ -88,7 +84,6 @@ export function loadShoppingLists() {
             dispatch(loadShoppingListsSuccess(lists));
         }).catch(error => {
             loadShoppingListsFail();
-            reAuthenticateIfStatusCodeIs401(error);
             throw(error);
         });
     };

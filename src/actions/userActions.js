@@ -48,15 +48,3 @@ export function createUser(user) {
 export function getCurrentUserSuccess(user) {
     return {type: actionTypes.GET_CURRENT_USER_SUCCESS, user};
 }
-
-//
-// export function getCurrentUser(token) {
-//     return function (dispatch) {
-//         dispatch(initiateAjaxCall());
-//         return Api.getCurrentUser(token).then(user => {
-//             dispatch(getCurrentUserSuccess(user));
-//         }).catch(error => {
-//             throw(error);
-//         });
-//     };
-// }

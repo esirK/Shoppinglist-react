@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
 import {Api} from "../api";
 import {initiateAjaxCall} from "./ajaxStatusActions";
-import {reAuthenticateIfStatusCodeIs401} from "../helper";
 
 function loadListItemsSuccess(items) {
     return {type: actionTypes.LOAD_ITEM_SUCCESS, items};
@@ -18,7 +17,6 @@ export function loadItems(list_id, item_id=null) {
             dispatch(loadListItemsSuccess(items));
         }).catch(error => {
             dispatch(loadListItemsFail());
-            reAuthenticateIfStatusCodeIs401(error);
                 throw(error);
             }
         );
@@ -40,7 +38,6 @@ export function deleteItem(itemId) {
             dispatch(deleteItemSuccess(itemId));
         }).catch(error => {
             dispatch(deleteItemsFail());
-            reAuthenticateIfStatusCodeIs401(error);
                 throw(error);
             }
         );
@@ -63,7 +60,6 @@ export function createItem(listId, newItem) {
             dispatch(loadItems(listId));
         }).catch(error => {
             dispatch(createItemFail());
-            reAuthenticateIfStatusCodeIs401(error);
                 throw(error);
             }
         );
@@ -90,7 +86,6 @@ export function updateItem(updatedItem) {
         }).catch(error => {
                 dispatch(updateItemFail());
                 console.log(error);
-                reAuthenticateIfStatusCodeIs401(error);
                 throw(error);
             }
         );

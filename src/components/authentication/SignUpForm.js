@@ -5,7 +5,8 @@ const SignUpForm = ({user, onChange, onSubmit, loading}) => {
 
     return (
         <form method="post" onSubmit={onSubmit}>
-            <h1>Create account</h1>
+            <h2>Get Started</h2>
+            <h3>Sign up for an account</h3>
 
             <TextInput
                 value={user.firstname}
@@ -33,7 +34,7 @@ const SignUpForm = ({user, onChange, onSubmit, loading}) => {
                 name="password"/>
 
             <br />
-            {user.security_question}?
+            Security Question: &nbsp; {user.security_question}?
             <TextInput
                 value={user.answer}
                 onChange={onChange}
@@ -45,7 +46,7 @@ const SignUpForm = ({user, onChange, onSubmit, loading}) => {
                 className="btn btn-primary"
                 disabled={loading}
                 type="submit">
-                {loading ? 'Creating...' : 'Create'}
+                {loading ? 'Processing...' : 'Sign Up'}
             </button>
 
         </form>
