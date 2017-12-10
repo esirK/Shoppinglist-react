@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {reAuthenticateIfStatusCodeIs401} from "../../helper";
 
 const baseUrl = 'http://localhost:5000';
 const config = {
@@ -15,8 +16,11 @@ function fetchFromApi(method, endpoint, data=null){
                 resolve(response.data);
             })
             .catch(error => {
+                if(!endpoint.includes('login')) {
+                    reAuthenticateIfStatusCodeIs401(error);
+                }
                 if(String(error).includes('Network Error')){
-                    reject("Could not connect to server. Please Check your internet connection");
+                    reject("Could not connect to server. Please check your network connection");
                     return;
                 }
                 if(error.response.data.error_msg !== undefined){
@@ -67,6 +71,7 @@ export const deleteList = (listId) => {
 };
 
 export const updateList = (list) => {
+    list.title = list.data;
     let endpoint = baseUrl + '/shoppinglist/'+list.id+'/';
     return fetchFromApi('put', endpoint, list);
 };

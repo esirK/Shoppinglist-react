@@ -34,7 +34,7 @@ class LoadingAnimation extends React.Component {
         return (
             <div>
                 <br/>
-                <span {...this.props}>Loading&nbsp;{text}</span>
+                <span {...this.props}>&nbsp;{text}</span>
                 <br />
             </div>
         );
