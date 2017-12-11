@@ -3,17 +3,20 @@ import ListsTableRow from './ListsTableRow';
 
 const ListsTable = ({lists, editHandler, deleteHandler, loading}) => {
     return (
-        <table className="ui celled table col-md-12" id="shoppinglistTable">
-            <thead>
-            <tr>
-                <th>NO.</th>
-                <th>Title</th>
-                <th>Created On</th>
-                <th>Updated On</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div>
+        {
+            (lists.length > 0 &&
+            <table className="ui celled table col-md-12" id="shoppinglistTable">
+                <thead>
+                <tr>
+                    <th>NO.</th>
+                    <th>Title</th>
+                    <th>Created On</th>
+                    <th>Updated On</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
                 {lists.map((list, index) =>
                     <ListsTableRow
                         key={list.id}
@@ -23,8 +26,14 @@ const ListsTable = ({lists, editHandler, deleteHandler, loading}) => {
                         deleteHandler={deleteHandler}
                         editHandler={editHandler}
                     />)}
-            </tbody>
-        </table>
+                </tbody>
+            </table>) ||
+
+            <h5>
+                You do not have any shopping lists yet. Create one
+            </h5>
+        }
+        </div>
     );
 };
 

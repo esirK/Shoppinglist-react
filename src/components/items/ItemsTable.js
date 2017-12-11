@@ -3,17 +3,20 @@ import ItemsTableRow from './ItemsTableRow';
 
 const ItemsTable = ({items, editHandler, deleteHandler, loading}) => {
     return (
-        <table className="ui celled table col-md-12" id="shoppingitemTable">
-            <thead>
-            <tr>
-                <th>NO.</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div>
+        {
+            (items.length > 0 &&
+            <table className="ui celled table col-md-12" id="shoppingitemTable">
+                <thead>
+                <tr>
+                    <th>NO.</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
                 {items.map((item, index) =>
                     <ItemsTableRow
                         key={item.id}
@@ -23,8 +26,14 @@ const ItemsTable = ({items, editHandler, deleteHandler, loading}) => {
                         index={index}
                         loading={loading}
                     />)}
-            </tbody>
-        </table>
+                </tbody>
+            </table>) ||
+
+            <h5>
+                You do not have any items in this shoppinglist. Create one
+            </h5>
+        }
+        </div>
     );
 };
 
