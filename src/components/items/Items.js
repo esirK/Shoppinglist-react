@@ -6,6 +6,7 @@ import {showNotification} from '../helpers/sharedFunctions';
 import CreateItemForm from './CreateItemForm';
 import * as itemActions from '../../actions/itemActions';
 import JQuery from 'jquery';
+import {confirmAlert} from "react-confirm-alert";
 
 class Items extends React.Component{
 
@@ -73,12 +74,21 @@ class Items extends React.Component{
         const itemRow = JQuery(event.target).closest('tr');
         const item = JQuery(itemRow).find('.item-name').text();
         const itemId = JQuery(event.target).closest('tr').attr('id');
-        this.props.deleteItem(itemId)
-            .then(() => {
-                showNotification('success', '`'+item+'` has been deleted.');
-            }).catch(error => {
-            showNotification('error', error);
-        });
+        confirmAlert({
+            title: 'Confirm Delete',
+            message: 'Are you sure to delete `'+item+'`?',
+            confirmLabel: 'Confirm',
+            cancelLabel: 'Cancel',
+            onConfirm: () => {
+                this.props.deleteItem(itemId)
+                    .then(() => {
+                        showNotification('success', '`'+item+'` has been deleted.');
+                    }).catch(error => {
+                    showNotification('error', error);
+                });
+            },
+            onCancel: () => {}
+        })
     };
 
     updateItem = (event) => {

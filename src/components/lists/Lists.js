@@ -8,6 +8,7 @@ import * as listActions from '../../actions/listAction';
 import JQuery from 'jquery';
 import LoadingAnimation from '../helpers/LoadingAnimation';
 import LogoutButton from "../helpers/logoutButton";
+import { confirmAlert } from 'react-confirm-alert';
 
 class Lists extends React.Component{
 
@@ -84,12 +85,21 @@ class Lists extends React.Component{
         const listsRow = JQuery(event.target).closest('tr');
         const shoppingList = JQuery(listsRow).find('.list-title').text();
         const listsId = JQuery(event.target).closest('tr').attr('id');
-        this.props.deleteShoppingList(listsId)
-            .then(() => {
-            showNotification('success', '`'+shoppingList+'` has been deleted.');
-        }).catch(error => {
-            showNotification('error', error);
-        });
+        confirmAlert({
+            title: 'Confirm Delete',
+            message: 'Are you sure to delete  `'+shoppingList+'`?',
+            confirmLabel: 'Confirm',
+            cancelLabel: 'Cancel',
+            onConfirm: () => {
+                this.props.deleteShoppingList(listsId)
+                    .then(() => {
+                        showNotification('success', '`'+shoppingList+'` has been deleted.');
+                    }).catch(error => {
+                    showNotification('error', error);
+                });
+            },
+            onCancel: () => {}
+        })
     };
 
     createShoppingList = (event) => {
