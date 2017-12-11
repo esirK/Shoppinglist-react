@@ -6,6 +6,8 @@ import {showNotification} from '../helpers/sharedFunctions';
 import CreateListForm from './CreateListForm';
 import * as listActions from '../../actions/listAction';
 import JQuery from 'jquery';
+import LoadingAnimation from '../helpers/LoadingAnimation';
+import LogoutButton from "../helpers/logoutButton";
 
 class Lists extends React.Component{
 
@@ -64,7 +66,11 @@ class Lists extends React.Component{
     }
 
     componentDidMount(){
-        this.props.loadShoppingLists();
+        this.props.loadShoppingLists()
+            .catch(error => {
+                this.props.loadShoppingListsFail();
+                showNotification('error', error);
+            });
     }
 
     updateListState = (event) => {
@@ -101,6 +107,8 @@ class Lists extends React.Component{
         return(
             <div className="mid-center">
                 <h3>My shopping-lists</h3>
+                <LogoutButton />
+                {this.state.loading && <LoadingAnimation />}
                 <div id="shoppinglist">
                     <ListsTable
                         editHandler={this.editList}
@@ -140,9 +148,11 @@ function mapDispatchToProps(dispatch) {
         deleteShoppingList: bindActionCreators(listActions.deleteShoppingList, dispatch),
         updateShoppingList: bindActionCreators(listActions.updateShoppingList, dispatch),
         loadShoppingLists: bindActionCreators(listActions.loadShoppingLists, dispatch),
+        loadShoppingListsFail: bindActionCreators(listActions.loadShoppingListsFail, dispatch),
         createList : bindActionCreators(listActions.createList, dispatch),
         initializeListEditor : bindActionCreators(listActions.initializeListEditor, dispatch)
     };
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps) (Lists);

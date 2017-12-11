@@ -73,7 +73,7 @@ function loadShoppingListsSuccess(lists) {
     return {type: actionTypes.LOAD_LISTS_SUCCESS, lists};
 }
 
-function loadShoppingListsFail() {
+export function loadShoppingListsFail() {
     return {type: actionTypes.LOAD_LISTS_FAIL};
 }
 

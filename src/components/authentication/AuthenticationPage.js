@@ -7,6 +7,7 @@ import SignUpForm from './SignUpForm';
 import LoginForm from './LoginForm';
 import LoadingAnimation from '../helpers/LoadingAnimation';
 import {showNotification} from "../helpers/sharedFunctions";
+import {redirect} from '../../helper';
 import WelcomeMessage from "./WelcomeMessage";
 
 class AuthenticationPage extends React.Component{
@@ -54,7 +55,7 @@ class AuthenticationPage extends React.Component{
         this.props.loginUser(this.state.user)
             .then(() => {
                 showNotification('success', 'Logged in successfully');
-                window.location.href = '/';
+                redirect();
         }).catch(error => {
             showNotification('error', error);
         });

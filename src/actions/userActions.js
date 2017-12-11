@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import {initiateAjaxCall} from "./ajaxStatusActions";
 import {Api} from "../api";
+import {redirect} from "../helper";
 
 export function authenticateUser(user) {
     return function (dispatch) {
@@ -45,6 +46,7 @@ export function createUser(user) {
     };
 }
 
-export function getCurrentUserSuccess(user) {
-    return {type: actionTypes.GET_CURRENT_USER_SUCCESS, user};
+export function logOut() {
+    localStorage.clear();
+    redirect();
 }
