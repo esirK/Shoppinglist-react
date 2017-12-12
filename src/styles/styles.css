@@ -55,7 +55,7 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 2px;
     box-shadow: 2px 2px 9px 5px #0000001a;
-    width: 95%;
+    width: 70%;
     height:100vh;
     color: #555555;
     text-outline: 4px 2px rgba(0, 0, 0, 0.61);
@@ -63,6 +63,27 @@ body {
     margin: auto;
     padding: 10px;
     overflow-y: auto;
+    z-index: 10;
+    position: absolute;
+    left: 22%;
+}
+
+.extreme-left {
+    background-color: rgba(250, 250, 250, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    box-shadow: 2px 2px 9px 5px #0000001a;
+    width: 15%;
+    height:100vh;
+    color: #555555;
+    text-outline: 4px 2px rgba(0, 0, 0, 0.61);
+    font-weight: 200;
+    margin: auto;
+    padding: 10px;
+    overflow-y: auto;
+    position: absolute;
+    left: 7%;
+    z-index: 1
 }
 
 .logout-link {

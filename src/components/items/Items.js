@@ -114,22 +114,27 @@ class Items extends React.Component{
 
     render(){
         return(
-            <div className="mid-center">
-                <h3>My Shoppinglist Items</h3>
-                <div id="shoppinglist">
-                    <form onSubmit={this.updateItem}>
-                        <ItemsTable
-                            editHandler={this.editItem}
-                            deleteHandler={this.deleteItem}
+            <div>
+                <div className="extreme-left">
+
+                </div>
+                <div className="mid-center">
+                    <h3>My Shoppinglist Items</h3>
+                    <div id="shoppinglist">
+                        <form onSubmit={this.updateItem}>
+                            <ItemsTable
+                                editHandler={this.editItem}
+                                deleteHandler={this.deleteItem}
+                                loading={this.state.loading}
+                                items={this.state.items}/>
+                        </form>
+                        <br />
+                        <CreateItemForm
+                            onSubmit={this.createItem}
+                            onChange={this.updateNewItemState}
                             loading={this.state.loading}
-                            items={this.state.items}/>
-                    </form>
-                    <br />
-                    <CreateItemForm
-                        onSubmit={this.createItem}
-                        onChange={this.updateNewItemState}
-                        loading={this.state.loading}
-                        item={this.state.newItem} />
+                            item={this.state.newItem} />
+                    </div>
                 </div>
             </div>
 
