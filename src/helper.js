@@ -17,11 +17,16 @@ const reAuthenticate = ()=> {
     // todo: show a explanation message
     showNotification('error', 'Your session has expired. Please login to continue');
     // todo: find a better way of redirecting
-    window.location.href = '/';
+    redirect();
 };
 
 export const reAuthenticateIfStatusCodeIs401 = (error) => {
     if(String(error).includes('401')) {
         reAuthenticate();
     }
+};
+
+
+export const redirect = (location = '/') => {
+    window.location.href = location;
 };

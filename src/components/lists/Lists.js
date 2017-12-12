@@ -6,6 +6,9 @@ import {showNotification} from '../helpers/sharedFunctions';
 import CreateListForm from './CreateListForm';
 import * as listActions from '../../actions/listAction';
 import JQuery from 'jquery';
+import LoadingAnimation from '../helpers/LoadingAnimation';
+import LogoutButton from "../helpers/logoutButton";
+import { confirmAlert } from 'react-confirm-alert';
 
 class Lists extends React.Component{
 
@@ -28,7 +31,7 @@ class Lists extends React.Component{
             },
             onchange: (event) => {
                 let oldShoppingList = this.state.updateList;
-                oldShoppingList.title = event.target.value;
+                oldShoppingList.data = event.target.value;
                 this.setState({updateList: oldShoppingList});
             },
             onblur: (event) => {
@@ -56,13 +59,19 @@ class Lists extends React.Component{
         }
 
         if(nextProps.updateList !== this.state.updateList){
-            this.setState({updateList: nextProps.updateList});
-            this.editList.listToUpdate = nextProps.updateList;
+            if(nextProps.updateList.type === "list" || nextProps.updateList.type === "") {
+                this.setState({updateList: nextProps.updateList});
+                this.editList.listToUpdate = nextProps.updateList;
+            }
         }
     }
 
     componentDidMount(){
-        this.props.loadShoppingLists();
+        this.props.loadShoppingLists()
+            .catch(error => {
+                this.props.loadShoppingListsFail();
+                showNotification('error', error);
+            });
     }
 
     updateListState = (event) => {
@@ -76,12 +85,21 @@ class Lists extends React.Component{
         const listsRow = JQuery(event.target).closest('tr');
         const shoppingList = JQuery(listsRow).find('.list-title').text();
         const listsId = JQuery(event.target).closest('tr').attr('id');
-        this.props.deleteShoppingList(listsId)
-            .then(() => {
-            showNotification('success', '`'+shoppingList+'` has been deleted.');
-        }).catch(error => {
-            showNotification('error', error);
-        });
+        confirmAlert({
+            title: 'Confirm Delete',
+            message: 'Are you sure to delete  `'+shoppingList+'`?',
+            confirmLabel: 'Confirm',
+            cancelLabel: 'Cancel',
+            onConfirm: () => {
+                this.props.deleteShoppingList(listsId)
+                    .then(() => {
+                        showNotification('success', '`'+shoppingList+'` has been deleted.');
+                    }).catch(error => {
+                    showNotification('error', error);
+                });
+            },
+            onCancel: () => {}
+        })
     };
 
     createShoppingList = (event) => {
@@ -99,6 +117,8 @@ class Lists extends React.Component{
         return(
             <div className="mid-center">
                 <h3>My shopping-lists</h3>
+                <LogoutButton />
+                {this.state.loading && <LoadingAnimation />}
                 <div id="shoppinglist">
                     <ListsTable
                         editHandler={this.editList}
@@ -127,7 +147,7 @@ Lists.propTypes = {
 function mapStateToProps(state, ownProps) {
     return {
         newShoppingList: state.lists.newShoppingList,
-        updateList: state.editList,
+        updateList: state.edit,
         existingShoppingList: state.lists.existingShoppingList,
         loading: state.ajaxCallsInProgress > 0
     };
@@ -138,9 +158,11 @@ function mapDispatchToProps(dispatch) {
         deleteShoppingList: bindActionCreators(listActions.deleteShoppingList, dispatch),
         updateShoppingList: bindActionCreators(listActions.updateShoppingList, dispatch),
         loadShoppingLists: bindActionCreators(listActions.loadShoppingLists, dispatch),
+        loadShoppingListsFail: bindActionCreators(listActions.loadShoppingListsFail, dispatch),
         createList : bindActionCreators(listActions.createList, dispatch),
         initializeListEditor : bindActionCreators(listActions.initializeListEditor, dispatch)
     };
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps) (Lists);

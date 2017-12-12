@@ -1,19 +1,86 @@
 import React, {PropTypes} from 'react';
-import {Link} from 'react-router';
+import TextInput from '../helpers/TextInput';
 
-const ItemsTableRow = ({list, index}) => {
+const ItemsTableRow = ({item, index, deleteHandler, editHandler, loading}) => {
+    const itemIsBeingEdited = (editHandler.itemToBeUpdated.id === item.id.toString());
     return (
-        <tr>
+        <tr id={item.id}>
             <td>{index+1}</td>
-            <td>
-                <Link to={"/lists/"+ list.id}> {list.title} </Link>
+            <td className="item-name">
+                {
+                    (itemIsBeingEdited &&
+                        <TextInput
+                            disabled={loading === true}
+                            value={editHandler.itemToBeUpdated.data.name}
+                            name="name"
+                            onChange={editHandler.onchange}
+                            onBlur={editHandler.onblur}
+                            placeholder="New Title"/>) ||
+
+                    ( !itemIsBeingEdited &&
+                        <a> {item.name} </a>)
+                }
             </td>
-            <td>{list.created_on}</td>
-            <td>{list.updated_on}</td>
-            <td>
-                <span className="fa fa-edit"></span>
-                <span className="fa fa-trash-o"></span>
+            <td className="item-price">
+                {
+                    (itemIsBeingEdited &&
+                        <TextInput
+                            type="number"
+                            step="0.1"
+                            minValue="0.1"
+                            disabled={loading === true}
+                            value={editHandler.itemToBeUpdated.data.price}
+                            name="price"
+                            onChange={editHandler.onchange}
+                            onBlur={editHandler.onblur}
+                            placeholder="Price"/>) ||
+
+                    ( !itemIsBeingEdited &&
+                        <a> {item.price} </a>)
+                }
             </td>
+            <td className="item-quantity">
+                {
+                    (itemIsBeingEdited &&
+                        <TextInput
+                            type="number"
+                            minValue="1"
+                            step="1"
+                            disabled={loading === true}
+                            name="quantity"
+                            value={editHandler.itemToBeUpdated.data.quantity}
+                            onChange={editHandler.onchange}
+                            onBlur={editHandler.onblur}
+                            placeholder="Quantity"/>) ||
+
+                    ( !itemIsBeingEdited &&
+                        <a> {item.quantity} </a>)
+                }
+            </td>
+            {
+                (itemIsBeingEdited &&
+                    <td>
+                        <input type="submit"
+                               value={loading ? "saving...": "save"}
+                            className="btn btn-success edit-btn" />
+                    </td>
+                ) ||
+                (
+                    !itemIsBeingEdited &&
+                    <td>
+                        <btn
+                            onClick={editHandler.initialize}
+                            className="btn btn-default edit-btn">
+                            <i className="fa fa-pencil"></i>
+                        </btn>
+                        <btn
+                            onClick={deleteHandler}
+                            className="btn btn-default delete-btn">
+                            <i className="fa fa-trash"></i>
+                        </btn>
+                    </td>
+                )
+            }
         </tr>
     );
 };
@@ -21,8 +88,11 @@ const ItemsTableRow = ({list, index}) => {
 
 
 ItemsTableRow.propTypes = {
-    list: PropTypes.object.isRequired,
-    index: PropTypes.number.isRequired
+    item: PropTypes.object.isRequired,
+    index: PropTypes.number.isRequired,
+    loading: PropTypes.bool.isRequired,
+    deleteHandler: PropTypes.func.isRequired,
+    editHandler: PropTypes.object.isRequired
 };
 
 export default ItemsTableRow;
