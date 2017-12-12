@@ -1,6 +1,9 @@
 import axios from 'axios';
 
 const baseUrl = 'http://localhost:5000';
+const config = {
+    headers: {'Authorization': 'Bearer '+localStorage.getItem('token')}
+};
 
 function fetchFromApi(method, endpoint, data=null){
     return new Promise((resolve,reject)=>{
@@ -18,7 +21,9 @@ function fetchFromApi(method, endpoint, data=null){
                 }
                 if(error.response.data.error_msg !== undefined){
                     reject(error.response.data.error_msg);
+                    return;
                 }
+                reject(error);
             });
     });
 }
@@ -26,13 +31,13 @@ function fetchFromApi(method, endpoint, data=null){
 function runRequest(method, endpoint,data) {
     switch (method){
         case 'post':
-            return axios.post(endpoint, data);
+            return axios.post(endpoint, data, config);
         case 'put':
-            return axios.put(endpoint, data);
+            return axios.put(endpoint, data, config);
         case 'delete':
-            return axios.post(endpoint);
+            return axios.delete(endpoint, config);
         case 'get':
-            return axios.post(endpoint);
+            return axios.get(endpoint, config);
     }
 }
 
@@ -44,5 +49,25 @@ export const createUser = (user) => {
 export const loginUser = (user) => {
     let endpoint = baseUrl + '/user/login';
     return fetchFromApi('post', endpoint, user);
+};
+
+export const createList = (list) => {
+    let endpoint = baseUrl + '/shoppinglist';
+    return fetchFromApi('post', endpoint, list);
+};
+
+export const getLists = () => {
+    let endpoint = baseUrl + '/shoppinglist/';
+    return fetchFromApi('get', endpoint);
+};
+
+export const deleteList = (listId) => {
+    let endpoint = baseUrl + '/shoppinglist/'+listId;
+    return fetchFromApi('delete', endpoint);
+};
+
+export const updateList = (list) => {
+    let endpoint = baseUrl + '/shoppinglist/'+list.id+'/';
+    return fetchFromApi('put', endpoint, list);
 };
 

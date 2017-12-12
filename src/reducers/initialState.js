@@ -1,5 +1,12 @@
 export default {
     user: {},
-    lists: [],
-    ajaxCallsInProgress: 0
+    lists: {
+        newShoppingList: {
+            title: ""
+        },
+        existingShoppingList:[]
+    },
+    items: [],
+    ajaxCallsInProgress: 0,
+    editList: {id: "", title: ""}
 };

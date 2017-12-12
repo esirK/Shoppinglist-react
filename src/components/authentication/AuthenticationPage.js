@@ -1,12 +1,12 @@
 import React, {PropTypes} from 'react';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as userActions from '../../actions/userActions';
 import SignUpForm from './SignUpForm';
 import LoginForm from './LoginForm';
 import LoadingAnimation from '../helpers/LoadingAnimation';
-import toastr from 'toastr';
+import {showNotification} from "../helpers/sharedFunctions";
 
 class AuthenticationPage extends React.Component{
 
@@ -37,16 +37,13 @@ class AuthenticationPage extends React.Component{
         event.preventDefault();
         this.props.createUser(this.state.user)
             .then(() => {
-            toastr.clear();
-            toastr.success('User account has been created.');
+                showNotification('success', 'User account has been created.');
             setTimeout(() => {
-                toastr.clear();
-                toastr.info('Authenticating......');
+                showNotification('info', 'Authenticating......');
                 this.loginUser(null);
             }, 1000);
         }).catch(error => {
-            toastr.clear();
-            toastr.error(error);
+            showNotification('error', error);
         });
     };
 
@@ -55,14 +52,10 @@ class AuthenticationPage extends React.Component{
         if(event !== null) event.preventDefault();
         this.props.loginUser(this.state.user)
             .then(() => {
-                toastr.clear();
-                toastr.success('Logged in successfully');
-            setTimeout(()=>{
-                this.context.router.push('/lists');
-            }, 1000);
+                showNotification('success', 'Logged in successfully');
+                window.location.href = '/';
         }).catch(error => {
-            toastr.clear();
-            toastr.error(error);
+            showNotification('error', error);
         });
     };
 
