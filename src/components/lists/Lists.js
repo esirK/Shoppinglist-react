@@ -7,7 +7,7 @@ import CreateListForm from './CreateListForm';
 import * as listActions from '../../actions/listAction';
 import JQuery from 'jquery';
 import LoadingAnimation from '../helpers/LoadingAnimation';
-import LogoutButton from "../helpers/logoutButton";
+import LogoutButton from "../helpers/LogoutButton";
 import { confirmAlert } from 'react-confirm-alert';
 
 class Lists extends React.Component{

@@ -2,7 +2,9 @@ import React, {PropTypes} from 'react';
 import TextInput from '../helpers/TextInput';
 
 const ItemsTableRow = ({item, index, deleteHandler, editHandler, loading}) => {
+
     const itemIsBeingEdited = (editHandler.itemToBeUpdated.id === item.id.toString());
+
     return (
         <tr id={item.id}>
             <td>{index+1}</td>
@@ -68,16 +70,16 @@ const ItemsTableRow = ({item, index, deleteHandler, editHandler, loading}) => {
                 (
                     !itemIsBeingEdited &&
                     <td>
-                        <btn
+                        <button
                             onClick={editHandler.initialize}
                             className="btn btn-default edit-btn">
                             <i className="fa fa-pencil"></i>
-                        </btn>
-                        <btn
+                        </button>
+                        <button
                             onClick={deleteHandler}
                             className="btn btn-default delete-btn">
                             <i className="fa fa-trash"></i>
-                        </btn>
+                        </button>
                     </td>
                 )
             }
