@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
-import TextInput from '../helpers/TextInput';
+import TextInput from '../helperComponents/TextInput';
 
 const ListsTableRow = ({list, index, deleteHandler, editHandler, loading}) => {
     return (

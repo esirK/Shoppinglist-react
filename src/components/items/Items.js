@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ItemsTable from './ItemsTable';
-import {showNotification} from '../helpers/sharedFunctions';
+import {showNotification} from '../helperComponents/sharedFunctions';
 import CreateItemForm from './CreateItemForm';
 import * as itemActions from '../../actions/itemActions';
 import JQuery from 'jquery';

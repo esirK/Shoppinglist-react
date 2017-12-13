@@ -2,12 +2,12 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ListsTable from './ListsTable';
-import {showNotification} from '../helpers/sharedFunctions';
+import {showNotification} from '../helperComponents/sharedFunctions';
 import CreateListForm from './CreateListForm';
 import * as listActions from '../../actions/listAction';
 import JQuery from 'jquery';
-import LoadingAnimation from '../helpers/LoadingAnimation';
-import LogoutButton from "../helpers/LogoutButton";
+import LoadingAnimation from '../helperComponents/LoadingAnimation';
+import LogoutButton from "../helperComponents/LogoutButton";
 import { confirmAlert } from 'react-confirm-alert';
 
 class Lists extends React.Component{

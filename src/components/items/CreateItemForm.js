@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import TextInput from '../helpers/TextInput';
+import TextInput from '../helperComponents/TextInput';
 
 const CreateItemForm = ({item, onChange, onSubmit, loading}) => {
 
