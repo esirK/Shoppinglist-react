@@ -12,7 +12,6 @@ import '../node_modules/toastr/build/toastr.min.css';
 import './styles/styles.css';
 
 const store = configureStore();
-// store.dispatch(getCurrentUser(null));
 
 render(
     <Provider store={store}>
