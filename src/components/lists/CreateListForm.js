@@ -14,12 +14,12 @@ const CreateListForm = ({list, onChange, onSubmit, loading}) => {
                     name="title"/>
             </div>
             <div className="form-group col-md-2">
-                <button
+                <input
                     className="btn btn-primary"
                     disabled={loading}
-                    type="submit">
-                    {loading ? 'Creating...' : 'Create'}
-                </button>
+                    type="submit"
+                    value={loading ? 'Creating...' : 'Create'}
+                />
             </div>
         </form>
     );

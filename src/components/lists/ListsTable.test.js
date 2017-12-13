@@ -1,19 +1,19 @@
 import expect from 'expect';
 import React from 'react';
 import {shallow} from 'enzyme';
-import ItemsTable from './ItemsTable';
+import ListsTable from './ListsTable';
 
-describe('Test Items Table Rows', () => {
+describe('Test Lists Table', () => {
 
     function setup(localProps = null) {
         if(localProps === null) {
             localProps = {
-                items:[],
+                lists:[],
                 loading:false
             };
         }
         const props = {
-            items: localProps.items,
+            lists: localProps.lists,
             loading: localProps.loading,
             deleteHandler: () => {},
             editHandler: {
@@ -27,30 +27,30 @@ describe('Test Items Table Rows', () => {
                 }
             }
         };
-        return shallow(<ItemsTable {...props} />);
+        return shallow(<ListsTable {...props} />);
     }
 
-    it('renders a message when no items are present', () => {
+    it('renders a message when no lists are present', () => {
         const wrapper = setup();
         expect(wrapper.find('h5').length).toBe(1);
     });
 
-    it('renders a table when there are items present', () => {
+    it('renders a table when there are lists present', () => {
         const localProps = {
-            items:[{}],
+            lists:[{}],
             loading:false
         };
         const wrapper = setup(localProps);
         expect(wrapper.find('table').length).toBe(1);
     });
 
-    it('renders a table row for every item present', () => {
+    it('renders a table row for every list present', () => {
         const localProps = {
-            items:[{}, {}, {}],
+            lists:[{}, {}, {}],
             loading:false
         };
         const wrapper = setup(localProps);
-        expect(wrapper.find('ItemsTableRow').length).toBe(3);
+        expect(wrapper.find('ListsTableRow').length).toBe(3);
     });
 
 });

@@ -1,36 +1,35 @@
 import expect from 'expect';
 import React from 'react';
 import {shallow} from 'enzyme';
-import ItemsTableRow from './ItemsTableRow';
+import ListsTableRow from './ListsTableRow';
 
-describe('Test Items Table Rows', () => {
+describe('Test Lists Table Rows', () => {
 
     function setup(localProps = null) {
         if(localProps === null) {
             localProps = {
-                item:{
+                list:{
                     id: ""
                 },
                 loading:false
             };
         }
         const props = {
-            item: localProps.item,
+            list: localProps.list,
             index: 0,
             loading: localProps.loading,
             deleteHandler: () => {},
             editHandler: {
                 initialize: () => {},
                 onchange: () => {},
-                itemToBeUpdated:{
+                onblur: () => {},
+                listToUpdate:{
                     id:"1",
-                    data:{
-                        name:""
-                    }
+                    data:""
                 }
             }
         };
-        return shallow(<ItemsTableRow {...props} />);
+        return shallow(<ListsTableRow {...props} />);
     }
 
     it('renders a table row', () => {
@@ -60,29 +59,20 @@ describe('Test Items Table Rows', () => {
 
     it('Renders input boxes when editing is set to True', () => {
         const localProps = {
-            item: {id: "1"},
+            list: {id: "1"},
             loading: false
         };
         const wrapper = setup(localProps);
-        expect(wrapper.find('TextInput').length).toBe(3);
+        expect(wrapper.find('TextInput').length).toBe(1);
     });
 
-    it('Renders a submit button when editing is set to True', () => {
+    it('Renders a TextInput with an onblur handler when editing is set to True', () => {
         const localProps = {
-            item: {id: "1"},
+            list: {id: "1"},
             loading: false
         };
         const wrapper = setup(localProps);
-        expect(wrapper.find('input').props().type).toBe('submit');
-    });
-
-    it('Value of submit button changes when loading', () => {
-        const localProps = {
-            item: {id: "1"},
-            loading: true
-        };
-        const wrapper = setup(localProps);
-        expect(wrapper.find('input').props().value).toBe('saving...');
+        expect(typeof wrapper.find('TextInput').props().onBlur).toBe('function');
     });
 
 });

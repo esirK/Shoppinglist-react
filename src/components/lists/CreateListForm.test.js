@@ -1,25 +1,25 @@
 import expect from 'expect';
 import React from 'react';
 import {shallow} from 'enzyme';
-import CreateItemForm from './CreateItemForm';
+import CreateListForm from './CreateListForm';
 
 
-describe('Test Create Items Form ', () => {
+describe('Test Create Lists Form ', () => {
 
-    function setup(localProps = {item: undefined, loading: undefined}) {
-        const item = {
-                name:"",
-                price:"",
-                quantity:""
+    function setup(localProps = {list: undefined, loading: undefined}) {
+        const list = {
+            name:"",
+            price:"",
+            quantity:""
         };
 
         const props = {
-            item: localProps.item === undefined ? item : localProps.item,
+            list: localProps.list === undefined ? list : localProps.list,
             loading: localProps.loading === undefined ? false : localProps.loading,
             onChange: () => {},
             onSubmit: () => {}
         };
-        return shallow(<CreateItemForm {...props} />);
+        return shallow(<CreateListForm {...props} />);
     }
 
     it('renders a form', () => {
