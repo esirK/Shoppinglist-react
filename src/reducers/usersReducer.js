@@ -23,9 +23,6 @@ export default function signUpReducer(state = initialState.user, action) {
         case actionTypes.AUTHENTICATE_USER_FAIL:
             return state;
 
-        case actionTypes.GET_CURRENT_USER_SUCCESS:
-            return [...state, Object.assign({}, action.user)];
-
 
         default:
             return state;

@@ -3,5 +3,6 @@ module.exports = {
     collectCoverageFrom: [
         "src/**/*.{js,jsx}",
         "!src/api/**"
-    ]
+    ],
+    setupFiles: ["jest-localstorage-mock"]
 };

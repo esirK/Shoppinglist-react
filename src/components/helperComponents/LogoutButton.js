@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {logOut} from '../../actions/userActions';
 
-class LogoutButton extends React.Component{
+export class LogoutButton extends React.Component{
 
     constructor(props, context) {
         super(props, context);

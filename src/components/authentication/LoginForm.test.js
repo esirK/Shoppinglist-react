@@ -38,7 +38,7 @@ describe('Test login form component', () => {
 
     it('Submit button changes value when loading', () => {
         const wrapper = setup({loading: true});
-        expect(wrapper.find('input').props().value).toBe('Processing...');
+        expect(wrapper.find('input').props().value).toBe('Authenticating...');
     });
 
 });
