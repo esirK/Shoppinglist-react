@@ -1,7 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import {initiateAjaxCall} from "./ajaxStatusActions";
 import {Api} from "../api";
-import {redirect} from "../helper";
+
 
 export function authenticateUser(user) {
     return function (dispatch) {
@@ -48,4 +48,5 @@ export function createUser(user) {
 
 export function logOut() {
     localStorage.clear();
+    return {type: actionTypes.LOGOUT_USER};
 }
