@@ -69,7 +69,7 @@ export function initializeListEditor(list) {
     return {type: actionTypes.INITIALIZE_LIST_EDITOR, list};
 }
 
-function loadShoppingListsSuccess(lists) {
+export function loadShoppingListsSuccess(lists) {
     return {type: actionTypes.LOAD_LISTS_SUCCESS, lists};
 }
 

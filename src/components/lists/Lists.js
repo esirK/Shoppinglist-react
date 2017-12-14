@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import ListsTable from './ListsTable';
 import {showNotification} from '../helperComponents/sharedFunctions';
 import CreateListForm from './CreateListForm';
-import * as listActions from '../../actions/listAction';
+import * as listActions from '../../actions/listActions';
 import JQuery from 'jquery';
 import LoadingAnimation from '../helperComponents/LoadingAnimation';
 import LogoutButton from "../helperComponents/LogoutButton";
