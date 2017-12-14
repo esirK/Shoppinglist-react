@@ -37,6 +37,8 @@ class Items extends React.Component{
             },
             itemToBeUpdated: this.state.itemToBeUpdated
         };
+
+        JQuery.DataTable = require('datatables.net');
     }
 
     componentWillReceiveProps(nextProps){
@@ -51,6 +53,9 @@ class Items extends React.Component{
             this.setState({
                 items: nextProps.items
             });
+
+            // Destroy data table with old data
+            JQuery('#itemsTable').DataTable().destroy();
         }
 
         if(nextProps.itemToBeUpdated !== this.state.itemToBeUpdated){
@@ -60,7 +65,18 @@ class Items extends React.Component{
     }
 
     componentDidMount(){
-        this.props.loadItems(this.props.currentShoppingList);
+        this.props.loadItems(this.props.currentShoppingList)
+            .then(() => {
+                // Convert table to a jquery datatable
+                JQuery('#itemsTable').DataTable();
+            });
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        if(prevState.items !== this.state.items) {
+            // Initialize table with new data
+            JQuery('#itemsTable').DataTable();
+        }
     }
 
     updateNewItemState = (event) => {

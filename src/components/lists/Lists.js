@@ -44,6 +44,8 @@ class Lists extends React.Component{
             },
             listToUpdate: this.state.updateList
         };
+
+        JQuery.DataTable = require('datatables.net');
     }
 
     componentWillReceiveProps(nextProps){
@@ -56,6 +58,9 @@ class Lists extends React.Component{
             this.setState({
                 existingShoppingList: nextProps.existingShoppingList
             });
+
+            // Destroy data table with old data
+            JQuery('#shoppinglistTable').DataTable().destroy();
         }
 
         if(nextProps.updateList !== this.state.updateList){
@@ -68,10 +73,21 @@ class Lists extends React.Component{
 
     componentDidMount(){
         this.props.loadShoppingLists()
+            .then(() => {
+                // Convert table to a jquery datatable
+                JQuery('#shoppinglistTable').DataTable();
+            })
             .catch(error => {
                 this.props.loadShoppingListsFail();
                 showNotification('error', error);
             });
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        if(prevState.existingShoppingList !== this.state.existingShoppingList) {
+            // Initialize table with new data
+            JQuery('#shoppinglistTable').DataTable();
+        }
     }
 
     updateListState = (event) => {
