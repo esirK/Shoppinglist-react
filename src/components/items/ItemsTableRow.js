@@ -72,12 +72,12 @@ const ItemsTableRow = ({item, index, deleteHandler, editHandler, loading}) => {
                     <td>
                         <button
                             onClick={editHandler.initialize}
-                            className="btn btn-default edit-btn">
+                            className="btn btn-default edit-btn btn-xs">
                             <i className="fa fa-pencil"></i>
                         </button>
                         <button
                             onClick={deleteHandler}
-                            className="btn btn-default delete-btn">
+                            className="btn btn-default delete-btn btn-xs">
                             <i className="fa fa-trash"></i>
                         </button>
                     </td>

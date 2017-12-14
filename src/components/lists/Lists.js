@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ListsTable from './ListsTable';
-import {showNotification} from '../helperComponents/sharedFunctions';
+import {destroyDataTable, initializeDataTable, showNotification} from '../helperComponents/sharedFunctions';
 import CreateListForm from './CreateListForm';
 import * as listActions from '../../actions/listActions';
 import JQuery from 'jquery';
@@ -45,7 +45,6 @@ class Lists extends React.Component{
             listToUpdate: this.state.updateList
         };
 
-        JQuery.DataTable = require('datatables.net');
     }
 
     componentWillReceiveProps(nextProps){
@@ -58,9 +57,7 @@ class Lists extends React.Component{
             this.setState({
                 existingShoppingList: nextProps.existingShoppingList
             });
-
-            // Destroy data table with old data
-            JQuery('#shoppinglistTable').DataTable().destroy();
+            destroyDataTable('#shoppinglistTable');
         }
 
         if(nextProps.updateList !== this.state.updateList){
@@ -74,8 +71,7 @@ class Lists extends React.Component{
     componentDidMount(){
         this.props.loadShoppingLists()
             .then(() => {
-                // Convert table to a jquery datatable
-                JQuery('#shoppinglistTable').DataTable();
+                initializeDataTable('#shoppinglistTable');
             })
             .catch(error => {
                 this.props.loadShoppingListsFail();
@@ -85,8 +81,7 @@ class Lists extends React.Component{
 
     componentDidUpdate(prevProps, prevState){
         if(prevState.existingShoppingList !== this.state.existingShoppingList) {
-            // Initialize table with new data
-            JQuery('#shoppinglistTable').DataTable();
+            initializeDataTable('#shoppinglistTable');
         }
     }
 

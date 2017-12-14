@@ -32,13 +32,13 @@ const ListsTableRow = ({list, index, deleteHandler, editHandler, loading}) => {
                         editHandler.listToUpdate.id !== list.id.toString() &&
                         editHandler.initialize}
                     disabled={loading === true || editHandler.listToUpdate.id === list.id.toString()}
-                    className="btn btn-default edit-btn">
+                    className="btn btn-xs btn-default edit-btn">
                     <i className="fa fa-pencil"></i>
                 </button>
                 <button
                     disabled={loading === true}
                     onClick={loading === false && deleteHandler}
-                    className="btn btn-default delete-btn">
+                    className="btn btn-xs btn-default delete-btn">
                     <i className="fa fa-trash"></i>
                 </button>
             </td>

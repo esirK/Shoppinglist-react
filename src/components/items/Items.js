@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ItemsTable from './ItemsTable';
-import {showNotification} from '../helperComponents/sharedFunctions';
+import {destroyDataTable, initializeDataTable, showNotification} from '../helperComponents/sharedFunctions';
 import CreateItemForm from './CreateItemForm';
 import * as itemActions from '../../actions/itemActions';
 import JQuery from 'jquery';
@@ -37,8 +37,6 @@ class Items extends React.Component{
             },
             itemToBeUpdated: this.state.itemToBeUpdated
         };
-
-        JQuery.DataTable = require('datatables.net');
     }
 
     componentWillReceiveProps(nextProps){
@@ -53,9 +51,7 @@ class Items extends React.Component{
             this.setState({
                 items: nextProps.items
             });
-
-            // Destroy data table with old data
-            JQuery('#itemsTable').DataTable().destroy();
+            destroyDataTable('#itemsTable');
         }
 
         if(nextProps.itemToBeUpdated !== this.state.itemToBeUpdated){
@@ -67,15 +63,13 @@ class Items extends React.Component{
     componentDidMount(){
         this.props.loadItems(this.props.currentShoppingList)
             .then(() => {
-                // Convert table to a jquery datatable
-                JQuery('#itemsTable').DataTable();
+                initializeDataTable('#itemsTable');
             });
     }
 
     componentDidUpdate(prevProps, prevState){
         if(prevState.items !== this.state.items) {
-            // Initialize table with new data
-            JQuery('#itemsTable').DataTable();
+            initializeDataTable('#itemsTable');
         }
     }
 
