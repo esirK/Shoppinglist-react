@@ -7,8 +7,10 @@ import CreateItemForm from './CreateItemForm';
 import * as itemActions from '../../actions/itemActions';
 import JQuery from 'jquery';
 import {confirmAlert} from "react-confirm-alert";
+import LogoutButton from "../helperComponents/LogoutButton";
+import LoadingAnimation from "../helperComponents/LoadingAnimation";
 
-class Items extends React.Component{
+export class Items extends React.Component{
 
     constructor(props, context) {
         super(props, context);
@@ -124,27 +126,25 @@ class Items extends React.Component{
 
     render(){
         return(
-            <div>
-                <div className="extreme-left">
 
-                </div>
-                <div className="mid-center">
-                    <h3>My Shoppinglist Items</h3>
-                    <div id="shoppinglist">
-                        <form onSubmit={this.updateItem}>
-                            <ItemsTable
-                                editHandler={this.editItem}
-                                deleteHandler={this.deleteItem}
-                                loading={this.state.loading}
-                                items={this.state.items}/>
-                        </form>
-                        <br />
-                        <CreateItemForm
-                            onSubmit={this.createItem}
-                            onChange={this.updateNewItemState}
+            <div className="mid-center">
+                <h3>My Shoppinglist Items</h3>
+                <LogoutButton />
+                {this.state.loading && <LoadingAnimation />}
+                <div id="shoppinglist">
+                    <form onSubmit={this.updateItem}>
+                        <ItemsTable
+                            editHandler={this.editItem}
+                            deleteHandler={this.deleteItem}
                             loading={this.state.loading}
-                            item={this.state.newItem} />
-                    </div>
+                            items={this.state.items}/>
+                    </form>
+                    <br />
+                    <CreateItemForm
+                        onSubmit={this.createItem}
+                        onChange={this.updateNewItemState}
+                        loading={this.state.loading}
+                        item={this.state.newItem} />
                 </div>
             </div>
 

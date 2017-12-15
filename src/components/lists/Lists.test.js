@@ -4,7 +4,7 @@ import {shallow} from 'enzyme';
 import { Lists } from './Lists';
 
 
-describe('Test Lists Table', () => {
+describe('Test Lists Component', () => {
 
     function setup() {
         return shallow(<Lists/>);
