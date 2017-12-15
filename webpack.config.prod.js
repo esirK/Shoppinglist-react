@@ -13,17 +13,17 @@ export default {
     entry: path.resolve(__dirname, 'src/index'),
     target: 'web',
     output: {
-        path: __dirname + '/dist', // Note: Physical files are only output by the production configurations task `npm run configurations`.
+        path: __dirname + '/public', // Note: Physical files are only output by the production configurations task `npm run configurations`.
         publicPath: '/',
         filename: 'bundle.js'
     },
     devServer: {
-        contentBase: path.resolve(__dirname, 'dist')
+        contentBase: path.resolve(__dirname, 'public')
     },
     plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.DefinePlugin(GLOBALS),
-        new ExtractTextPlugin('style.ces'),
+        new ExtractTextPlugin('style.css'),
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin()
     ],

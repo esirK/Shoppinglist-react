@@ -25,7 +25,7 @@ webpack(webpackConfig).run((err, stats) => {
 
     console.log(`Webpack stats: ${stats}`);
 
-    console.log('Finished building in production mode. ==> /dist');
+    console.log('Finished building in production mode. ==> /public');
 
     return 0;
 

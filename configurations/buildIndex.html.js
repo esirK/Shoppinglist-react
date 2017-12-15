@@ -12,7 +12,7 @@ fs.readFile('src/index.html','utf8',(error, markup) => {
     // load bundled css file
     $('head').prepend('<link rel="stylesheet" href="style.css">');
 
-    fs.writeFile('dist/index.html', $.html(), 'utf8', function (error) {
+    fs.writeFile('public/index.html', $.html(), 'utf8', function (error) {
         if(error){
             return console.log(error);
         }
