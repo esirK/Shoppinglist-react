@@ -10,7 +10,7 @@ import LoadingAnimation from '../helperComponents/LoadingAnimation';
 import LogoutButton from "../helperComponents/LogoutButton";
 import { confirmAlert } from 'react-confirm-alert';
 
-class Lists extends React.Component{
+export class Lists extends React.Component{
 
     constructor(props, context) {
         super(props, context);

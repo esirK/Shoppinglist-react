@@ -14,9 +14,8 @@ export class LogoutButton extends React.Component{
     }
 
     logOutUser = (event) => {
-        this.props.logOutUser().then(() => {
-            redirect();
-        });
+        localStorage.clear();
+        redirect();
     };
 
     render(){
@@ -29,17 +28,4 @@ export class LogoutButton extends React.Component{
     }
 }
 
-
-function mapStateToProps(state, ownProps) {
-    return {
-        loading: state.ajaxCallsInProgress > 0
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        logOutUser: bindActionCreators(logOut, dispatch)
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps) (LogoutButton);
+export default LogoutButton;

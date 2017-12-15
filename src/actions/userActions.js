@@ -45,8 +45,3 @@ export function createUser(user) {
         });
     };
 }
-
-export function logOut() {
-    localStorage.clear();
-    return {type: actionTypes.LOGOUT_USER};
-}

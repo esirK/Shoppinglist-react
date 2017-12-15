@@ -61,16 +61,5 @@ describe('Test usersActions store manipulation ', () => {
         const expected = -1;
         expect(actual).toEqual(expected);
     });
-
-    it('Logout clear token in localStorage', () => {
-        const store = createStore(rootReducer, initialState);
-        const action = userActions.logOut();
-        store.dispatch(action);
-
-        const actual = localStorage.length;
-        const expected = 0;
-        expect(actual).toEqual(expected);
-    });
-
     
 });
