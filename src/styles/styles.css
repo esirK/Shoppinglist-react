@@ -114,6 +114,29 @@ body {
     color: #fff;
 }
 
+ul{
+    padding: 0;
+}
+
+ul li{
+    border-bottom: 1px solid #ffffff5c;
+    cursor: pointer;
+    padding-top: 3px;
+    height: 25px;
+    list-style: none;
+    padding-left: 10px;
+}
+
+ul li:hover{
+    background-color: rgba(255, 255, 255, 0.5);
+    font-weight: bolder;
+}
+
+.active{
+    background-color: rgba(255, 255, 255, 0.7);
+    font-weight: bolder;
+}
+
 
 /**********LOADING_ANIMATION**************/
 

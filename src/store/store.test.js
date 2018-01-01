@@ -1,8 +1,7 @@
-import {createStore} from 'redux';
 import expect from 'expect';
-import rootReducer from '../reducers';
-import {initialState} from '../reducers/initialState';
 import * as userActions from '../actions/userActions';
+import configureStore from "./configureStore";
+import * as listActions from "../actions/listActions";
 
 
 describe('Test usersActions store manipulation ', () => {
@@ -19,7 +18,7 @@ describe('Test usersActions store manipulation ', () => {
     const token = "qws3456tghyGFrtyH7uhji87yujh";
 
     it('Creates a user', () => {
-        const store = createStore(rootReducer, initialState);
+        const store = configureStore();
         const action = userActions.createUserSuccess(user);
         store.dispatch(action);
 
@@ -33,7 +32,7 @@ describe('Test usersActions store manipulation ', () => {
     });
 
     it('sets authentication token', () => {
-        const store = createStore(rootReducer, initialState);
+        const store = configureStore();
         const action = userActions.authenticateUserSuccess(token);
         store.dispatch(action);
 
@@ -43,7 +42,7 @@ describe('Test usersActions store manipulation ', () => {
     });
 
     it('Authentication fail reduces number of ajax calls', () => {
-        const store = createStore(rootReducer, initialState);
+        const store = configureStore();
         const action = userActions.authenticateUserFail();
         store.dispatch(action);
 
@@ -53,7 +52,7 @@ describe('Test usersActions store manipulation ', () => {
     });
 
     it('Create User fail reduces number of ajax calls', () => {
-        const store = createStore(rootReducer, initialState);
+        const store = configureStore();
         const action = userActions.createUserFail();
         store.dispatch(action);
 
@@ -63,3 +62,33 @@ describe('Test usersActions store manipulation ', () => {
     });
     
 });
+
+
+
+describe('Test lists store manipulation ', () => {
+
+
+    const store = configureStore();
+
+    const lists = [
+        {
+            id: 1,
+            title: "back to school",
+            created_on: "2017-10-12 10:40:32",
+            modified_on: "",
+            user_id: 4567
+        }
+    ];
+
+    it('Can load shopping lists ', () => {
+
+        const action = listActions.loadShoppingListsSuccess(lists);
+        store.dispatch(action);
+
+        const actual = store.getState().lists.existingShoppingList;
+        const expected = lists;
+        expect(actual).toEqual(expected);
+    });
+
+});
+

@@ -9,13 +9,18 @@ import JQuery from 'jquery';
 import {confirmAlert} from "react-confirm-alert";
 import LogoutButton from "../helperComponents/LogoutButton";
 import LoadingAnimation from "../helperComponents/LoadingAnimation";
+import * as listActions from "../../actions/listActions";
+import ShoppingListsOrderedList from "../lists/ShoppingListsOrderedList";
+import {Link, Redirect} from 'react-router'
 
 export class Items extends React.Component{
 
     constructor(props, context) {
         super(props, context);
         this.state = {
+            currentShoppingList: props.currentShoppingList,
             itemToBeUpdated: props.itemToBeUpdated,
+            existingShoppingList: props.existingShoppingList,
             items: props.items,
             newItem: props.newItem,
             loading: props.loading
@@ -43,9 +48,22 @@ export class Items extends React.Component{
 
     componentWillReceiveProps(nextProps){
 
+        if(nextProps.params.id !== this.props.params.id){
+            this.setState({
+                currentShoppingList: nextProps.params.id
+            });
+            this.componentDidMount();
+        }
+
         if(nextProps.loading !== this.state.loading){
             this.setState({
                 loading: nextProps.loading
+            });
+        }
+
+        if(nextProps.existingShoppingList !== this.state.existingShoppingList){
+            this.setState({
+                existingShoppingList: nextProps.existingShoppingList
             });
         }
 
@@ -63,7 +81,9 @@ export class Items extends React.Component{
     }
 
     componentDidMount(){
-        this.props.loadItems(this.props.currentShoppingList)
+        console.log(this.props.params.id);
+        this.props.loadShoppingLists();
+        this.props.loadItems(this.state.currentShoppingList)
             .then(() => {
                 initializeDataTable('#itemsTable');
             });
@@ -123,28 +143,37 @@ export class Items extends React.Component{
         });
     };
 
-
     render(){
+        console.log("render "+Math.random());
         return(
+            <div>
+                <div className="extreme-left">
+                    <h3>
+                        <Link to="/">My Shoppinglists</Link>
+                    </h3>
 
-            <div className="mid-center">
-                <h3>My Shoppinglist Items</h3>
-                <LogoutButton />
-                {this.state.loading && <LoadingAnimation />}
-                <div id="shoppinglist">
-                    <form onSubmit={this.updateItem}>
-                        <ItemsTable
-                            editHandler={this.editItem}
-                            deleteHandler={this.deleteItem}
+                    <ShoppingListsOrderedList lists={this.state.existingShoppingList} />
+
+                </div>
+                <div className="mid-center">
+                    <h3>Items</h3>
+                    <LogoutButton />
+                    {this.state.loading && <LoadingAnimation />}
+                    <div id="shoppinglist">
+                        <form onSubmit={this.updateItem}>
+                            <ItemsTable
+                                editHandler={this.editItem}
+                                deleteHandler={this.deleteItem}
+                                loading={this.state.loading}
+                                items={this.state.items}/>
+                        </form>
+                        <br />
+                        <CreateItemForm
+                            onSubmit={this.createItem}
+                            onChange={this.updateNewItemState}
                             loading={this.state.loading}
-                            items={this.state.items}/>
-                    </form>
-                    <br />
-                    <CreateItemForm
-                        onSubmit={this.createItem}
-                        onChange={this.updateNewItemState}
-                        loading={this.state.loading}
-                        item={this.state.newItem} />
+                            item={this.state.newItem} />
+                    </div>
                 </div>
             </div>
 
@@ -164,6 +193,7 @@ function mapStateToProps(state, ownProps) {
         newItem: {name:"", price: "", quantity: ""},
         itemToBeUpdated: state.edit,
         items: state.items,
+        existingShoppingList: state.lists.existingShoppingList,
         loading: state.ajaxCallsInProgress > 0
     };
 }
@@ -173,6 +203,7 @@ function mapDispatchToProps(dispatch) {
         deleteItem: bindActionCreators(itemActions.deleteItem, dispatch),
         updateItem: bindActionCreators(itemActions.updateItem, dispatch),
         loadItems: bindActionCreators(itemActions.loadItems, dispatch),
+        loadShoppingLists: bindActionCreators(listActions.loadShoppingLists, dispatch),
         createItem : bindActionCreators(itemActions.createItem, dispatch),
         initializeItemEditor : bindActionCreators(itemActions.initializeItemEditor, dispatch)
     };

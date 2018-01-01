@@ -3,7 +3,7 @@ import MockListsApi from "./mockApi/Lists";
 import MockItemsApi from "./mockApi/Items";
 import * as productionApi from "./productionApi";
 
-const isProductionBuild = process.env.NODE_ENV === 'production';
+const isProductionBuild = process.env.NODE_ENV !== 'production';
 
 export const Api = {
     createUser: isProductionBuild ? productionApi.createUser : MockUserApi.createUser,

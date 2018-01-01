@@ -1,8 +1,17 @@
-import * as configureProductionStore from './configureStore.prod';
-import * as configureDevStore from './configureStore.dev';
+import {createStore, applyMiddleware} from 'redux';
+import rootReducer from '../reducers';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 
-if(process.env.NODE_ENV === 'production') {
-    module.exports = configureProductionStore;
-}else {
-    module.exports = configureDevStore;
+const composeEnhancers = composeWithDevTools({});
+
+const middleWare = process.env.NODE_ENV === 'production' ?
+    applyMiddleware(thunk) : composeEnhancers(applyMiddleware(thunk));
+
+export default initialState => {
+    return createStore(
+        rootReducer,
+        initialState,
+        middleWare
+    );
 }
