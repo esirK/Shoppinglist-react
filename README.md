@@ -72,34 +72,20 @@ Open a browser and access **[this location](http://localhost:3000/)**.
 You can access the hosted version  **[here](https://einsteins-shoppinglist.herokuapp.com/)**.
 https://einsteins-shoppinglist.herokuapp.com/
 
-##### Screenshots
 
-![Sign Up](/Users/einstein/Desktop/Untitled.png)
-
+![Signup Screen](https://user-images.githubusercontent.com/21374761/34482328-52fa2abe-efc8-11e7-9eff-7112e661fac5.png)
 ##### The Signup Screen
 
 
-
-
-
-![Login](/Users/einstein/Desktop/UntitledV.png)
-
+![Login Screen](https://user-images.githubusercontent.com/21374761/34482332-53831a36-efc8-11e7-9d03-10d60d2d4cd2.png)
 ##### The login screen
 
 
-
-
-
-![Lists Screen](/Users/einstein/Desktop/Untitled BB.png)
-
+![Lists Screen](https://user-images.githubusercontent.com/21374761/34482329-532a1db4-efc8-11e7-9f6b-658d3f6f3b8f.png)
 ##### Lists screen (with sample shopping lists)
 
 
-
-
-
-![Items](/Users/einstein/Desktop/Untitled VBNJK.png)
-
+![Items Screen](https://user-images.githubusercontent.com/21374761/34482330-535a7572-efc8-11e7-9c50-19b856148974.png)
 ##### Items screen (with sample items)
 
 
