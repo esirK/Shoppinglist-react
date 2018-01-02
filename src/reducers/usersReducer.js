@@ -4,9 +4,6 @@ import initialState from './initialState';
 export default function signUpReducer(state = initialState.user, action) {
     switch(action.type){
 
-        case actionTypes.CREATE_USER:
-            return [...state, Object.assign({}, action.user)];
-
         case actionTypes.CREATE_USER_SUCCESS:
             delete action.user.password;
             delete action.user.security_question;
@@ -22,9 +19,6 @@ export default function signUpReducer(state = initialState.user, action) {
 
         case actionTypes.AUTHENTICATE_USER_FAIL:
             return state;
-
-        case actionTypes.GET_CURRENT_USER_SUCCESS:
-            return [...state, Object.assign({}, action.user)];
 
 
         default:

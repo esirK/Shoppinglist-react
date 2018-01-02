@@ -15,10 +15,4 @@ describe('Test loader animation', () => {
         expect(wrapper.type()).toBe('div');
     });
 
-
-    // it('renders an input text field', () => {
-    //     const wrapper = setup();
-    //     expect(wrapper.find('input').props().type).toBe('text');
-    // });
-    //
 });

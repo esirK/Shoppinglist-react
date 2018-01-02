@@ -2,15 +2,15 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ListsTable from './ListsTable';
-import {showNotification} from '../helpers/sharedFunctions';
+import {destroyDataTable, initializeDataTable, showNotification} from '../helperComponents/sharedFunctions';
 import CreateListForm from './CreateListForm';
-import * as listActions from '../../actions/listAction';
+import * as listActions from '../../actions/listActions';
 import JQuery from 'jquery';
-import LoadingAnimation from '../helpers/LoadingAnimation';
-import LogoutButton from "../helpers/logoutButton";
+import LoadingAnimation from '../helperComponents/LoadingAnimation';
+import LogoutButton from "../helperComponents/LogoutButton";
 import { confirmAlert } from 'react-confirm-alert';
 
-class Lists extends React.Component{
+export class Lists extends React.Component{
 
     constructor(props, context) {
         super(props, context);
@@ -44,6 +44,7 @@ class Lists extends React.Component{
             },
             listToUpdate: this.state.updateList
         };
+
     }
 
     componentWillReceiveProps(nextProps){
@@ -56,6 +57,7 @@ class Lists extends React.Component{
             this.setState({
                 existingShoppingList: nextProps.existingShoppingList
             });
+            destroyDataTable('#shoppinglistTable');
         }
 
         if(nextProps.updateList !== this.state.updateList){
@@ -68,10 +70,19 @@ class Lists extends React.Component{
 
     componentDidMount(){
         this.props.loadShoppingLists()
+            .then(() => {
+                initializeDataTable('#shoppinglistTable');
+            })
             .catch(error => {
                 this.props.loadShoppingListsFail();
                 showNotification('error', error);
             });
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        if(prevState.existingShoppingList !== this.state.existingShoppingList) {
+            initializeDataTable('#shoppinglistTable');
+        }
     }
 
     updateListState = (event) => {

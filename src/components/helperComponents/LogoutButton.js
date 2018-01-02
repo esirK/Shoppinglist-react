@@ -2,8 +2,9 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {logOut} from '../../actions/userActions';
+import {redirect} from "../../helper";
 
-class LogoutButton extends React.Component{
+export class LogoutButton extends React.Component{
 
     constructor(props, context) {
         super(props, context);
@@ -13,7 +14,8 @@ class LogoutButton extends React.Component{
     }
 
     logOutUser = (event) => {
-        this.props.logOutUser();
+        localStorage.clear();
+        redirect();
     };
 
     render(){
@@ -26,17 +28,4 @@ class LogoutButton extends React.Component{
     }
 }
 
-
-function mapStateToProps(state, ownProps) {
-    return {
-        loading: state.ajaxCallsInProgress > 0
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        logOutUser: bindActionCreators(logOut, dispatch)
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps) (LogoutButton);
+export default LogoutButton;

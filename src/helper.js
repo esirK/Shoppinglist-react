@@ -1,4 +1,4 @@
-import {showNotification} from "./components/helpers/sharedFunctions";
+import {showNotification} from "./components/helperComponents/sharedFunctions";
 
 function loggedIn() {
     return localStorage.getItem("token") !== null;

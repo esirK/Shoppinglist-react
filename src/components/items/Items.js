@@ -2,18 +2,25 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ItemsTable from './ItemsTable';
-import {showNotification} from '../helpers/sharedFunctions';
+import {destroyDataTable, initializeDataTable, showNotification} from '../helperComponents/sharedFunctions';
 import CreateItemForm from './CreateItemForm';
 import * as itemActions from '../../actions/itemActions';
 import JQuery from 'jquery';
 import {confirmAlert} from "react-confirm-alert";
+import LogoutButton from "../helperComponents/LogoutButton";
+import LoadingAnimation from "../helperComponents/LoadingAnimation";
+import * as listActions from "../../actions/listActions";
+import ShoppingListsOrderedList from "../lists/ShoppingListsOrderedList";
+import {Link, Redirect} from 'react-router'
 
-class Items extends React.Component{
+export class Items extends React.Component{
 
     constructor(props, context) {
         super(props, context);
         this.state = {
+            currentShoppingList: props.currentShoppingList,
             itemToBeUpdated: props.itemToBeUpdated,
+            existingShoppingList: props.existingShoppingList,
             items: props.items,
             newItem: props.newItem,
             loading: props.loading
@@ -41,9 +48,22 @@ class Items extends React.Component{
 
     componentWillReceiveProps(nextProps){
 
+        if(nextProps.params.id !== this.props.params.id){
+            this.setState({
+                currentShoppingList: nextProps.params.id
+            });
+            this.componentDidMount();
+        }
+
         if(nextProps.loading !== this.state.loading){
             this.setState({
                 loading: nextProps.loading
+            });
+        }
+
+        if(nextProps.existingShoppingList !== this.state.existingShoppingList){
+            this.setState({
+                existingShoppingList: nextProps.existingShoppingList
             });
         }
 
@@ -51,6 +71,7 @@ class Items extends React.Component{
             this.setState({
                 items: nextProps.items
             });
+            destroyDataTable('#itemsTable');
         }
 
         if(nextProps.itemToBeUpdated !== this.state.itemToBeUpdated){
@@ -60,7 +81,18 @@ class Items extends React.Component{
     }
 
     componentDidMount(){
-        this.props.loadItems(this.props.currentShoppingList);
+        console.log(this.props.params.id);
+        this.props.loadShoppingLists();
+        this.props.loadItems(this.state.currentShoppingList)
+            .then(() => {
+                initializeDataTable('#itemsTable');
+            });
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        if(prevState.items !== this.state.items) {
+            initializeDataTable('#itemsTable');
+        }
     }
 
     updateNewItemState = (event) => {
@@ -111,15 +143,22 @@ class Items extends React.Component{
         });
     };
 
-
     render(){
+        console.log("render "+Math.random());
         return(
             <div>
                 <div className="extreme-left">
+                    <h3>
+                        <Link to="/">My Shoppinglists</Link>
+                    </h3>
+
+                    <ShoppingListsOrderedList lists={this.state.existingShoppingList} />
 
                 </div>
                 <div className="mid-center">
-                    <h3>My Shoppinglist Items</h3>
+                    <h3>Items</h3>
+                    <LogoutButton />
+                    {this.state.loading && <LoadingAnimation />}
                     <div id="shoppinglist">
                         <form onSubmit={this.updateItem}>
                             <ItemsTable
@@ -154,6 +193,7 @@ function mapStateToProps(state, ownProps) {
         newItem: {name:"", price: "", quantity: ""},
         itemToBeUpdated: state.edit,
         items: state.items,
+        existingShoppingList: state.lists.existingShoppingList,
         loading: state.ajaxCallsInProgress > 0
     };
 }
@@ -163,6 +203,7 @@ function mapDispatchToProps(dispatch) {
         deleteItem: bindActionCreators(itemActions.deleteItem, dispatch),
         updateItem: bindActionCreators(itemActions.updateItem, dispatch),
         loadItems: bindActionCreators(itemActions.loadItems, dispatch),
+        loadShoppingLists: bindActionCreators(listActions.loadShoppingLists, dispatch),
         createItem : bindActionCreators(itemActions.createItem, dispatch),
         initializeItemEditor : bindActionCreators(itemActions.initializeItemEditor, dispatch)
     };

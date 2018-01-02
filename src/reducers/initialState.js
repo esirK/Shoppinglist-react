@@ -1,12 +1,14 @@
-export default {
-    user: {},
-    lists: {
-        newShoppingList: {
-            title: ""
+export const initialState = {
+        user: {},
+        lists: {
+            newShoppingList: {
+                title: ""
+            },
+            existingShoppingList: []
         },
-        existingShoppingList:[]
-    },
-    items: [],
-    ajaxCallsInProgress: 0,
-    edit: {type:"", id: "", data: ""}
+        items: [],
+        ajaxCallsInProgress: 0,
+        edit: {type: "", id: "", data: ""}
 };
+
+export default initialState;

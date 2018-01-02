@@ -16,6 +16,7 @@ const TextInput = ({
         <div className="form-group">
             <input
                 step={step}
+                min={minValue}
                 disabled={disabled}
                 type={type}
                 className="form-control"
@@ -24,7 +25,6 @@ const TextInput = ({
                 name={name}
                 value={value}
                 onBlur={onBlur}
-                min={minValue}
                 onChange={onChange} />
         </div>
     );

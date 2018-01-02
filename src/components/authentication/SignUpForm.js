@@ -1,10 +1,10 @@
 import React, {PropTypes} from 'react';
-import TextInput from '../helpers/TextInput';
+import TextInput from '../helperComponents/TextInput';
 
 const SignUpForm = ({user, onChange, onSubmit, loading}) => {
 
     return (
-        <form method="post" onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
             <h2>Get Started</h2>
             <h3>Sign up for an account</h3>
 
@@ -42,12 +42,11 @@ const SignUpForm = ({user, onChange, onSubmit, loading}) => {
                 name="answer"/>
 
             <br/>
-            <button
+            <input
                 className="btn btn-primary"
                 disabled={loading}
-                type="submit">
-                {loading ? 'Processing...' : 'Sign Up'}
-            </button>
+                type="submit"
+                value={loading ? 'Processing...' : 'Sign Up'}/>
 
         </form>
     );

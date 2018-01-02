@@ -5,8 +5,8 @@ import {bindActionCreators} from 'redux';
 import * as userActions from '../../actions/userActions';
 import SignUpForm from './SignUpForm';
 import LoginForm from './LoginForm';
-import LoadingAnimation from '../helpers/LoadingAnimation';
-import {showNotification} from "../helpers/sharedFunctions";
+import LoadingAnimation from '../helperComponents/LoadingAnimation';
+import {showNotification} from "../helperComponents/sharedFunctions";
 import {redirect} from '../../helper';
 import WelcomeMessage from "./WelcomeMessage";
 

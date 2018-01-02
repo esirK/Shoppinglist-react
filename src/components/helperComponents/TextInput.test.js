@@ -8,7 +8,8 @@ describe('Test input text box helper', () => {
 
     function setup(localProps = null) {
         const props = {
-            onChange: () => {}
+            onChange: () => {},
+            onBlur: () => {}
         };
 
         return shallow(<TextInput {...props} {...localProps} />);
@@ -42,11 +43,14 @@ describe('Test input text box helper', () => {
         expect(wrapper.find('input').props().placeholder).toBe('placeholder');
     });
 
-    // todo: test onchange handler is a function
-    // it('render an input field with an onchange handler', () => {
-    //     const wrapper = setup();
-    //     console.log(wrapper.find('input').props());
-    //     expect(wrapper.find('input').props().onChange.type()).toBe('placeholder');
-    // });
+    it('render an input field with an onchange handler', () => {
+        const wrapper = setup();
+        expect(typeof wrapper.find('input').props().onChange).toBe('function');
+    });
+
+    it('render an input field with an onblur handler', () => {
+        const wrapper = setup();
+        expect(typeof wrapper.find('input').props().onBlur).toBe('function');
+    });
 
 });

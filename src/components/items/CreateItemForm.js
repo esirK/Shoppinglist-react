@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import TextInput from '../helpers/TextInput';
+import TextInput from '../helperComponents/TextInput';
 
 const CreateItemForm = ({item, onChange, onSubmit, loading}) => {
 
@@ -31,12 +31,12 @@ const CreateItemForm = ({item, onChange, onSubmit, loading}) => {
                     name="quantity"/>
             </div>
             <div className="form-group col-md-2">
-                <button
+                <input
                     className="btn btn-primary"
                     disabled={loading}
-                    type="submit">
-                    {loading ? 'Creating...' : 'Create Item'}
-                </button>
+                    type="submit"
+                    value={loading ? 'Creating...' : 'Create Item'}
+                />
             </div>
         </form>
     );

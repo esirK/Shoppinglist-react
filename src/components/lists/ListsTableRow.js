@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
-import TextInput from '../helpers/TextInput';
+import TextInput from '../helperComponents/TextInput';
 
 const ListsTableRow = ({list, index, deleteHandler, editHandler, loading}) => {
     return (
@@ -26,21 +26,21 @@ const ListsTableRow = ({list, index, deleteHandler, editHandler, loading}) => {
             <td>{list.created_on}</td>
             <td>{list.modified_on}</td>
             <td>
-                <btn
+                <button
                     onClick={
                         loading === false &&
                         editHandler.listToUpdate.id !== list.id.toString() &&
                         editHandler.initialize}
                     disabled={loading === true || editHandler.listToUpdate.id === list.id.toString()}
-                    className="btn btn-default edit-btn">
+                    className="btn btn-xs btn-default edit-btn">
                     <i className="fa fa-pencil"></i>
-                </btn>
-                <btn
+                </button>
+                <button
                     disabled={loading === true}
                     onClick={loading === false && deleteHandler}
-                    className="btn btn-default delete-btn">
+                    className="btn btn-xs btn-default delete-btn">
                     <i className="fa fa-trash"></i>
-                </btn>
+                </button>
             </td>
         </tr>
     );

@@ -1,10 +1,10 @@
 import React, {PropTypes} from 'react';
-import TextInput from '../helpers/TextInput';
+import TextInput from '../helperComponents/TextInput';
 
 const LoginForm = ({user, onChange, onSubmit, loading}) => {
 
     return (
-        <form method="post" onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
             <h3>Login to your account</h3>
 
             <TextInput
@@ -21,12 +21,11 @@ const LoginForm = ({user, onChange, onSubmit, loading}) => {
                 name="password"/>
 
             <br/>
-            <button
+            <input
                 className="btn btn-primary"
                 disabled={loading}
-                type="submit">
-                {loading ? 'Authenticating...' : 'Login'}
-            </button>
+                type="submit"
+                value={loading ? 'Authenticating...' : 'Login'}/>
 
         </form>
     );

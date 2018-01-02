@@ -6,7 +6,7 @@ const ListsTable = ({lists, editHandler, deleteHandler, loading}) => {
         <div>
         {
             (lists.length > 0 &&
-            <table className="ui celled table col-md-12" id="shoppinglistTable">
+            <table className="compact ui celled table col-md-12" id="shoppinglistTable">
                 <thead>
                 <tr>
                     <th>NO.</th>
