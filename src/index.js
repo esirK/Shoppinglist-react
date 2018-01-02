@@ -6,7 +6,7 @@ import { Router, browserHistory } from 'react-router';
 // eslint-disable-next-line import/default
 import configureStore from './store/configureStore';
 import routes from './routes';
-import '../node_modules/semantic-ui/dist/semantic.min.css';
+import '../node_modules/semantic-ui-css/semantic.min.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import '../node_modules/toastr/build/toastr.min.css';
